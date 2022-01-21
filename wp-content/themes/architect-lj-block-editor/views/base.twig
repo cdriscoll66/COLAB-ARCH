@@ -5,10 +5,13 @@
 
     <body class="{{ body_class }}">
 
-        {% block content %}
-            <p>Sorry, no content</p>
-        {% endblock %}
+        {% include 'partials/header.twig' %}
 
+            {% block content %}
+                <p>Sorry, no content</p>
+            {% endblock %}
+
+        {% include 'partials/footer.twig' %}
         {% include 'html-footer.twig' %}
     </body>
 </html>
