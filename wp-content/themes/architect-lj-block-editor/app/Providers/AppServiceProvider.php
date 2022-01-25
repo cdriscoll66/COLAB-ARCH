@@ -20,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         add_action('wp_enqueue_scripts', function () {
+
+            wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap', [], false);
+
             wp_enqueue_style('lumberjack/theme.css', Theme::mix('/styles/theme.css'), [], false);
             wp_enqueue_script('lumberjack/theme.js', Theme::mix('/scripts/theme.js'), ['jquery'], false, true);
 
