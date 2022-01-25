@@ -1,48 +1,27 @@
-/** Twenty Twenty-One Colors */
-$color-dark-gray: #28303d;
-$color-gray: #39414d;
-$color-light-gray: #f0f0f0;
-$color-green: #d1e4dd;
-$color-blue: #d1dfe4;
-$color-purple: #d1d1e4;
-$color-red: #e4d1d1;
-$color-orange: #e4dad1;
-$color-yellow: #eeeadd;
-
 /** Baseline Colors */
 $color-black: #000000;
 $color-white: #ffffff;
 $color-transparent: transparent;
 
-/** Primary Colors, Demo FEED Colors */
-$color-blue-hopeful: #002d5d;
-$color-green-healthy: #b2be35;
+/** Primary Colors */
+$color-green-primary: #2ca85e;
+$color-blue-secondary: #1a2d4f;
+$color-stone-secondary: #121e34;
 
-/** Secondary Colors, Demo FEED Colors */
-$color-green-impact: #7a853b;
-$color-green-optimism: #d5d755;
-$color-blue-empathy: #b1e3e3;
-$color-blue-energy: #5ab7b2;
-$color-blue-compassion: #42738d;
-$color-orange-passion: #e75300;
-$color-gray-stability: #cac8c8;
-$color-gray-trust: #e0dcd4;
-
-/** Support Colors, Demo FEED Colors */
-$color-black-bean: #404042;
-$color-gray-chia-seed: #58585b;
-$color-gray-squid: #808184;
+/** Secondary Colors */
+$color-red-error: #EF5350;
+$color-gray-text: #5d6676;
 
 /** Functional Colors */
 $color-border: null;
 $color-image: null;
-$color-text: $color-black-bean;
-$color-heading: null;
+$color-text: $color-gray-text;
+$color-heading: color-green-primary;
 
 /** Form Colors */
 $color-form-border: $color-border;
 $color-form-background: $color-white;
-$color-form-error: darken(red, 8%);
+$color-form-error: $color-red-error;
 
 /**
  * @requires /config/editor-color-palette.php to generate Block Editor UI
@@ -51,69 +30,24 @@ $color-form-error: darken(red, 8%);
  * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#block-color-palettes
  */
 $color-palette: (
-    /** Twenty Twenty-One Colors */
-    'dark-gray': $color-dark-gray,
-    'gray': $color-gray,
-    'light-gray': $color-light-gray,
-    'green': $color-green,
-    'blue': $color-blue,
-    'purple': $color-purple,
-    'red': $color-red,
-    'orange': $color-orange,
-    'yellow': $color-yellow,
-
     /** Baseline Colors */
     'black': $color-black,
     'white': $color-white,
     'transparent': $color-transparent,
-
-    /** Demo FEED Colors */
-    'black-bean': $color-black-bean,
-    'blue-compassion': $color-blue-compassion,
-    'blue-empathy': $color-blue-empathy,
-    'blue-energy': $color-blue-energy,
-    'blue-hopeful': $color-blue-hopeful,
-    'gray-chia-seed': $color-gray-chia-seed,
-    'gray-squid': $color-gray-squid,
-    'gray-stability': $color-gray-stability,
-    'gray-trust': $color-gray-trust,
-    'green-healthy': $color-green-healthy,
-    'green-impact': $color-green-impact,
-    'green-optimism': $color-green-optimism,
-    'orange-passion': $color-orange-passion,
+    'green-primary': $color-green-primary,
+    'blue-secondary': $color-blue-secondary,
+    'stone-secondary': $color-stone-secondary,
+    'red-error': $color-red-error,
+    'gray-text': $color-gray-text
 );
 
 $color-palette-preset-color: (
-    /** Twenty Twenty-One Colors */
-    'dark-gray': 'inverted',
-    'gray': 'inverted',
-    'light-gray': 'primary',
-    'green': 'primary',
-    'blue': 'primary',
-    'purple': 'primary',
-    'red': 'primary',
-    'orange': 'primary',
-    'yellow': 'primary',
-
     /** Baseline Colors */
-    'black': 'inverted',
-    'white': 'primary',
-    'transparent': 'primary',
-
-    /** Demo FEED Colors */
-    'black-bean': 'inverted',
-    'blue-compassion': 'primary',
-    'blue-empathy': 'primary',
-    'blue-energy': 'primary',
-    'blue-hopeful': 'inverted',
-    'gray-chia-seed': 'inverted',
-    'gray-squid': 'primary',
-    'gray-stability': 'primary',
-    'gray-trust': 'primary',
-    'green-healthy': 'primary',
-    'green-impact': 'inverted',
-    'green-optimism': 'primary',
-    'orange-passion': 'primary',
+    'green-primary': 'inverted',
+    'blue-secondary': 'primary',
+    'stone-secondary': 'primary',
+    'red-error': 'inverted',
+    'gray-text': 'primary',
 );
 
 /** Gradients */
