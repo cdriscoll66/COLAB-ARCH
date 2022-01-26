@@ -1,0 +1,36 @@
+.m-block-placeholder {
+  padding: 1em;
+  border: 1px solid;
+  background-color: white;
+  color: var(--global--color-primary); // #1e1e1e;
+  font-size: 16px;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+
+    &:not(:first-child) {
+      margin-top: 0.4rem;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 0.4rem;
+    }
+  }
+
+  ul {
+
+    &:not(:first-child) {
+      margin-top: 1rem !important;
+    }
+  }
+}

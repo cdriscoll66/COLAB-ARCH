@@ -8,115 +8,220 @@ input[type="reset"],
 .wp-block-search .wp-block-search__button,
 .wp-block-button .wp-block-button__link,
 .wp-block-file a.wp-block-file__button {
-	// Extend button style
-	@include button-style();
+    // Extend button style
+    @include button-style();
 }
 
 /**
  * Block Options
  */
 .wp-block-button {
+    // Target the default and filled button states.
+    &:not(.is-style-outline) {
+        .wp-block-button__link:not(:hover):not(:active) {
+            // Text colors
+            &:not(.has-text-color) {
+                color: var(--global--color-white);
 
-	// Target the default and filled button states.
-	&:not(.is-style-outline) {
+                // Nested
+                .has-background & {
+                    color: var(
+                        --local--color-background,
+                        var(--global--color-white)
+                    );
 
-		.wp-block-button__link:not(:hover):not(:active) {
+                    &.has-background {
+                        color: var(--global--color-primary);
+                    }
+                }
+            }
 
-			// Text colors
-			&:not(.has-text-color) {
-				color: var(--global--color-background);
+            // Background-colors
+            &:not(.has-background) {
+                box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+                    0px 2px 2px 0px rgb(0 0 0 / 14%),
+                    0px 1px 5px 0px rgb(0 0 0 / 12%);
+                transition: all 0.2s ease;
+                background-color: var(--global--color-secondary);
 
-				// Nested
-				.has-background & {
-					color: var(--local--color-background, var(--global--color-background));
+                // Nested
+                .has-background & {
+                    background-color: var(
+                        --local--color-primary,
+                        var(--global--color-secondary)
+                    );
+                }
+            }
+        }
 
-					&.has-background {
-						color: var(--global--color-primary);
-					}
-				}
-			}
+        // Hover Button color should match parent element foreground color
+        .wp-block-button__link:hover,
+        .wp-block-button__link:active {
+            transition: all 0.2s ease;
+            box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+                0px 4px 5px 0px rgb(0 0 0 / 14%),
+                0px 1px 10px 0px rgb(0 0 0 / 12%);
+            &:not(.has-background) {
+                background-color: var(--global--color-green-hover);
+                color: var(--global--color-white);
 
-			// Background-colors
-			&:not(.has-background) {
-				background-color: var(--global--color-primary);
+                // Nested
+                .has-background & {
+                    color: var(
+                        --local--color-background,
+                        var(--global--color-white)
+                    ) !important;
+                }
 
-				// Nested
-				.has-background & {
-					background-color: var(--local--color-primary, var(--global--color-primary));
-				}
-			}
-		}
+                .has-text-color & {
+                    color: var(
+                        --local--color-background,
+                        var(--global--color-white)
+                    ) !important;
+                }
+            }
+        }
+    }
 
-		// Hover Button color should match parent element foreground color
-		.wp-block-button__link:hover,
-		.wp-block-button__link:active {
-			border-color: currentColor !important;
-			background-color: transparent !important;
-			color: inherit !important;
-		}
-	}
+    // Outline Style.
+    &.is-style-outline {
+        .wp-block-button__link:not(:hover):not(:active) {
+            // Border colors
+            &:not(.has-text-color),
+            &:not(.has-background),
+            &.has-background {
+                border-color: currentColor;
+            }
 
-	// Outline Style.
-	&.is-style-outline {
+            // Text colors
+            &:not(.has-text-color) {
+                color: var(--global--color-primary);
 
-		.wp-block-button__link:not(:hover):not(:active) {
+                // Nested
+                .has-background & {
+                    color: var(
+                        --local--color-primary,
+                        var(--global--color-primary)
+                    );
+                }
+            }
 
-			// Border colors
-			&:not(.has-text-color),
-			&:not(.has-background),
-			&.has-background {
-				border-color: currentColor;
-			}
+            &.has-background {
+                // Nested
+                .has-background &:not(.has-text-color) {
+                    color: inherit;
+                }
+            }
 
-			// Text colors
-			&:not(.has-text-color) {
-				color: var(--global--color-primary);
+            // Background-colors
+            &:not(.has-background) {
+                background-color: transparent;
+            }
+        }
 
-				// Nested
-				.has-background & {
-					color: var(--local--color-primary, var(--global--color-primary));
-				}
-			}
+        .wp-block-button__link:hover,
+        .wp-block-button__link:active {
+            border-color: transparent !important;
+            background-color: var(--global--color-primary) !important;
+            color: var(--global--color-background) !important;
 
-			&.has-background {
-				// Nested
-				.has-background &:not(.has-text-color) {
-					color: inherit;
-				}
-			}
+            .has-background & {
+                background-color: var(
+                    --local--color-primary,
+                    var(--global--color-primary)
+                ) !important;
+                color: var(
+                    --local--color-background,
+                    var(--global--color-background)
+                ) !important;
+            }
 
-			// Background-colors
-			&:not(.has-background) {
-				background-color: transparent;
-			}
-		}
+            .has-text-color & {
+                color: var(
+                    --local--color-background,
+                    var(--global--color-background)
+                ) !important;
+            }
+        }
+    }
 
-		.wp-block-button__link:hover,
-		.wp-block-button__link:active {
+    // Squared Style
+    .is-style-squared .wp-block-button__link {
+        border-radius: 0;
+    }
 
-			border-color: transparent !important;
-			background-color: var(--global--color-primary) !important;
-			color: var(--global--color-background) !important;
+    // Arrow Style
+    &.is-style-arrow {
+        a.wp-block-button__link {
+            padding: 6px 9px;
+            &:after {
+                font-family: "Material Icons";
+                content: "\e5cc";
+                height: 20px;
+                width: 20px;
+                display: inline-block;
+                margin-left: 8px;
+                vertical-align:top;
+            }
+        }
+        .wp-block-button__link:not(:hover):not(:active) {
+            // Text colors
+            &:not(.has-text-color) {
+                color: var(--global--color-green-primary);
 
-			.has-background & {
-				background-color: var(--local--color-primary, var(--global--color-primary)) !important;
-				color: var(--local--color-background, var(--global--color-background)) !important;
-			}
+                // Nested
+                .has-background & {
+                    color: var(
+                        --local--color-primary,
+                        var(--global--color-green-primary)
+                    );
+                }
+            }
 
-			.has-text-color & {
-				color: var(--local--color-background, var(--global--color-background)) !important;
-			}
-		}
-	}
+            &.has-background {
+                // Nested
+                .has-background &:not(.has-text-color) {
+                    color: inherit;
+                }
+            }
 
-	// Squared Style
-	.is-style-squared .wp-block-button__link {
-		border-radius: 0;
-	}
+            // Background-colors
+            &:not(.has-background) {
+                background-color: transparent;
+                box-shadow: none;
+            }
+        }
+
+        .wp-block-button__link:hover,
+        .wp-block-button__link:active {
+            box-shadow: none;
+            background-color: rgba(44, 168, 94, 0.04) !important;
+            color: var(--global--color-green-primary) !important;
+            text-decoration: underline;
+
+            .has-background & {
+                background-color: var(
+                    --local--color-primary,
+                    var(--global--color-primary)
+                ) !important;
+                color: var(
+                    --local--color-background,
+                    var(--global--color-background)
+                ) !important;
+            }
+
+            .has-text-color & {
+                color: var(
+                    --local--color-background,
+                    var(--global--color-background)
+                ) !important;
+            }
+        }
+    }
 }
 
 .is-style-outline .wp-block-button__link[style*="radius"]:focus,
 .wp-block-button a.wp-block-button__link[style*="radius"]:focus {
-	outline-offset: 2px;
-	outline: 2px dotted var(--button--color-background);
+    outline-offset: 2px;
+    outline: 2px dotted var(--button--color-background);
 }

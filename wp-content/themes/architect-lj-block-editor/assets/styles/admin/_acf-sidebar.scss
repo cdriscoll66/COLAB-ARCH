@@ -1,0 +1,30 @@
+.block-editor .edit-post-sidebar {
+
+  .acf-fields > .acf-field.acf-field-group {
+
+    .acf-fields {
+
+      &.-border {
+        margin-right: -1px;
+        margin-left: -1px;
+      }
+
+      & > .acf-field {
+        margin: 7px 8px 8px;
+      }
+    }
+  }
+
+  .acf-repeater {
+
+    .acf-fields > .acf-field {
+      margin: 12px 0;
+
+      .acf-input-prepend,
+      .acf-input-append {
+        padding: 7px 5px;
+        font-size: 10px;
+      }
+    }
+  }
+}

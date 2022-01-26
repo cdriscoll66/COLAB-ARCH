@@ -1,0 +1,68 @@
+.wp-block-button {}
+
+.wp-block-button__link {
+
+//   .wp-block-button:not([class*="is-style"]) &,
+//   .is-style-primary & {
+//     @extend %a-button--primary;
+//   }
+
+//   .wp-block-button:not(.is-style-outline) & {
+
+//     &:hover {
+//       border-color: var(--global--color-black) !important;
+//       background-color: var(--global--color-green-hover) !important;
+//       color: var(--global--color-white) !important;
+//     }
+//   }
+
+//   .is-style-secondary & {
+//     @extend %a-button--secondary;
+//   }
+
+//   .wp-block-button:not(.is-style-outline).is-style-secondary & {
+
+//     &:hover {
+//       border-color: var(--global--color-orange-copper) !important;
+//       background-color: var(--global--color-orange-copper) !important;
+//       color: var(--global--color-white) !important;
+//     }
+//   }
+
+//   .is-style-outline & {
+//     @extend %a-button--outline;
+//   }
+
+//   .wp-block-button.is-style-outline &,
+//   .has-text-color .wp-block-button.is-style-outline & {
+
+//     &:hover {
+//       background-color: var(--global--color-white) !important;
+//       color: var(--global--color-blue-peacoat) !important;
+//     }
+//   }
+
+//   .is-style-arrow & {
+//     @extend %a-button--arrow;
+//     font-size: 18px;
+
+//     &:not(.has-text-color) {
+//       color: var(--global--color-orange-copper) !important;
+//     }
+//   }
+
+//   .is-style-arrow--widont & {
+//     @extend %a-button--arrow--widont;
+//   }
+
+//   .wp-block-button:not(.is-style-outline).is-style-arrow & {
+
+//     &:hover {
+//       border-color: var(--global--color-transparent) !important;
+//     }
+
+//     &:not(.has-text-color):hover {
+//       color: var(--global--color-orange-copper) !important;
+//     }
+//   }
+}

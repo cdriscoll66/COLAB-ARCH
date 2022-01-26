@@ -1,0 +1,77 @@
+.acf-field-relationship {
+
+  /** Edit Link */
+
+  .acf-rel-item__edit {
+    float: right;
+  }
+
+  .acf-rel-item,
+  .ui-sortable-handle {
+
+    &:not(.disabled):hover {
+
+      .acf-rel-item__edit {
+        color: white;
+      }
+    }
+  }
+
+  .choices {
+
+    .acf-rel-item__edit {
+      display: none; // hide, problematic, unable to stopPropagation :/
+    }
+  }
+
+  .values {
+
+    .acf-icon {
+      transform: translateX(-26px); // provide room for .acf-rel-item__edit
+    }
+
+    // li, // newly added items do not have class
+    // .ui-sortable-handle {
+    //
+    //   &:hover {
+    //
+    //     .acf-rel-item__edit { {
+    //       transform: translateX(-30px); // provide room for [data-name="remove_item"]
+    //     }
+    //   }
+    // }
+  }
+
+  /** Height Auto */
+
+  body.post-type-professional & { // scope to professional admin single
+
+    &[data-name="professionals_to_sectors"],
+    &[data-name="professionals_to_services"] {
+
+      .selection {
+        display: flex;
+        // min-height: 160px; // Default for .acf-relationship .list
+      }
+
+      .choices,
+      .values {
+        min-height: 160px;
+      }
+
+      .list {
+        box-sizing: border-box; // for min-height
+        height: auto;
+        max-height: calc(100vh - 255px); // match admin UI
+        min-height: 100%;
+      }
+    }
+
+    &[data-name="professionals_to_sectors"] {
+
+      .list {
+        max-height: calc(100vh - 255px - 53px); // match admin UI
+      }
+    }
+  }
+}

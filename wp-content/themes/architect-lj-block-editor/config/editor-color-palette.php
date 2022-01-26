@@ -21,7 +21,12 @@ add_theme_support('editor-color-palette', [
     [
         'name' => esc_attr__('Green Primary', 'colab'),
         'slug' => 'green-primary',
-        'color' => '#2ca85e',
+        'color' => '#2CA85E',
+    ],
+    [
+        'name' => esc_attr__('Green Hover', 'colab'),
+        'slug' => 'green-hover',
+        'color' => '#1E7541',
     ],
     [
         'name' => esc_attr__('Blue Secondary', 'colab'),
