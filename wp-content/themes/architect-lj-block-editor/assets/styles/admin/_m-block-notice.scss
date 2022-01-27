@@ -1,0 +1,16 @@
+.m-block-notice {
+  padding: 0.1em 1em;
+  border-left: 4px solid cornflowerblue;
+  background-color: aliceblue;
+  color: #3c434a;
+  font-size: 14px;
+  line-height: 2;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

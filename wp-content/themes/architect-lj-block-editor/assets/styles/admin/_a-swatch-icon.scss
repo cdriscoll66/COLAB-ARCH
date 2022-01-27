@@ -1,0 +1,50 @@
+/**
+ * @see /assets/styles/settings/_variables.scss
+ */
+$swatch-icons: () !default;
+$swatch-icons_png: () !default;
+
+.a-swatch-icon {
+  position: relative;
+  padding-left: 1.6rem;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0.7rem;
+    transform: translate(-50%, -50%);
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 3px;
+    background: no-repeat 50% 50% white;
+    background-size: contain;
+    transition: transform 0.4s;
+  }
+
+  &:hover {
+    z-index: 2;
+
+    &::before {
+      border: 2px solid white;
+      box-shadow: 0 0 3px rgba(black, 0.2);
+      transform: translate(-50%, -50%) scale(2);
+      transition: transform 0.2s;
+    }
+  }
+}
+
+@each $key, $value in $swatch-icons {
+
+  .a-swatch-icon--#{$key} {
+
+    &::before {
+      background-image: url('../images/icon-#{$key}.svg');
+
+      @if (index($swatch-icons_png, $key)) {
+        background-image: url('../images/icon-#{$key}.png');
+      }
+    }
+  }
+}

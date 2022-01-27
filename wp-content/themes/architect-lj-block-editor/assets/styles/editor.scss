@@ -1,0 +1,45 @@
+/** Node Modules */
+
+/** Functions */
+
+/** Mixins */
+@import 'mixins/hide';
+
+/** Config */
+@import 'config/colors';
+// @import 'config/font-awesome';
+// @import 'config/font-sofia-pro';
+@import 'config/variables';
+
+/** Import Twenty Twenty-One styles */
+@import 'theme/twentytwentyone/assets/sass/style-editor.colab';
+
+:root {
+
+  /* Font Family */
+  // --font-headings: 'sofia-pro';
+  // --font-base: 'sofia-pro';
+
+  /* Colors */
+  --global--color-background: #ffffff;
+}
+
+/** Theme Base */
+
+/** Theme Constructs */
+
+
+/** Theme Atoms */
+
+/** Theme Molecules */
+
+/** Theme Organisms */
+
+/** WordPress Blocks */
+
+
+/** Plugin Blocks */
+
+
+/** Custom Blocks */
+

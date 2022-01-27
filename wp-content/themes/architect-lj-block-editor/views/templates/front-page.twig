@@ -1,0 +1,14 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <main id="main">
+        {# {% include "components/molecules/page-header--homepage.twig" %} #}
+
+        {% if content %}
+            <div class="entry-content">
+                {{ content|raw }}
+            </div>
+        {% endif %}
+
+    </main>
+{% endblock %}
