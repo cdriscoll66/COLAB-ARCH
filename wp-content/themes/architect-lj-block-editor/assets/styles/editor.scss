@@ -27,88 +27,19 @@
 /** Theme Base */
 
 /** Theme Constructs */
-// @import 'theme/constructs/debug';
-// @import 'theme/constructs/menu-horizontal';
-// @import 'theme/constructs/menu-vertical';
+
 
 /** Theme Atoms */
-// @import 'theme/components/a-button';
 
 /** Theme Molecules */
 
 /** Theme Organisms */
 
 /** WordPress Blocks */
-// @import 'theme/blocks/wp-block-button';
-// @import 'theme/blocks/wp-block-button-editor';
-// @import 'theme/blocks/wp-block-buttons-editor';
-// @import 'theme/blocks/wp-block-group-is-style-collapsible-editor';
-// @import 'theme/blocks/wp-block-group-is-variation-page-header-editor';
-// // @import 'theme/blocks/wp-block-group-is-variation-post-header-editor';
-// @import 'theme/blocks/wp-block-group-is-variation-professional-header-editor';
-// @import 'theme/blocks/wp-block-heading-editor';
-// @import 'theme/blocks/wp-block-image';
-// @import 'theme/blocks/wp-block-separator';
+
 
 /** Plugin Blocks */
-// @import 'theme/blocks/yoast-seo-breadcrumbs-editor';
+
 
 /** Custom Blocks */
-// @import 'theme/blocks/colab-block-categories-menu-editor';
-// @import 'theme/blocks/colab-block-icon-editor';
-// @import 'theme/blocks/colab-block-menu-editor';
 
-// a {
-//   text-underline-offset: 0.05em;
-//   // text-decoration-skip-ink: auto;
-// }
-
-// .wp-block.editor-post-title__block {
-//   max-width: var(--responsive--aligndefault-width);
-
-//   .editor-post-title__input {
-//     font-size: 40px;
-//   }
-// }
-
-// .wp-block.is-reusable {
-//   max-width: none !important;
-//   margin-right: -8px;
-//   margin-left: -8px;
-
-//   &::after {
-//     content: 'Manage Reusable Blocks via the Options Menu (Three Dots)' !important;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     z-index: 1;
-//     background-color: rgba(black, 0.6);
-//     color: white;
-//     text-shadow: 0 0 5px rgba(black, 1);
-//     pointer-events: none;
-//     opacity: 0;
-//     transition: opacity 0.4s;
-//   }
-
-//   [contenteditable] {
-//     pointer-events: none;
-//     user-select: none;
-//   }
-
-//   // [contenteditable="true"] {
-//   //   outline: 2px dotted red;
-//   // }
-
-//   .block-list-appender {
-//     display: none;
-//   }
-
-//   &:hover {
-
-//     &::after {
-//       opacity: 1;
-//       pointer-events: all;
-//       transition: opacity 0.2s;
-//     }
-//   }
-// }

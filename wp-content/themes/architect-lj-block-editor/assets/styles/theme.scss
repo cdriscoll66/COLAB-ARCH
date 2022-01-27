@@ -5,6 +5,10 @@
 @import 'config/colors';
 @import 'config/variables';
 
+/** Mixins */
+@import 'mixins/clear';
+
+
 /** Import Twenty Twenty-One styles */
 @import 'theme/twentytwentyone/assets/sass/style.colab';
 
@@ -12,7 +16,6 @@
 // @import 'theme/modules/module-name'
 
 /** WordPress Blocks */
-@import 'theme/blocks/wp-block-button';
 
 
 /** Utility Classes */

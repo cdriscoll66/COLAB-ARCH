@@ -10,27 +10,42 @@ wp.domReady(() => {
      * Add/Remove Block Styles
      */
     (function () {
-        // wp.blocks.registerBlockStyle("core/cover", [
-        //     {
-        //         name: "p-lg-section",
-        //         label: "Padding Large (Vertical)",
-        //         isDefault: false,
-        //     },
-        // ]);
-        // wp.blocks.registerBlockStyle("core/columns", [
-        //     {
-        //         name: "p-lg-section",
-        //         label: "Padding Large (Vertical)",
-        //         isDefault: false,
-        //     },
-        // ]);
-        // wp.blocks.registerBlockStyle("core/group", [
-        //     {
-        //         name: "p-lg-section",
-        //         label: "Padding Large (Vertical)",
-        //         isDefault: false,
-        //     },
-        // ]);
+        wp.blocks.registerBlockStyle("core/cover", [
+            {
+                name: "p-section",
+                label: "Padding (Vertical)",
+                isDefault: false,
+            },
+            {
+                name: "p-lg-section",
+                label: "Padding Large (Vertical)",
+                isDefault: false,
+            },
+        ]);
+        wp.blocks.registerBlockStyle("core/columns", [
+            {
+                name: "p-section",
+                label: "Padding (Vertical)",
+                isDefault: false,
+            },
+            {
+                name: "p-lg-section",
+                label: "Padding Large (Vertical)",
+                isDefault: false,
+            },
+        ]);
+        wp.blocks.registerBlockStyle("core/group", [
+            {
+                name: "p-section",
+                label: "Padding (Vertical)",
+                isDefault: false,
+            },
+            {
+                name: "p-lg-section",
+                label: "Padding Large (Vertical)",
+                isDefault: false,
+            },
+        ]);
 
         wp.blocks.registerBlockStyle("core/column", [
             {

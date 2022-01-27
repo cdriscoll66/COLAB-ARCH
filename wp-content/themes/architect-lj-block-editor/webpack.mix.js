@@ -36,7 +36,6 @@ mix.sass(sourcePath("styles/login.scss"), publicPath("styles"));
 mix.sass(sourcePath("styles/admin.scss"), publicPath("styles"));
 mix.sass(sourcePath("styles/theme.scss"), publicPath("styles"));
 mix.sass(sourcePath("styles/editor.scss"), publicPath("styles"));
-mix.sass(sourcePath("styles/login.scss"), publicPath("styles"));
 //   mix.sass(sourcePath('styles/print.scss'), publicPath('styles'));
 
 /** Scripts */
