@@ -1,74 +1,126 @@
-// Footer
-.site-footer {
-	padding-top: 0;
-	padding-bottom: calc(1.7 * var(--global--spacing-vertical));
-	@extend %responsive-alignwide-width;
-
-	// Increase the top vertical spacing when there is no widget area.
-	.no-widgets & {
-		margin-top: calc(6 * var(--global--spacing-vertical));
-	}
-
-	@include media(mobile-only) {
-
-		.no-widgets & {
-			margin-top: calc(3 * var(--global--spacing-vertical));
-		}
-	}
+footer {
+    background: $gradient-blue-to-stone;
+    margin-top: 15rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    color: var(--global--color-white-65);
 }
 
-// Footer Branding
-.site-footer > .site-info {
-	padding-top: var(--global--spacing-vertical);
-	color: var(--footer--color-text);
-	font-family: var(--footer--font-family);
-	font-size: var(--footer--font-size);
-	line-height: var(--global--line-height-body);
-	border-top: 3px solid var(--global--color-border);
+.o-footer__inner {
+    max-width: $max_content_width;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-	.site-name {
-		text-transform: var(--branding--title--text-transform);
-		font-size: var(--branding--title--font-size);
-	}
+.o-footer__prefooter {
+    color: var(--global--color-gray-text);
+    flex-grow: 1;
+    background: var(--global--color-white);
+    box-shadow: rgb(18 30 52 / 15%) 0px 18px 30px;
+    margin-top: -240px;
+    border-radius: 20px;
+    margin-bottom: 80px;
+    display: flex;
+    flex-flow: wrap;
+    box-sizing: border-box;
+}
 
-	.powered-by {
-		margin-top: calc(0.5 * var(--global--spacing-vertical));
-	}
+.o-footer__prefooter--grid5 {
+    padding: 80px 0 80px 112px;
 
-	@include media(desktop) {
-		display: flex;
-		align-items: center;
+    margin: 0;
+    box-sizing: border-box;
+    @include media(tablet) {
+        flex-grow: 0;
+        max-width: 42%;
+        flex-basis: 42%;
+    }
+}
+.o-footer__prefooter--grid7 {
+    padding: 80px 0 80px 64px;
+    margin: 0;
+    box-sizing: border-box;
+    @include media(tablet) {
+        padding: 80px 0 80px 64px;
+        flex-grow: 0;
+        max-width: 58%;
+        flex-basis: 58%;
+    }
+}
 
-		.powered-by {
-			margin-top: initial;
-			margin-left: auto;
-		}
-	}
+.o-footer__prefooter--list > p {
+    font-size: 1.3rem;
+    line-height: 1.25;
+    margin: 1rem 0;
+    a {
+        color: var(--global--color-green-primary);
+        text-decoration: none;
+        @include underlinedraw;
+    }
+    &:before {
+        width: 24px;
+        height: 24px;
+        content: "";
+        display: inline-block;
+        background: url(../images/right-arrow.svg) no-repeat;
+        box-sizing: content-box;
+        padding-right: 10px;
+        vertical-align: middle;
+        background-size: 24px 24px;
+    }
+}
 
-	a {
-		color: var(--footer--color-link);
+.o-footer__section--nav {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    box-sizing: border-box;
+    justify-content: space-around;
+    @include media(tablet) {
+        justify-content: flex-start;
+    }
+}
 
-		&:link,
-		&:visited,
-		&:active {
-			color: var(--footer--color-link);
-		}
+.o-footer__nav--col {
+    flex-grow: 0;
+    max-width: 25%;
+    flex-basis: 25%;
+}
+.o-footer__nav--mobile-hidden {
+    display: none;
+    @include media(tablet) {
+        display: block;
+    }
+}
 
-		&:hover {
-			color: var(--footer--color-link-hover);
-		}
+.o-footer__menu {
+    ul {
+        padding-left: 0;
+        list-style: none;
+        margin-bottom: 16px;
+    }
+    li {
+        text-decoration: none;
+        padding-top: 8px;
+        a {
+            color: var(--global--color-white);
+            font-weight: bold;
+            text-decoration: none;
+        }
+    }
+}
 
-		&:focus {
-			color: var(--footer--color-link-hover);
-
-			.is-dark-theme & {
-				color: var(--wp--style--color--link, var(--global--color-background));
-			}
-
-			// Change colors when the body background is white.
-			.has-background-white & {
-				color: var(--wp--style--color--link, var(--global--color-white));
-			}
-		}
-	}
+.o-footer__section--subfooter,
+.o-footer__section--social {
+    color: rgba(255, 255, 255, 0.65);
+    text-align: center;
+    width: 100%;
+    a {
+        text-decoration: none;
+    }
 }

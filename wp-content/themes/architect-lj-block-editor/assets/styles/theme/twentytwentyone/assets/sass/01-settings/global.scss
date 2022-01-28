@@ -77,7 +77,7 @@ $baseline-unit: 10px;
     --global--color-stone-secondary: #121e34;
     --global--color-red-error: #EF5350;
     --global--color-gray-text: #5d6676;
-	--global--color-white-50: rgba(255, 255, 255, 0.5); // Used for disabled buttons
+	--global--color-white-65: rgba(255, 255, 255, 0.65); // Used for disabled buttons
 	--global--color-white-90: rgba(255, 255, 255, 0.9); // Used in form fields.
 
 	--global--color-primary: var(--global--color-gray-text); /* Body text color, site title, footer text color. */
@@ -186,11 +186,11 @@ $baseline-unit: 10px;
 	--pagination--font-weight-strong: 600;
 
 	/* Footer */
-	--footer--color-text: var(--global--color-primary);
-	--footer--color-link: var(--global--color-primary);
-	--footer--color-link-hover: var(--global--color-primary-hover);
+	--footer--color-text: rgba(255, 255, 255, 0.65);
+	--footer--color-link: var(--global--color-white);
+	--footer--color-link-hover: var(--global--color-white);
 	--footer--font-family: var(--global--font-primary);
-	--footer--font-size: var(--global--font-size-sm);
+	--footer--font-size: var(--global--font-size-base);
 
 	/* Block: Pull quote */
 	--pullquote--font-family: var(--global--font-primary);
