@@ -1,3 +1,58 @@
-<div>
-footer
-</div>
+<footer>
+    <div class="o-footer__inner">
+        <div class="o-footer__prefooter">
+        <div class="o-footer__prefooter--grid5">
+        <span class="o-footer__prefooter--overline overline">{{ prefooter_fields.overline }}</span>
+        <h2 class="o-footer__prefooter--title">{{ prefooter_fields.headline }}</h2>
+        </div>
+        <div class="o-footer__prefooter--grid7">
+        <div class="o-footer__prefooter--list">
+        {% for item in prefooter_fields.link_list %}
+                {{item.list_item }}
+        {% endfor %}
+        </div>
+        </div>
+        </div>
+        <div class="o-footer__section--nav">
+
+            <div class="o-footer__nav--col o-footer__nav--mobile-hidden">
+                <img src="wp-content/themes/architect-lj-block-editor/dist/images/footer-logo.svg" alt="Architect logo">
+            </div>
+
+            <div class="o-footer__nav--col o-footer__nav--mobile-hidden">
+                {% include 'partials/footer-menu.twig' with {
+                    'location': 'footer1' }
+                %}
+            </div>
+
+
+
+
+            <div class="o-footer__nav--col">
+                 {% include 'partials/footer-menu.twig' with {
+                    'location': 'footer2' }
+                %}
+            </div>
+
+
+
+
+
+            <div class="o-footer__nav--col">
+                 {% include 'partials/footer-menu.twig' with {
+                    'location': 'footer3' }
+                %}
+            </div>
+
+
+
+
+        <div class="o-footer__section--subfooter">
+            © {{ "now"|date("Y") }} Architect.io
+        </div>
+        <div class="o-footer__section--social">
+            <a href="https://mobile.twitter.com/architect_team">{% include 'partials/twitter.twig' %}</a>
+            <a href="https://www.linkedin.com/company/architect-io/">{% include 'partials/linkedin.twig' %}</a>
+        </div>
+    </div>
+</footer>
