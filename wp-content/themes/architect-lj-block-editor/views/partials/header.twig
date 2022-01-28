@@ -1,2 +1,20 @@
-
-        <button class="toggle">toggle</button>
+        {# <button class="toggle">toggle</button> #}
+<header class="o-header">
+    {% include 'partials/skip-navigation.twig' %}
+        <div class="o-header__inner">
+            <div class="o-header__container">
+                <div class="o-header__logo">
+                    <a class="o-header__logo-link" href="{{ home_url }}">{{ site_title }}</a>
+                </div>
+                <div class="o-header__navigation">
+                    {% include 'partials/global-navigation.twig' %}
+                </div>
+                <div class="o-header__links">
+                    <div class="wp-block-buttons">
+                        <div class="wp-block-button is-style-secondary o-header__button"><a class="wp-block-button__link" href="https://cloud.architect.io/login">Login</a></div>
+                        <div class="wp-block-button o-header__button"><a class="wp-block-button__link" href="https://cloud.architect.io/signup">Get Started</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</header>

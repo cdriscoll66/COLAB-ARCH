@@ -101,7 +101,7 @@
 @import "05-blocks/blocks";
 
 /* Category 06 contains all "bigger" components which contain elements of the previous two categories like header, footer, page template, single template, comments section, archives, ... */
-// @import "06-components/header";
+@import "06-components/header";
 @import "06-components/footer";
 // @import "06-components/single";
 // @import "06-components/posts-and-pages";
@@ -110,7 +110,7 @@
 // @import "06-components/404";
 // @import "06-components/search";
 // @import "06-components/comments";
-// @import "06-components/navigation";
+@import "06-components/navigation";
 // @import "06-components/footer-navigation";
 // @import "06-components/pagination";
 // @import "06-components/widgets";

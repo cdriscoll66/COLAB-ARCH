@@ -18,7 +18,7 @@ class Lumberjack extends LumberjackCore
         // the context, you can get items from it in a way that is a little smoother and more
         // versatile than Wordpress's wp_nav_menu. (You need never again rely on a
         // crazy "Walker Function!")
-        $context['menu'] = new Menu('main-nav');
+        $context['main_menu'] = new Menu('main-nav');
         $context['footer1'] = new Menu('footer1');
         $context['footer2'] = new Menu('footer2');
         $context['footer3'] = new Menu('footer3');
