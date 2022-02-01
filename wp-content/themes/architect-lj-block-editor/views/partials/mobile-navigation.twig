@@ -3,10 +3,11 @@
             <li class="{{ item.classes|join(' ') }}">
                 <a href="{{ item.link }}">{{ item.title }}</a>
                 {% if item.children %}
+                <span class="material-icons menu-expand js-expand">expand_more</span>
                     <div class="o-menu__subnav">
                         <ul class="o-menu__subnav-inner">
                             {% for child in item.children %}
-                                <li class="{{ child.classes|join(' ') }}">
+                                <li class="{{ child.classes|join(' ') }} mdc-list-item">
                                     <a href="{{ child.link }}">{{ child.title }}</a>
                                     {% if child.children %}
                                         <ul>

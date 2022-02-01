@@ -1,22 +1,11 @@
-<aside class="mdc-drawer mdc-drawer--modal">
-    <div class="mdc-drawer__content">
-      <nav class="mdc-list">
-        <a class="mdc-list-item mdc-list-item--activated" href="#" aria-current="page" tabindex="0">
-          <span class="mdc-list-item__ripple"></span>
-          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
-          <span class="mdc-list-item__text">Hi I'm here!</span>
-        </a>
-        <a class="mdc-list-item" href="#">
-          <span class="mdc-list-item__ripple"></span>
-          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
-          <span class="mdc-list-item__text">Outgoing</span>
-        </a>
-        <a class="mdc-list-item" href="#">
-          <span class="mdc-list-item__ripple"></span>
-          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
-          <span class="mdc-list-item__text">Drafts</span>
-        </a>
-      </nav>
+<aside class="mdc-drawer mdc-drawer--modal o-modal__drawer">
+  <div class="mdc-drawer__content">
+    <div class="o-header__logo o-modal__logo">
+      <a class="o-header__logo-link o-modal__logo-link" href="{{ home_url }}">{{ site_title }}</a>
     </div>
-  </aside>
-    <div class="mdc-drawer-scrim"></div>
+    <nav aria-label="Main" class="o-menu o-menu--mobile mdc-list">
+      {% include 'partials/mobile-navigation.twig' %}
+    </nav>
+  </div>
+</aside>
+<div class="mdc-drawer-scrim"></div>
