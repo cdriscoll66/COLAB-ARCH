@@ -149,7 +149,65 @@ input[type="reset"],
     .is-style-squared .wp-block-button__link {
         border-radius: 0;
     }
+    // Secondary Style
+    &.is-style-secondary {
+        .wp-block-button__link:not(:hover):not(:active) {
+            // Text colors
+            &:not(.has-text-color) {
+                color: var(--global--color-gray-text);
 
+                // Nested
+                .has-background & {
+                    color: var(
+                        --local--color-primary,
+                        var(--global--color-gray-text)
+                    );
+                }
+            }
+
+            &.has-background {
+                // Nested
+                .has-background &:not(.has-text-color) {
+                    color: inherit;
+                }
+            }
+
+            // Background-colors
+            &:not(.has-background) {
+                background-color: transparent;
+                box-shadow: none;
+            }
+        }
+
+        .wp-block-button__link:hover,
+        .wp-block-button__link:active {
+            box-shadow: none;
+            background-color: rgba(93, 102, 118, 0.04) !important;
+            color: var(--global--color-gray-text) !important;
+            text-decoration: none;
+
+            .has-background & {
+                background-color: var(
+                    --local--color-primary,
+                    var(--global--color-primary)
+                ) !important;
+                color: var(
+                    --local--color-background,
+                    var(--global--color-background)
+                ) !important;
+            }
+
+            .has-text-color & {
+                color: var(
+                    --local--color-background,
+                    var(--global--color-background)
+                ) !important;
+            }
+        }
+        .wp-block-button__link:focus {
+            background-color: rgba(44, 168, 94, 0.04) !important;
+        }
+    }
     // Arrow Style
     &.is-style-arrow {
         a.wp-block-button__link {
@@ -161,7 +219,7 @@ input[type="reset"],
                 width: 20px;
                 display: inline-block;
                 margin-left: 8px;
-                vertical-align:top;
+                vertical-align: top;
             }
         }
         .wp-block-button__link:not(:hover):not(:active) {
