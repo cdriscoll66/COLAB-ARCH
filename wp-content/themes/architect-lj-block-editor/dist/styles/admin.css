@@ -1,2 +1,15 @@
-.interface-interface-skeleton__content{scroll-behavior:smooth}
-/*# sourceMappingURL=admin.css.map*/
+/** Node Modules */
+/** Functions */
+/** Mixins */
+/** Config */
+/** Admin Base */
+/** Admin Constructs */
+/** Admin Atoms */
+/** Admin Molecules */
+/** Admin Organisms */
+/** Admin */
+.interface-interface-skeleton__content {
+  scroll-behavior: smooth;
+}
+
+/** Theme Constructs */
