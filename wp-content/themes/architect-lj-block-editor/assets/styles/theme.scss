@@ -6,6 +6,8 @@
 @import 'config/variables';
 @import 'config/typography';
 
+@import 'config/mdc-overwrite';
+
 
 /** Mixins */
 @import 'mixins/clear';
@@ -26,3 +28,5 @@
 /** Utility Classes */
 
 @import 'theme/utility_classes';
+
+
