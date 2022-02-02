@@ -1,5 +1,6 @@
 import drawer from "./theme/drawer";
-
+import buildSidebar from "./theme/buildSidebar";
+import scrollTransition from './theme/scroll-transition';
 
 document.addEventListener("DOMContentLoaded", function() {
     /** Address HTML & Body no-js Class */
@@ -21,7 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /** Theme */
     // fancybox();
-        drawer();
+    drawer();
+    buildSidebar();
+    scrollTransition();
 
 
     /** Theme Atoms */

@@ -22,8 +22,13 @@
 /** WordPress Blocks */
 
 /** Components */
+@import 'theme/components/o-post-header';
 @import 'theme/components/m-pagination';
 @import 'theme/components/m-post';
+@import 'theme/components/m-post-navigation';
+
+/** Templates */
+@import 'theme/templates/blog-single';
 
 /** Utility Classes */
 

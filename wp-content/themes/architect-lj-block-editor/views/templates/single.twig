@@ -1,7 +1,18 @@
 {% extends "base.twig" %}
 
 {% block content %}
+<div class="o-content-wrapper">
     <main class="main entry-content">
+        {% include "partials/post-header.twig" %}
         {{ content|raw }}
     </main>
+{% endblock %}
+
+{% block sidebar %}
+    <nav class="m-post-navigation">
+        <span class="m-post-navigation__title">CONTENTS</span>
+        <ul>
+        </ul>
+    </nav>
+</div>
 {% endblock %}
