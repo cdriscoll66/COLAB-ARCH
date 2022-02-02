@@ -1,53 +1,56 @@
-.font-weight-bold {
-    font-weight: 700;
-}
+.entry-content {
 
-.font-weight-medium {
-    font-weight: 500;
-}
+    .font-weight-bold {
+        font-weight: 700;
+    }
 
-.font-weight-regular {
-    font-weight:400;
-}
+    .font-weight-medium {
+        font-weight: 500;
+    }
 
-
-.line-height-lg {
-    line-height: 1.75;
-}
+    .font-weight-regular {
+        font-weight:400;
+    }
 
 
-.p-section,
-.is-style-p-section {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  @include media(laptop) {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-}
+    .line-height-lg {
+        line-height: 1.75;
+    }
 
-.p-lg-section,
-.is-style-p-lg-section {
-//   padding-top: 2rem;
-//   padding-bottom: 2rem;
-//   @include media(laptop) {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-//   }
-}
+    .p-section,
+    .is-style-p-section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    @include media(laptop) {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+    }
 
-// Margin/Padding system
-// added as needed - important tagged to override styles
-// padding = 'p'; margin = 'm'
-// top bottom left right x-axis y-axis = t, b, l, r, x, y respectively
-// measurement is as follows
-// 1 = .25rem
-// 2 = .5rem
-// 3 = 1rem
-// 4 = 1.5rem
-// 5 = 3rem
-// adding n in front of number alters to negative margin (ex. mb-n3 is margin-bottom: -1rem;)
+    .p-lg-section,
+    .is-style-p-lg-section {
+    //   padding-top: 2rem;
+    //   padding-bottom: 2rem;
+    //   @include media(laptop) {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    //   }
+    }
 
-.mb-5 {
-    margin-bottom: 3rem !important;
+
+    // Margin/Padding system
+    // added as needed - important tagged to override styles
+    // padding = 'p'; margin = 'm'
+    // top bottom left right x-axis y-axis = t, b, l, r, x, y respectively
+    // measurement is as follows
+    // 1 = .25rem
+    // 2 = .5rem
+    // 3 = 1rem
+    // 4 = 1.5rem
+    // 5 = 3rem
+    // adding n in front of number alters to negative margin (ex. mb-n3 is margin-bottom: -1rem;)
+
+    .mb-5 {
+        margin-bottom: 3rem !important;
+    }
 }
