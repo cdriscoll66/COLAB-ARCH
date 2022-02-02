@@ -1,0 +1,35 @@
+.m-post {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 3rem 0;
+    margin: 0;
+
+    &:first-of-type {
+        border-top: none;
+        margin-top: 4rem;
+    }
+}
+
+.m-post__title {
+    font-size: 2.4rem;
+    line-height: 1.25;
+    display: inline-block;
+
+    a {
+        @include underlinedraw;
+        color: var(--global--color-secondary);
+        text-decoration: none;
+    }
+}
+
+.m-post__excerpt {
+    font-size: 1.4rem;
+    margin-top: .5rem;
+}
+
+.m-post__meta {
+    font-size: .8rem;
+    line-height: 2.66;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--global--color-light-gray);
+}

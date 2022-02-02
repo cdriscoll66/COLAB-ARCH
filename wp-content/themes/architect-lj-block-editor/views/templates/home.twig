@@ -3,5 +3,24 @@
 {% block content %}
     <main class="main entry-content">
         {{ content|raw }}
+
+        {% if posts|length > 0 %}
+            {% for post in posts %}
+                <article class="m-post">
+                    <h1 class="m-post__title"><a href="{{ post.link }}">{{ post.title }}</a></h1>
+                    <p class="m-post__excerpt">{{ post.excerpt }}</p>
+                    <span class="m-post__meta">{{ post.author }} - {{ post.date }}</span>
+                </article>
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+
+        {% if pagination %}
+        <section class="m-pagination">
+            <span class="m-pagination__link m-pagination__link--prev">{{ pagination.prev }}</span>
+            <span class="m-pagination__link m-pagination__link--next">{{ pagination.next }}</span>
+        </section>
+        {% endif %}
     </main>
 {% endblock %}
