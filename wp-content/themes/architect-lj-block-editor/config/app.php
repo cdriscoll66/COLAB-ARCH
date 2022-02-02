@@ -9,7 +9,7 @@ return [
     /**
      * Is debug mode enabled?
      */
-    'debug' => WP_DEBUG ?? false,
+    'debug' => WP_DEBUG ?? true,
 
     /**
      * List of providers to initialise during app boot
@@ -29,6 +29,10 @@ return [
 
         // Application Providers
         App\Providers\AppServiceProvider::class,
+        App\Providers\AssetsServiceProvider::class, // Enqueue scripts and styles
+        App\Providers\BlockServiceProvider::class, // Add custom blocks
+        // App\Providers\CustomTaxonomiesServiceProvider::class, // Add custom taxonomies
+        App\Providers\TwigServiceProvider::class, // Add twig support
     ],
 
     'aliases' => [
