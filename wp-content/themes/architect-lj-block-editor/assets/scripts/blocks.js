@@ -55,6 +55,14 @@ wp.domReady(() => {
             },
         ]);
 
+        wp.blocks.registerBlockStyle("core/media-text", [
+            {
+                name: "rev-col-mobile",
+                label: "Reverse Column (on Mobile)",
+                isDefault: false,
+            },
+        ]);
+
         wp.blocks.unregisterBlockStyle("core/button", ["fill", "outline"]);
 
         wp.blocks.registerBlockStyle("core/button", [
