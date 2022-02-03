@@ -1,4 +1,5 @@
 import drawer from "./theme/drawer";
+import testimonails from "./theme/testimonial-slider";
 import buildSidebar from "./theme/buildSidebar";
 import scrollTransition from './theme/scroll-transition';
 
@@ -22,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /** Theme */
     // fancybox();
+
+    testimonails();
     drawer();
     buildSidebar();
     scrollTransition();
