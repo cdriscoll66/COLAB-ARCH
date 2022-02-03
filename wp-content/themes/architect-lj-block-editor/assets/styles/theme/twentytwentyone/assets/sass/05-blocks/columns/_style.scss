@@ -109,4 +109,36 @@
 			}
 		}
 	}
+
+    &.pricing-table {
+        position: relative;
+        z-index: 2;
+
+        .wp-block-column {
+            background: white;
+            box-shadow: rgba(30, 44, 66, .2) 0px 2px 32px -8px;
+            min-height: 500px;
+            text-align: center;
+            border-radius: 20px;
+
+            > *:not(.wp-block-separator) {
+              padding: 0 1rem;
+              margin: 0;
+            }
+
+            > :first-child {
+                padding-top: 1rem;
+                margin-bottom: -1rem;
+            }
+
+            p + p {
+                padding-top: 0!important;
+            }
+
+            .wp-block-buttons {
+                padding-top: 1rem!important;
+                padding-bottom: 1rem!important;
+            }
+        }
+    }
 }

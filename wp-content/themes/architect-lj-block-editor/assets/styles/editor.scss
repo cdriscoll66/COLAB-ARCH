@@ -14,6 +14,9 @@
 /** Import Twenty Twenty-One styles */
 @import 'theme/twentytwentyone/assets/sass/style-editor.colab';
 
+/** Components */
+@import 'theme/components/a-pricing-item';
+
 :root {
 
   /* Font Family */
