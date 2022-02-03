@@ -5,13 +5,13 @@
     <body class="{{ body_class }}">
         {% include 'partials/drawer.twig' %}
 
-
-
-
         {% include 'partials/header.twig' %}
 
             {% block content %}
                 <p>Sorry, no content</p>
+            {% endblock %}
+
+            {% block sidebar %}
             {% endblock %}
 
         {% include 'partials/footer.twig' %}

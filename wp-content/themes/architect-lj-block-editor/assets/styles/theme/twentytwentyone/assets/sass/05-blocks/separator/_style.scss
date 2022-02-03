@@ -64,6 +64,14 @@ hr {
                 border-width: 0;
                 margin-bottom: -30px !important;
             }
+
+            .is-style-p-lg-section & {
+                @include media(laptop) {
+                    position: relative;
+                    bottom: -128px;
+                    z-index: 1;
+                }
+            }
         }
 
         .has-background &,

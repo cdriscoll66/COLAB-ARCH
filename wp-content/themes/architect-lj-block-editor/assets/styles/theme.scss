@@ -24,8 +24,14 @@
 @import 'theme/blocks/testimonial-slider';
 
 /** Components */
+@import 'theme/components/a-pricing-item';
+@import 'theme/components/o-post-header';
 @import 'theme/components/m-pagination';
 @import 'theme/components/m-post';
+@import 'theme/components/m-post-navigation';
+
+/** Templates */
+@import 'theme/templates/blog-single';
 
 /** Utility Classes */
 @import 'theme/utility_classes';

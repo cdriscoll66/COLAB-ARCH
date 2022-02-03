@@ -1,0 +1,29 @@
+.o-content-wrapper {
+    display: flex;
+    flex-wrap: none;
+    max-width: 1280px;
+    margin: 0 auto;
+
+    .main.entry-content {
+        max-width: 100%;
+        padding: 0 1rem;
+
+        @media screen and (min-width: 960px) {
+            max-width: calc(100% - 213px);
+        }
+
+        > *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.wp-block-separator):not(.woocommerce),
+        .default-max-width {
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .anchor {
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+    }
+}
+
+
