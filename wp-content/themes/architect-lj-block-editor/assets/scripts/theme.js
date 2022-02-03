@@ -1,4 +1,5 @@
 import drawer from "./theme/drawer";
+import testimonails from "./theme/testimonial-slider";
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
     /** Theme */
     // fancybox();
         drawer();
+        testimonails();
 
 
     /** Theme Atoms */

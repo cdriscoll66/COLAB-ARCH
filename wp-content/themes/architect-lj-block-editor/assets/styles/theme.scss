@@ -1,5 +1,6 @@
 @import '~@material/drawer/dist/mdc.drawer.min';
 @import '~@material/list/dist/mdc.list.min';
+@import '~flickity/dist/flickity';
 
 /** Config */
 @import 'config/colors';
@@ -20,13 +21,13 @@
 @import 'theme/modules/skip-navigation';
 
 /** WordPress Blocks */
+@import 'theme/blocks/testimonial-slider';
 
 /** Components */
 @import 'theme/components/m-pagination';
 @import 'theme/components/m-post';
 
 /** Utility Classes */
-
 @import 'theme/utility_classes';
 
 

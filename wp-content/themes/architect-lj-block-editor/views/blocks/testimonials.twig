@@ -1,0 +1,43 @@
+{#
+  Title: Testimonials
+  Description: Architect.io Testimonial Slider Block
+  Category: custom
+  Icon: marker
+  Keywords: testimonials slider carousel
+  Mode: auto
+  Align: center
+  PostTypes: page
+  SupportsAlign: false
+  SupportsMode: true
+  SupportsMultiple: false
+#}
+
+
+
+<div class="main-carousel o-main-carousel">
+{% for test in testimonials %}
+  <div class="carousel-cell o-carousel__cell">
+    <div class="o-carousel__image">
+            {{ test.getCompanyImage }}
+    </div>
+    <div class="o-carousel__content">
+    {{ test.content }}
+    </div>
+    <div class='o-carousel__cell--divider'></div>
+    <div class="o-carousel__attestant">
+        <div class="o-carousel__attestant--image">
+        {{ test.getAttestantImage }}
+        </div>
+        <div class="o-carousel__attestant--info">
+            <div class="o-carousel__attestant-name">
+            {{ test.title }}
+            </div>
+            <div class="o-carousel__attestant-title">
+            {{ test.getAttestantTitle }}
+            </div>
+        </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+

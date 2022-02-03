@@ -11,5 +11,17 @@ return [
      *     ]
      */
     'sizes' => [
+        [
+            'name' => 'profile',
+            'width' => 40,
+            'height' => 40,
+            'crop' => true,
+        ],
+        [
+            'name' => 'company',
+            'width' => 150,
+            'height' => 150,
+            'crop' => false
+        ],
     ],
 ];

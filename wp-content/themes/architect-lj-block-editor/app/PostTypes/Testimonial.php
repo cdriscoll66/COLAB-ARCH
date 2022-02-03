@@ -3,13 +3,15 @@
 namespace App\PostTypes;
 
 use Rareloop\Lumberjack\Post;
+use App\Helpers\Traits\HasFeaturedImage;
+
+
 
 
 class Testimonial extends Post
 {
 
-
-
+    use HasFeaturedImage;
 
     /**
      * Return the key used to register the post type with WordPress
@@ -122,5 +124,21 @@ class Testimonial extends Post
         ]);
     }
 
+
+    public function getAttestantTitle()
+    {
+        $cs_field = get_field('attestant_title', $this->id);
+
+        return $cs_field;
+    }
+
+    public function getAttestantImage()
+    {
+        $cs_fields = get_field('attestant_image', $this->id);
+
+        $image = wp_get_attachment_image($cs_fields, 'profile');
+
+        return $image;
+    }
 
 }
