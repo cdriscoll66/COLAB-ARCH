@@ -6,23 +6,23 @@
 	"title": "Icon Picker",
 	"category": "widgets",
 	"icon": "marker",
-	"description": "Presently a pre selected amount of icons to choose from.",
+	"description": "A pre selected amount of icons to choose from.",
 	"supports": {
 		"html": false
 	},
 	"attributes": {
 		"icons": {
 			"type": "string",
-			"default": "fa-head-side-brain"
+			"default": "face"
 		},
 		"size": {
 			"type": "string",
-			"default": "1x"
+			"default": "md-18"
 		},
 		"align": {
 			"type": "string"
 		},
-		"colabStyle": {
+		"archStyle": {
 			"type": "boolean"
 		}
 	},

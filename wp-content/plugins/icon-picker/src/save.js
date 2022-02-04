@@ -26,7 +26,7 @@ import { useBlockProps } from "@wordpress/block-editor";
  */
 export default function save({ attributes }) {
 
-	const classStyle = (attributes.colabStyle ? "is-style-icon" : "");
+	const classStyle = (attributes.archStyle ? "is-style-icon" : "");
 
 
 	const align = attributes.align;
@@ -38,28 +38,26 @@ export default function save({ attributes }) {
 	return (
 		<div {...useBlockProps.save()}>
 			<div className={ classes }>
-				<i
-					className={classnames(
-						"fal",
-						attributes.icons,
-						attributes.size,
-						classStyle
-					)}
-				></i>
+			<span
+				className={classnames(
+					"material-icons",
+					attributes.size,
+					classStyle
+				)}
+			>{attributes.icons}</span>
 			</div>
 		</div>
 	);
 					}
 	return (
 	<div {...useBlockProps.save( { className: classes } )}>
-		<i
-			className={classnames(
-				"fal",
-				attributes.icons,
-				attributes.size,
-				classStyle
-							)}
-		></i>
+			<span
+				className={classnames(
+					"material-icons",
+					attributes.size,
+					classStyle
+				)}
+			>{attributes.icons}</span>
 	</div>
 	);
 

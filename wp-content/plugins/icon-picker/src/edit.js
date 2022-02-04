@@ -43,7 +43,7 @@ import "./editor.scss";
  */
 export default function Edit({ attributes, setAttributes }) {
 
-	const { colabStyle, icons, size } = attributes;
+	const { archStyle, icons, size } = attributes;
 
 
 	const onChangeContent = (newContent) => {
@@ -63,7 +63,7 @@ export default function Edit({ attributes, setAttributes }) {
 		[`align${align}`]: align,
 	});
 
-	const classStyle = (colabStyle ? "is-style-icon" : "");
+	const classStyle = (archStyle ? "is-style-icon" : "");
 
 	const blockProps = useBlockProps({
 		className: classes,
@@ -79,8 +79,16 @@ export default function Edit({ attributes, setAttributes }) {
 							label="Icon"
 							value={ icons }
 							options={[
-								{ label: "fa-head-side-brain", value: "fa-head-side-brain" },
-								{ label: "fa-heart-circle", value: "fa-heart-circle" }
+								{ label: "Flight", value: "flight" },
+								{ label: "Event", value: "event" },
+								{ label: "AccountBalance", value: "account_balance" },
+								{ label: "ArrowDownward", value: "arrow_downward" },
+								{ label: "AttachMoney", value: "attach_money" },
+								{ label: "ChildFriendly", value: "child_friendly" },
+								{ label: "Computer", value: "computer" },
+								{ label: "FavoriteBorder", value: "favorite_border" },
+								{ label: "Help", value: "flight" },
+								{ label: "Face", value: "face" }
 							]}
 							onChange={onChangeContent}
 						/>
@@ -88,27 +96,19 @@ export default function Edit({ attributes, setAttributes }) {
 							label="Size"
 							value={ size }
 							options={[
-								{ label: "1x", value: "fa-1x" },
-								{ label: "X-Small", value: "fa-xs" },
-								{ label: "Small", value: "fa-sm" },
-								{ label: "Large", value: "fa-lg" },
-								{ label: "2x", value: "fa-2x" },
-								{ label: "3x", value: "fa-3x" },
-								{ label: "4x", value: "fa-4x" },
-								{ label: "5x", value: "fa-5x" },
-								{ label: "6x", value: "fa-6x" },
-								{ label: "7x", value: "fa-7x" },
-								{ label: "8x", value: "fa-8x" },
-								{ label: "9x", value: "fa-9x" },
-								{ label: "10x", value: "fa-10x" },
+								{ label: "18px", value: "md-18" },
+								{ label: "24px", value: "md-24" },
+								{ label: "36px", value: "md-36" },
+								{ label: "48px", value: "md-48" },
+								{ label: "60px", value: "md-60" },
 							]}
 							onChange={onChangeSize}
 						/>
 
 						<ToggleControl
-							label={ __( "COLAB Style" ) }
-							onChange={ () => setAttributes( { colabStyle: ! colabStyle } ) }
-							checked={ colabStyle }
+							label={ __( "Arch Style" ) }
+							onChange={ () => setAttributes( { archStyle: ! archStyle } ) }
+							checked={ archStyle }
 						/>
 					</PanelBody>
 				</Panel>
@@ -119,14 +119,13 @@ export default function Edit({ attributes, setAttributes }) {
 					onChange={updateAlignment}
 				/>
 			</BlockControls>
-			<i
+			<span
 				className={classnames(
-					"fal",
-					attributes.icons,
+					"material-icons",
 					attributes.size,
 					classStyle
 				)}
-			></i>
+			>{attributes.icons}</span>
 		</div>
 	);
 }
