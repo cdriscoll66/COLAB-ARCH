@@ -41,7 +41,7 @@ footer {
         flex-basis: 42%;
     }
     @include media(laptop) {
-        padding: 80px 0 80px 64px;
+        padding: 80px 10px 80px 64px;
     }
 }
 .o-footer__prefooter--grid7 {
@@ -55,7 +55,7 @@ footer {
         flex-basis: 58%;
     }
     @include media(laptop) {
-        padding: 80px 0 80px 64px;
+        padding: 80px 10px 80px 64px;
     }
 }
 
