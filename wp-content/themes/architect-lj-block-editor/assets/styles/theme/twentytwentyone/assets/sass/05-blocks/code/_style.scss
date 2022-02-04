@@ -1,14 +1,46 @@
 .wp-block-code {
-	border-color: var(--global--color-border);
-	border-radius: 0;
-	border-style: solid;
-	border-width: 0.1rem;
-	padding: var(--global--spacing-unit);
+	border: none;
+	padding: 3.5rem 0 1rem 1rem!important;
+    background: #1a2d4f;
+    border-radius: 4px;
+    position: relative;
+
+    &::before {
+        content: "•••";
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: .5rem;
+        font-size: 2rem;
+        color: #1a2d4f;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+        line-height: .6;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        width: 100%;
+    }
 
 	code {
-		color: var(--global--color-primary);
+		color: #f8f8f2;
 		white-space: pre;
 		overflow-x: auto;
 		display: block;
+
+        .token {
+            &.comment {
+                color: #6fe79f;
+            }
+            &.atrule,
+            &.attr-value,
+            &.class-name,
+            &.function {
+                color: #aac7f8;
+            }
+
+            &.boolean,
+            &.number {
+                color: #bc94f9;
+            }
+
+        }
 	}
 }
