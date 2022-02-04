@@ -1,19 +1,14 @@
 import Flickity from "flickity";
 
-
-function init(){
-    var elem = document.querySelector('.main-carousel');
-    var flkty = new Flickity( elem, {
-      // options
-      cellAlign: 'left',
-      contain: true
-    });
-
-    // element argument can be a selector string
-    //   for an individual element
-    var flkty = new Flickity( '.main-carousel', {
-      // options
-    });
+function init() {
+    var elem = document.querySelector(".main-carousel");
+    if (elem) {
+        var flkty = new Flickity(elem, {
+            // options
+            cellAlign: "left",
+            contain: true,
+        });
+    }
 }
 
-export {init as default};
+export { init as default };
