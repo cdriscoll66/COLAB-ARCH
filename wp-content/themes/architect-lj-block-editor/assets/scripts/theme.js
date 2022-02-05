@@ -1,6 +1,6 @@
-import drawer from "./theme/drawer";
 import testimonails from "./theme/testimonial-slider";
 import buildSidebar from "./theme/buildSidebar";
+import drawer from "./theme/drawer";
 import scrollTransition from './theme/scroll-transition';
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
     testimonails();
     drawer();
     buildSidebar();
+    accordion();
     scrollTransition();
 
 
