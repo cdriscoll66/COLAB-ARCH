@@ -1,4 +1,5 @@
-.wp-block-code {
+.wp-block-code,
+.enlighter-t-wpcustom {
 	border: none;
 	padding: 3.5rem 0 1rem 1rem!important;
     background: #1a2d4f;
@@ -19,11 +20,18 @@
         width: 100%;
     }
 
-	code {
+	code,
+    .enlighter {
 		color: #f8f8f2;
 		white-space: pre;
 		overflow-x: auto;
 		display: block;
+        font-size: 1rem;
+        font-family: monospace;
+
+        > div {
+            line-height: 1.4em;
+        }
 
         .token {
             &.comment {
@@ -38,9 +46,31 @@
 
             &.boolean,
             &.number {
-                color: #bc94f9;
+
             }
 
         }
+
+        .enlighter-g1 + .enlighter-text,
+        .enlighter-m0 + .enlighter-text {
+            color: #f8f8f2;
+        }
+
+        .enlighter-text {
+            color: #aac7f8;
+        }
+
+        .enlighter-c0 {
+            color: #6fe79f;
+        }
+
+        .enlighter-n0,
+        .enlighter-n1 {
+            color: #bc94f9;
+        }
 	}
+
+    .enlighter-toolbar {
+        display: none!important;
+    }
 }
