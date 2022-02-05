@@ -5,12 +5,22 @@
         .wp-block-columns {
             margin-bottom: 1rem;
             transition: all .5s;
+            flex-wrap: wrap;
+
+            @media screen and (min-width: $breakpoint_lg) {
+                flex-wrap: nowrap;
+            }
 
             &.open {
                 .wp-block-column {
                     &:first-of-type {
                         border-color: #2ca85e;
-                        max-width: 50%;
+                        width: 100%;
+                        max-width: 100%;
+
+                        @media screen and (min-width: $breakpoint_lg) {
+                            max-width: 50%;
+                        }
 
                         p,
                         .wp-block-buttons {
@@ -20,20 +30,27 @@
 
                     &:nth-child(2) {
                         display: block;
-                        position: absolute;
-                        top: 0;
-                        right: 0;
+
+                        @media screen and (min-width: $breakpoint_lg) {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                        }
                     }
                 }
             }
         }
 
         .wp-block-column {
+            flex-basis: auto;
+            flex-grow: auto;
+
             &:first-of-type {
                 padding-top: 1rem;
                 padding-bottom: 1rem;
-                padding-left: 1rem;
+                padding-left: .5rem;
                 border-left: 2px solid #cccccc;
+                margin-bottom: 0;
 
                 h3 {
                     margin-bottom: 0!important;
@@ -45,18 +62,34 @@
 
                 p,
                 .wp-block-buttons {
-                    margin: 0;
+                    margin: .5rem 0 0 0;
                     display: none;
+                }
+
+                .wp-block-buttons {
+                    margin-top: 1rem;
+                    padding-left: 0!important;
+
+                    .wp-block-button {
+                        margin-bottom: 0;
+                    }
                 }
             }
 
             &:nth-child(2) {
                 display: none;
-                width: calc(50% - 2rem);
+                width: 100%;
+                margin-left: 0;
+                margin-top: 2rem;
+
+                @media screen and (min-width: $breakpoint_lg) {
+                    margin-top: 0;
+                    width: calc(50% - 2rem);
+                }
             }
 
             > *:not(.wp-block-code) {
-                padding-left: 0!important;
+                padding-left: .5rem!important;
                 padding-right: 0!important;
             }
         }
