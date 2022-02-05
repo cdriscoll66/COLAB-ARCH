@@ -1,0 +1,95 @@
+.main-carousel {
+    padding: 48px 32px;
+    box-shadow: rgb(30 44 66 / 20%) 0px 2px 32px -8px;
+    border-radius: 20px;
+    margin-bottom: 60px !important;
+    font-size: 1.143rem;
+    line-height: 1.5;
+}
+
+.o-carousel__cell {
+    width: 100%; /* full width */
+    height: auto; /* height of carousel */
+    min-height: 150px;
+    margin-right: 10px;
+}
+
+.o-carousel__cell--divider {
+    width: 20%;
+    height: 3px;
+    margin: 32px auto 32px 0px;
+    border-radius: 5px;
+    background-color: var(--global--color-green-primary);
+}
+
+.o-carousel__attestant {
+    display: flex;
+    align-items: center;
+}
+
+.o-carousel__image {
+    margin-bottom: 10px;
+}
+.o-carousel__attestant-title {
+    font-size: 1rem;
+    line-height: 1.43;
+}
+
+.o-carousel__attestant--info {
+    margin-left: 20px;
+}
+
+.o-carousel__attestant--image {
+    border-radius: 50%;
+    overflow: hidden;
+    height: 40px;
+    width: 40px;
+}
+
+// slider controls
+
+/* smaller, dark, rounded square */
+.flickity-button {
+    background: white !important;
+}
+.flickity-button:hover {
+    background: rgba(93, 102, 118, 0.04) !important;
+}
+
+.flickity-prev-next-button {
+    top: unset;
+    bottom: -68px;
+    width: 54px;
+    height: 28px;
+    border-radius: 5px;
+}
+/* icon color */
+.flickity-button-icon {
+    fill: var(--global--color-gray-text);
+}
+/* position outside */
+//   .flickity-prev-next-button.previous {
+//     left: -40px;
+//   }
+//   .flickity-prev-next-button.next {
+//     right: -40px;
+//   }
+
+// Slider meter
+
+/* position dots up a bit */
+.flickity-page-dots {
+    bottom: -45px;
+    width: 50%;
+    left: 25%;
+    right: 25%;
+}
+/* dots are lines */
+.flickity-page-dots .dot {
+    height: 4px;
+    width: 100px;
+    margin: 0;
+    border-radius: 0;
+    opacity: 0.25;
+    background: var(--global--color-green-primary);
+}

@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:       Testimonial Slider
- * Description:       Testimonial Slider for Architect.io
+ * Plugin Name:       Icon Picker
+ * Description:       Example block written with ESNext standard and JSX support – build step required.
  * Requires at least: 5.8
  * Requires PHP:      7.0
- * Version:           0.1.0
+ * Version:           1.0
  * Author:            Conor Driscoll
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       testimonial-slider
+ * Text Domain:       icon-picker
  *
  * @package           create-block
  */
@@ -18,9 +18,9 @@
  * Behind the scenes, it registers also all assets so they can be enqueued
  * through the block editor in the corresponding context.
  *
- * @see https://developer.wordpress.org/reference/functions/register_block_type/
+ * @see https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/
  */
-function create_block_testimonial_slider_block_init() {
-	register_block_type( __DIR__ . '/build' );
+function create_block_icon_picker_block_init() {
+	register_block_type( __DIR__ );
 }
-add_action( 'init', 'create_block_testimonial_slider_block_init' );
+add_action( 'init', 'create_block_icon_picker_block_init' );

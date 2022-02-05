@@ -1,0 +1,33 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "create-block/icon-picker",
+	"version": "0.1.0",
+	"title": "Icon Picker",
+	"category": "widgets",
+	"icon": "marker",
+	"description": "A pre selected amount of icons to choose from.",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"icons": {
+			"type": "string",
+			"default": "face"
+		},
+		"size": {
+			"type": "string",
+			"default": "md-18"
+		},
+		"align": {
+			"type": "string"
+		},
+		"archStyle": {
+			"type": "boolean"
+		}
+	},
+	"textdomain": "icon-picker",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
