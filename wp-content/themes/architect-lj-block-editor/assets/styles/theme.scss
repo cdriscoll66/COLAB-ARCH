@@ -1,5 +1,6 @@
 @import '~@material/drawer/dist/mdc.drawer.min';
 @import '~@material/list/dist/mdc.list.min';
+
 @import '~flickity/dist/flickity';
 
 /** Config */
@@ -19,6 +20,7 @@
 
 /** Modules */
 @import 'theme/modules/skip-navigation';
+@import 'theme/modules/form-labels';
 
 /** WordPress Blocks */
 @import 'theme/blocks/testimonial-slider';

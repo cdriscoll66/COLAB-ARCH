@@ -49,11 +49,11 @@
 
 		// Background-colors
 		&:not(.has-background) {
-			background-color: var(--global--color-primary);
+			background-color: var(--global--color-green-primary);
 
 			// Nested
 			.has-background & {
-				background-color: var(--local--color-primary, var(--global--color-primary));
+				background-color: var(--local--color-primary, var(--global--color-green-primary));
 			}
 		}
 	}
@@ -61,9 +61,9 @@
 	// Hover Button color should match parent element foreground color
 	&:hover,
 	&:active {
-		background-color: transparent;
+		background-color: var(--global--color-green-hover);
 		border-color: currentColor;
-		color: inherit;
+		color: var(--global--color-white);
 	}
 
 	// Focus Button outline color should always match the current text color
