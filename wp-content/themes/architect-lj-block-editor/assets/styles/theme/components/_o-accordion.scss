@@ -4,7 +4,7 @@
 
         .wp-block-columns {
             margin-bottom: 1rem;
-            transition: all .5s;
+            transition: all 0.5s;
             flex-wrap: wrap;
 
             @media screen and (min-width: $breakpoint_lg) {
@@ -16,15 +16,17 @@
                     &:first-of-type {
                         border-color: #2ca85e;
                         width: 100%;
-                        max-width: 100%;
+                        transition: all 0.2s ease-in;
+                        max-height: 230px;
 
                         @media screen and (min-width: $breakpoint_lg) {
                             max-width: 50%;
+
                         }
 
                         p,
                         .wp-block-buttons {
-                            display: block;
+                            height: auto;
                         }
                     }
 
@@ -46,14 +48,19 @@
             flex-grow: auto;
 
             &:first-of-type {
+                max-width: 50%;
                 padding-top: 1rem;
                 padding-bottom: 1rem;
-                padding-left: .5rem;
+                padding-left: 0.5rem;
                 border-left: 2px solid #cccccc;
                 margin-bottom: 0;
+                height: auto;
+                max-height: 56px;
+                overflow: hidden;
+                transition: all 0.2s ease-in;
 
                 h3 {
-                    margin-bottom: 0!important;
+                    margin-bottom: 0 !important;
                     font-size: 1.3rem;
                     font-weight: bold;
                     display: inline-block;
@@ -62,13 +69,12 @@
 
                 p,
                 .wp-block-buttons {
-                    margin: .5rem 0 0 0;
-                    display: none;
+                    // margin: 0.5rem 0 0 0;
                 }
 
                 .wp-block-buttons {
                     margin-top: 1rem;
-                    padding-left: 0!important;
+                    padding-left: 0 !important;
 
                     .wp-block-button {
                         margin-bottom: 0;
@@ -89,10 +95,9 @@
             }
 
             > *:not(.wp-block-code) {
-                padding-left: .5rem!important;
-                padding-right: 0!important;
+                padding-left: 0.5rem !important;
+                padding-right: 0 !important;
             }
         }
     }
 }
-

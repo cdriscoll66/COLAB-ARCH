@@ -7,9 +7,8 @@ function init(){
             parents.forEach(parent => {
                 let trigger = parent.querySelector('h3');
                 trigger.addEventListener('click', function (event) {
-                    parents.forEach(parent => {
-                        parent.classList.remove('open');
-                    });
+                    let openPanel = accordion.querySelector('.open');
+                    openPanel.classList.remove('open');
                     event.target.closest('.wp-block-columns').classList.add('open');
                 }, false);
             });
