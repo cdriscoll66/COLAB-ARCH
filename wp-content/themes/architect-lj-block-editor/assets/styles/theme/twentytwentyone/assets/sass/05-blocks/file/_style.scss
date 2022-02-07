@@ -9,5 +9,20 @@
 
 	a.wp-block-file__button {
 		display: inline-block;
+        border-width: 1px;
+        border-style: solid;
+        border-color: var(--global--color-secondary);
+        transition: all .3s;
+
+        &:not(:hover):not(:active) {
+            color: var(--global--color-secondary)!important;
+            background-color: transparent!important;
+        }
+
+        &:hover,
+        &:active {
+            background-color: var(--global--color-secondary) !important;
+            color: var(--global--color-white) !important;
+        }
 	}
 }

@@ -11,15 +11,22 @@
 		}
 	}
 
-	.wp-block-file__button {
-		// Extend button style
-		@include button-style();
+    .wp-block-file__button {
 		display: inline-block;
+        border-width: 1px;
+        border-style: solid;
+        border-color: var(--global--color-secondary);
+        transition: all .3s;
 
-		// Remove :focus styles in the editor
-		&:focus {
-			outline-offset: inherit;
-			outline: inherit;
-		}
+        &:not(:hover):not(:active) {
+            color: var(--global--color-secondary)!important;
+            background-color: transparent!important;
+        }
+
+        &:hover,
+        &:active {
+            background-color: var(--global--color-secondary) !important;
+            color: var(--global--color-white) !important;
+        }
 	}
 }

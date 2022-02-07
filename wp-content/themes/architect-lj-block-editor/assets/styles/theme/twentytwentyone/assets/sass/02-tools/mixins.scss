@@ -29,6 +29,7 @@
 	line-height: var(--button--line-height);
 	padding: var(--button--padding-vertical) var(--button--padding-horizontal);
 	text-decoration: none;
+    transition: all .3s;
 
 	// Standard Button Color Relationship Logic
 	&:not(:hover):not(:active) {
