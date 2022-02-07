@@ -1,0 +1,24 @@
+.gfield {
+    position: relative;
+}
+
+.gform_wrapper.gravity-theme .gfield_label {
+    position: absolute;
+    font-weight: 400;
+    background: var(--global--color-white);
+    padding: 0 5px;
+    transform: translate(12px, 8px) scale(1);
+    transition: transform 0.1s ease;
+}
+
+// .gform_wrapper.gravity-theme .gfield:focus-within > label,   {
+.gform_wrapper.gravity-theme .gfield_label {
+    transition: top 0.5 ease;
+    color: var(--global--color-green-hover);
+    transform: translate(8px, -10px) scale(0.75);
+    transition: transform 0.1s ease;
+}
+
+.gform_wrapper .gfield_required {
+    color: var(--global--color-green-primary);
+}

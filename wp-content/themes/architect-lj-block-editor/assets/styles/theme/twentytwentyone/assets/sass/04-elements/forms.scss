@@ -12,7 +12,8 @@ input[type="time"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="color"],
-.site textarea {
+.site textarea,
+.gfield textarea {
 	border: var(--form--border-width) solid var(--form--border-color);
 	border-radius: var(--form--border-radius);
 	color: var(--form--color-text);
@@ -23,9 +24,8 @@ input[type="color"],
 	max-width: 100%;
 
 	&:focus {
-		color: var(--form--color-text);
-		outline-offset: 2px;
-		outline: 2px dotted var(--form--border-color);
+		color: var(--global--color-green-primary);
+		outline: 2px solid var(--global--color-green-primary);
 	}
 
 	&:disabled {
