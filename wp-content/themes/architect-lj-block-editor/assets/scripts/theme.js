@@ -1,4 +1,5 @@
-import testimonails from "./theme/testimonial-slider";
+import testimonials from "./theme/testimonial-slider";
+import accordion from "./theme/accordion";
 import buildSidebar from "./theme/buildSidebar";
 import drawer from "./theme/drawer";
 import scrollTransition from './theme/scroll-transition';
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
     /** Theme */
     // fancybox();
 
-    testimonails();
+    testimonials();
     drawer();
     buildSidebar();
     accordion();
