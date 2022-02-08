@@ -251,9 +251,7 @@ register_block_pattern('custom/home-hero', [
         <!-- /wp:button --></div>
         <!-- /wp:buttons -->
 
-        <!-- wp:paragraph -->
-        <p></p>
-        <!-- /wp:paragraph --></div></div>
+        </div></div>
         <!-- /wp:media-text -->
 
         <!-- wp:separator {"align":"full","className":"is-style-curved-bottom"} -->
