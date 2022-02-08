@@ -10,7 +10,7 @@
 		margin-bottom: 0;
 	}
 
-	background-color: var(--cover--color-background);
+	// background-color: var(--cover--color-background);
 	min-height: var(--cover--height);
 	margin-top: inherit;
 	margin-bottom: inherit;
@@ -110,7 +110,8 @@
 	}
 
 	/* The background color class is used just for the overlay, and does not need to be applied to the inner container. */
-	&[class*="-background-color"][class] .wp-block-cover__inner-container {
+	&.has-background-dim:not([class*=-background-color]),
+    &[class*="-background-color"][class] .wp-block-cover__inner-container {
 		background-color: unset;
 	}
 }
