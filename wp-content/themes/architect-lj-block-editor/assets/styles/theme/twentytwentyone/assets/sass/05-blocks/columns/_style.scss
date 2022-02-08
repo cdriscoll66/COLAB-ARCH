@@ -6,6 +6,12 @@
 
 	.wp-block-column {
 
+        // CD - override - 2 col system from base component.
+        @media screen and (max-width: 781px) {
+            flex-basis: auto !important;
+            flex-grow: 0;
+        }
+
 		> * {
 			margin-top: calc(0.66 * var(--global--spacing-vertical));
 			margin-bottom: calc(0.66 * var(--global--spacing-vertical));
