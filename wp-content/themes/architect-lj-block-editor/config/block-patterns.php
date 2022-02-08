@@ -218,15 +218,15 @@ register_block_pattern('custom/page-header', [
     'title' => __('Page Header', 'colab'),
     'description' => _x('This is the "standard" page header block pattern.', 'Block pattern description', 'colab'),
     'content' => '
-        <!-- wp:group -->
-        <div class="wp-block-group"><div class="wp-block-group__inner-container">
-
-        <!-- wp:heading {"level":2} -->
-        <h2>Lorem Ipsum Dolor Amet</h2>
+        <!-- wp:cover {"gradient":"green-to-transparent","align":"full","className":"is-style-p-section"} -->
+        <div class="wp-block-cover alignfull has-background-dim has-background-gradient has-green-to-transparent-gradient-background is-style-p-section"><div class="wp-block-cover__inner-container"><!-- wp:heading {"textAlign":"center","level":1,"textColor":"gray-text"} -->
+        <h1 class="has-text-align-center has-gray-text-color has-text-color">[Headline Goes Here]</h1>
         <!-- /wp:heading -->
 
-        </div></div>
-        <!-- /wp:group -->
+        <!-- wp:paragraph {"align":"center","textColor":"gray-text"} -->
+        <p class="has-text-align-center has-gray-text-color has-text-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <!-- /wp:paragraph --></div></div>
+        <!-- /wp:cover -->
     ',
 ]);
 
