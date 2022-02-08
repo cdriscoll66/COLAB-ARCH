@@ -230,3 +230,36 @@ register_block_pattern('custom/page-header', [
     ',
 ]);
 
+register_block_pattern('custom/home-hero', [
+    'categories' => ['custom'],
+    'title' => __('Home Hero', 'colab'),
+    'description' => _x('This is the Home Hero block pattern.', 'Block pattern description', 'colab'),
+    'content' => '
+        <!-- wp:group {"align":"full","style":{"color":{"gradient":"linear-gradient(226deg,rgba(0,155,141,0.16) 0%,rgba(0,192,109,0.11) 100%)"}},"className":"is-style-p-section"} -->
+        <div class="wp-block-group alignfull is-style-p-section has-background" style="background:linear-gradient(226deg,rgba(0,155,141,0.16) 0%,rgba(0,192,109,0.11) 100%)"><!-- wp:media-text {"mediaPosition":"right","mediaId":22,"mediaLink":"https://architectio.lndo.site/devops-supercharged/hero-computer-screen/","mediaType":"image","mediaWidth":40,"className":"p-lg-section"} -->
+        <div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile p-lg-section" style="grid-template-columns:auto 40%"><figure class="wp-block-media-text__media"><img src="https://architectio.lndo.site/wp-content/uploads/2022/01/hero-computer-screen.webp" alt="" class="wp-image-22 size-full"/></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":1,"style":{"typography":{"fontSize":"2.8rem"}}} -->
+        <h1 style="font-size:2.8rem">Previews, production, and everything in between</h1>
+        <!-- /wp:heading -->
+
+        <!-- wp:paragraph {"style":{"typography":{"fontSize":"1.3rem"}},"className":"line-height-lg"} -->
+        <p class="line-height-lg" style="font-size:1.3rem">Democratize deployments and environment creation with our dependency-aware continuous delivery platform</p>
+        <!-- /wp:paragraph -->
+
+        <!-- wp:buttons -->
+        <div class="wp-block-buttons"><!-- wp:button -->
+        <div class="wp-block-button"><a class="wp-block-button__link">Get Started For Free</a></div>
+        <!-- /wp:button --></div>
+        <!-- /wp:buttons -->
+
+        <!-- wp:paragraph -->
+        <p></p>
+        <!-- /wp:paragraph --></div></div>
+        <!-- /wp:media-text -->
+
+        <!-- wp:separator {"align":"full","className":"is-style-curved-bottom"} -->
+        <hr class="wp-block-separator alignfull is-style-curved-bottom"/>
+        <!-- /wp:separator --></div>
+        <!-- /wp:group -->
+    ',
+]);
+
