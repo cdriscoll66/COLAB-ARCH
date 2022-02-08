@@ -21,7 +21,6 @@
 
                         @media screen and (min-width: $breakpoint_lg) {
                             max-width: 50%;
-
                         }
 
                         p,
@@ -48,7 +47,6 @@
             flex-grow: auto;
 
             &:first-of-type {
-                max-width: 50%;
                 padding-top: 1rem;
                 padding-bottom: 1rem;
                 padding-left: 0.5rem;
@@ -58,6 +56,10 @@
                 max-height: 56px;
                 overflow: hidden;
                 transition: all 0.2s ease-in;
+
+                @media screen and (min-width: $breakpoint_lg) {
+                    max-width: 50%;
+                }
 
                 h3 {
                     margin-bottom: 0 !important;
