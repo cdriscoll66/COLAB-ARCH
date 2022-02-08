@@ -1,5 +1,8 @@
 .o-menu {
     height: calc(100% - 49px);
+    @include media(laptop) {
+        height: 100%;
+    }
 }
 
 .o-menu--main {
