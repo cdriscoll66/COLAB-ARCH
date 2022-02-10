@@ -224,7 +224,7 @@ register_block_pattern('custom/page-header', [
         <!-- /wp:heading -->
 
         <!-- wp:paragraph {"align":"center","textColor":"gray-text"} -->
-        <p class="has-text-align-center has-gray-text-color has-text-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p class="has-text-align-center has-gray-text-color has-text-color has-medium-font-size">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <!-- /wp:paragraph --></div></div>
         <!-- /wp:cover -->
     ',
