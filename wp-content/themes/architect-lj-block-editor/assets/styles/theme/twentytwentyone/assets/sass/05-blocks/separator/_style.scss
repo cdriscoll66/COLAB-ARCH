@@ -9,7 +9,7 @@ hr {
         border-bottom: var(--separator--height) solid
             var(--separator--border-color);
 
-        &:not(.is-style-dots):not(.is-style-twentytwentyone-separator-thick):not(.is-style-curved-bottom) {
+        &:not(.is-style-dots):not(.is-style-primary-divider):not(.is-style-curved-bottom) {
             opacity: .25;
             border-top: 0px;
         }
@@ -31,8 +31,12 @@ hr {
         /**
 		 * Block Options
 		 */
-        &.is-style-twentytwentyone-separator-thick {
-            border-bottom-width: calc(3 * var(--separator--height));
+        &.is-style-primary-divider {
+            width: 50%;
+            height: 3px;
+            margin: 32px auto;
+            border-radius: 5px;
+            background-color: var(--global--color-green-primary);
         }
 
         &.is-style-dots {
@@ -52,6 +56,7 @@ hr {
                 padding-left: var(--global--font-size-sm);
             }
         }
+
 
         &.is-style-curved-bottom {
             display: none;

@@ -18,9 +18,37 @@ hr {
 		max-width: inherit;
 	}
 
-	&.is-style-twentytwentyone-separator-thick {
-		border-bottom-width: calc(3 * var(--separator--height));
-	}
+    /**
+    * Block Options
+    */
+    &.is-style-primary-divider {
+    width: 50%;
+    height: 3px;
+    margin: 32px auto;
+    border-radius: 5px;
+    background-color: var(--global--color-green-primary);
+        }
+
+    &.is-style-curved-bottom {
+        display: none;
+        @include media(laptop) {
+            height: 128px;
+            display: block;
+            background: rgb(255, 255, 255);
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            border-width: 0;
+            margin-bottom: -30px !important;
+        }
+
+        .is-style-p-lg-section & {
+            @include media(laptop) {
+                position: relative;
+                bottom: -128px;
+                z-index: 1;
+            }
+        }
+    }
 
 	&.is-style-dots {
 		border-bottom: none;

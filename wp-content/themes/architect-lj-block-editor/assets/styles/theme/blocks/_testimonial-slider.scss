@@ -12,6 +12,7 @@
     height: auto; /* height of carousel */
     min-height: 150px;
     margin-right: 10px;
+
 }
 
 .o-carousel__cell--divider {
@@ -92,4 +93,17 @@
     border-radius: 0;
     opacity: 0.25;
     background: var(--global--color-green-primary);
+}
+
+
+.editor-styles-wrapper {
+.main-carousel.o-main-carousel:before {
+     content: 'Testimonials Slider Block - to edit visit testimonials admin menu';
+     color: var(--global--color-green-primary);
+     display: block;
+     padding-bottom: 30px;
+    }
+    .o-carousel__cell {
+        padding-bottom: 30px;
+    }
 }
