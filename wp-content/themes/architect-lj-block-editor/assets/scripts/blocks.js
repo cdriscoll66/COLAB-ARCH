@@ -94,6 +94,11 @@ wp.domReady(() => {
                 label: "Curved Bottom",
                 isDefault: false,
             },
+            {
+                name: "primary-divider",
+                label: "Primary Divider",
+                isDefault: false,
+            },
         ]);
     })();
 
