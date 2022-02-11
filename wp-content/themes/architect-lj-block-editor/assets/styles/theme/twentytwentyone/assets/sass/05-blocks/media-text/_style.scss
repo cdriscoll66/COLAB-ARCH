@@ -79,8 +79,11 @@ $mt-breakpoint-down: $media-text-breakpoint + '-only';
     }
 
     // Block Styles
-    &.is-style-twentytwentyone-border {
-        border: calc(3 * var(--separator--height)) solid
-            var(--global--color-border);
+
+    figure.wp-block-media-text__media img {
+        width: auto;
+        margin: 0 auto;
+        display: block;
     }
+
 }
