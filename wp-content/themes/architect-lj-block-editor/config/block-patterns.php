@@ -116,79 +116,59 @@ register_block_pattern('custom/three-up-cards', [
     'title' => __('Three-up Cards', 'colab'),
     'description' => _x('Three-up Cards Block Pattern.', 'Block pattern description', 'colab'),
     'content' => '
-        <!-- wp:group {"align":"wide"} -->
-        <div class="wp-block-group alignwide"><!-- wp:group -->
-        <div class="wp-block-group"><!-- wp:heading {"textAlign":"center","style":{"typography":{"fontSize":"2rem"}},"textColor":"green-primary"} -->
-        <h2 class="has-text-align-center has-green-primary-color has-text-color" id="automate" style="font-size:2rem"><strong>Let us automate that</strong></h2>
-        <!-- /wp:heading -->
+    <!-- wp:group {"align":"wide","className":"is-style-p-section"} -->
+    <div class="wp-block-group alignwide is-style-p-section"><!-- wp:heading {"textAlign":"center","style":{"typography":{"fontSize":"2rem"}},"textColor":"green-primary"} -->
+    <h2 class="has-text-align-center has-green-primary-color has-text-color" style="font-size:2rem"><strong>Why self-service deployments</strong></h2>
+    <!-- /wp:heading -->
 
-        <!-- wp:paragraph {"align":"center"} -->
-        <p class="has-text-align-center">DevOps is the intersection of several tools and processes. All of which can be automated with Architect.</p>
-        <!-- /wp:paragraph --></div>
-        <!-- /wp:group -->
+    <!-- wp:paragraph {"align":"center","className":"mb-5"} -->
+    <p class="has-text-align-center mb-5">Developers have a natural DIY mentality, and helping them deploy themselves makes them happier and more productive.</p>
+    <!-- /wp:paragraph -->
 
-        <!-- wp:columns {"align":"wide"} -->
-        <div class="wp-block-columns alignwide"><!-- wp:column -->
-        <div class="wp-block-column"><!-- wp:image {"align":"center","id":83,"sizeSlug":"full","linkDestination":"none"} -->
-        <div class="wp-block-image"><figure class="aligncenter size-full"><img src="https://architectio.lndo.site/wp-content/uploads/2022/01/dependency-management.webp" alt="" class="wp-image-83"/></figure></div>
-        <!-- /wp:image -->
+    <!-- wp:columns {"align":"wide"} -->
+    <div class="wp-block-columns alignwide"><!-- wp:column -->
+    <div class="wp-block-column"><!-- wp:image {"align":"center","id":137,"width":120,"height":120,"sizeSlug":"full","linkDestination":"none"} -->
+    <div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img src="https://release-architectio.pantheonsite.io/wp-content/uploads/2022/01/faster-releases.png" alt="" class="wp-image-137" width="120" height="120"/></figure></div>
+    <!-- /wp:image -->
 
-        <!-- wp:heading {"textAlign":"center","level":3,"style":{"typography":{"fontSize":"1.3rem"}}} -->
-        <h3 class="has-text-align-center" style="font-size:1.3rem"><strong>APPLICATION DELIVERY</strong></h3>
-        <!-- /wp:heading -->
+    <!-- wp:heading {"textAlign":"center","level":6,"style":{"typography":{"fontSize":"1.3rem"}},"className":"mb-0 font-weight-regular"} -->
+    <h6 class="has-text-align-center mb-0 font-weight-regular" style="font-size:1.3rem">Faster releases</h6>
+    <!-- /wp:heading -->
 
-        <!-- wp:paragraph {"align":"center"} -->
-        <p class="has-text-align-center">Developers waste hours of time writing tedious pipelining scripts and babysitting deployments. Help your developers focus on your product, and let us automate that.</p>
-        <!-- /wp:paragraph -->
+    <!-- wp:paragraph {"align":"center"} -->
+    <p class="has-text-align-center">Developers wrote the code, so they are primed to know when its ready for release. Remove the steps in between and let them deploy directly for faster release times.</p>
+    <!-- /wp:paragraph --></div>
+    <!-- /wp:column -->
 
-        <!-- wp:buttons {"contentJustification":"center"} -->
-        <div class="wp-block-buttons is-content-justification-center"><!-- wp:button {"className":"is-style-arrow"} -->
-        <div class="wp-block-button is-style-arrow"><a class="wp-block-button__link" href="https://www.architect.io/product/application-delivery">Learn more</a></div>
-        <!-- /wp:button --></div>
-        <!-- /wp:buttons --></div>
-        <!-- /wp:column -->
+    <!-- wp:column -->
+    <div class="wp-block-column"><!-- wp:image {"align":"center","id":142,"width":104,"height":120,"sizeSlug":"full","linkDestination":"none"} -->
+    <div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img src="https://release-architectio.pantheonsite.io/wp-content/uploads/2022/01/no-context-switching.png" alt="" class="wp-image-142" width="104" height="120"/></figure></div>
+    <!-- /wp:image -->
 
-        <!-- wp:column -->
-        <div class="wp-block-column"><!-- wp:image {"align":"center","id":84,"sizeSlug":"full","linkDestination":"none"} -->
-        <div class="wp-block-image"><figure class="aligncenter size-full"><img src="https://architectio.lndo.site/wp-content/uploads/2022/01/securing-networks.webp" alt="" class="wp-image-84"/></figure></div>
-        <!-- /wp:image -->
+    <!-- wp:heading {"textAlign":"center","level":6,"style":{"typography":{"fontSize":"1.3rem"}},"className":"mb-0 font-weight-regular"} -->
+    <h6 class="has-text-align-center mb-0 font-weight-regular" style="font-size:1.3rem">No context switching</h6>
+    <!-- /wp:heading -->
 
-        <!-- wp:heading {"textAlign":"center","level":3,"style":{"typography":{"fontSize":"1.3rem"}}} -->
-        <h3 class="has-text-align-center" style="font-size:1.3rem"><strong>NETWORK SECURITY</strong></h3>
-        <!-- /wp:heading -->
+    <!-- wp:paragraph {"align":"center"} -->
+    <p class="has-text-align-center">It can be costly to have developers constantly jumping from task to task. After filing a ticket to have a release scheduled by DevOps, developers are forced onto other tasks temporarily only to jump right back in once the deployment is finalized for testing.</p>
+    <!-- /wp:paragraph --></div>
+    <!-- /wp:column -->
 
-        <!-- wp:paragraph {"align":"center"} -->
-        <p class="has-text-align-center">Network security is critical to protecting your customers and business, but instrumentation is tedious and error prone. Let us automate that.</p>
-        <!-- /wp:paragraph -->
+    <!-- wp:column -->
+    <div class="wp-block-column"><!-- wp:image {"align":"center","id":136,"height":120,"sizeSlug":"full","linkDestination":"none"} -->
+    <div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img src="https://release-architectio.pantheonsite.io/wp-content/uploads/2022/01/failure-remediation.png" alt="" class="wp-image-136" height="120"/></figure></div>
+    <!-- /wp:image -->
 
-        <!-- wp:buttons {"contentJustification":"center"} -->
-        <div class="wp-block-buttons is-content-justification-center"><!-- wp:button {"className":"is-style-arrow"} -->
-        <div class="wp-block-button is-style-arrow"><a class="wp-block-button__link" href="https://www.architect.io/product/network-security">Learn more</a></div>
-        <!-- /wp:button --></div>
-        <!-- /wp:buttons --></div>
-        <!-- /wp:column -->
+    <!-- wp:heading {"textAlign":"center","level":6,"style":{"typography":{"fontSize":"1.3rem"}},"className":"mb-0 font-weight-regular"} -->
+    <h6 class="has-text-align-center mb-0 font-weight-regular" style="font-size:1.3rem">Quick failure remediation</h6>
+    <!-- /wp:heading -->
 
-        <!-- wp:column {"className":"is-style-default"} -->
-        <div class="wp-block-column is-style-default"><!-- wp:image {"align":"center","id":85,"sizeSlug":"full","linkDestination":"none"} -->
-        <div class="wp-block-image"><figure class="aligncenter size-full"><img src="https://architectio.lndo.site/wp-content/uploads/2022/01/provisioning.webp" alt="" class="wp-image-85"/></figure></div>
-        <!-- /wp:image -->
-
-        <!-- wp:heading {"textAlign":"center","level":3,"style":{"typography":{"fontSize":"1.3rem"}}} -->
-        <h3 class="has-text-align-center" style="font-size:1.3rem"><strong>ENVIRONMENT PROVISIONING</strong></h3>
-        <!-- /wp:heading -->
-
-        <!-- wp:paragraph {"align":"center"} -->
-        <p class="has-text-align-center">Developers need to run and test their applications in private sandboxes and preview environments, but DevOps engineers never have time to support temporary environments. Let us automate that.</p>
-        <!-- /wp:paragraph -->
-
-        <!-- wp:buttons {"contentJustification":"center"} -->
-        <div class="wp-block-buttons is-content-justification-center"><!-- wp:button {"className":"is-style-arrow"} -->
-        <div class="wp-block-button is-style-arrow"><a class="wp-block-button__link" href="https://www.architect.io/product/environment-provisioning">Learn more</a></div>
-        <!-- /wp:button --></div>
-        <!-- /wp:buttons --></div>
-        <!-- /wp:column --></div>
-        <!-- /wp:columns --></div>
-        <!-- /wp:group -->
+    <!-- wp:paragraph {"align":"center"} -->
+    <p class="has-text-align-center">Developers who wrote the product features are the best equipped to test releases. With developers also responsible for deploying their own changes, theyre primed and ready to address any unexpected failures.</p>
+    <!-- /wp:paragraph --></div>
+    <!-- /wp:column --></div>
+    <!-- /wp:columns --></div>
+    <!-- /wp:group -->
     ',
 ]);
 

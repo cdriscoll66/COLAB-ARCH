@@ -17,6 +17,12 @@
         line-height: 1.75;
     }
 
+    .font-style-subtitle {
+        font-size: 1rem;
+        line-height: 1.57;
+        font-weight:400;
+    }
+
     .p-section,
     .is-style-p-section {
     // padding-top: 2rem;
@@ -50,6 +56,12 @@
     // 5 = 3rem
     // adding n in front of number alters to negative margin (ex. mb-n3 is margin-bottom: -1rem;)
 
+    .mb-0 {
+        margin-bottom: 0 !important;
+    }
+    .mb-3 {
+        margin-bottom: 1rem !important;
+    }
     .mb-5 {
         margin-bottom: 3rem !important;
     }
