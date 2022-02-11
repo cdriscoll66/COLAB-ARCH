@@ -11,6 +11,7 @@
 
         @media screen and (min-width: 960px) {
             max-width: calc(100% - 213px);
+            margin-left: 0;
         }
 
         > *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.wp-block-separator):not(.woocommerce),

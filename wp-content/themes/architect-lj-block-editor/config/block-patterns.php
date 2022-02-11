@@ -241,3 +241,32 @@ register_block_pattern('custom/home-hero', [
     ',
 ]);
 
+register_block_pattern('custom/media-text-block', [
+    'categories' => ['custom'],
+    'title' => __('Media Text with Spacing', 'colab'),
+    'description' => _x('Used on product pages - the media test system with spacing.', 'Block pattern description', 'colab'),
+    'content' => '
+    <!-- wp:group {"align":"wide","className":"is-style-p-section"} -->
+    <div class="wp-block-group alignwide is-style-p-section"><!-- wp:media-text {"mediaPosition":"right","mediaId":367,"mediaLink":"https://release-architectio.pantheonsite.io/product/any-cloud-provider/","mediaType":"image","className":"flip-image"} -->
+    <div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile flip-image"><figure class="wp-block-media-text__media"><img src="https://release-architectio.pantheonsite.io/wp-content/uploads/2022/02/any-cloud-provider.webp" alt="An illustration of a cloud server network." class="wp-image-367 size-full"/></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":3} -->
+    <h3><meta charset="utf-8">Application delivery</h3>
+    <!-- /wp:heading -->
+
+    <!-- wp:paragraph -->
+    <p>The primary objectives of any DevOps team is to enable the safe and expediate deployment of new and existing apps and services. In the early days this might mean containerization and Kubernetes, but applications are more than their containers.</p>
+    <!-- /wp:paragraph -->
+
+    <!-- wp:paragraph -->
+    <p>Applications frequently need to connect to databases, messaging queues, and other APIs. Architect not only enables container delivery, but includes a native dependency manager to resolve and inject external dependencies with every deploy.</p>
+    <!-- /wp:paragraph -->
+
+    <!-- wp:buttons -->
+    <div class="wp-block-buttons"><!-- wp:button {"className":"is-style-arrow"} -->
+    <div class="wp-block-button is-style-arrow"><a class="wp-block-button__link" href="https://release-architectio.pantheonsite.io/product/application-delivery/">Learn More</a></div>
+    <!-- /wp:button --></div>
+    <!-- /wp:buttons --></div></div>
+    <!-- /wp:media-text --></div>
+    <!-- /wp:group -->
+    ',
+]);
+
