@@ -60,7 +60,10 @@ footer {
 }
 
 .o-footer__prefooter--list > p {
+    font-size: 1.1rem;
+    @include media(mobile){
     font-size: 1.3rem;
+    }
     line-height: 1.25;
     margin: 1rem 0;
     a {
