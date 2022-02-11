@@ -22,3 +22,10 @@
 .gform_wrapper .gfield_required {
     color: var(--global--color-green-primary);
 }
+
+
+.gform_wrapper.gravity-theme {
+input[type=email], input[type=text], textarea {
+    padding:15px;
+}
+}

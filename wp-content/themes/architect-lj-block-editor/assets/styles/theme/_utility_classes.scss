@@ -89,3 +89,8 @@
 
 }
 
+.arrow-down-button a:after {
+    content:"\E5DB";
+    color: var(--global--color-white);
+    margin-left: 5px;
+}
