@@ -59,5 +59,13 @@
         margin-right: 0 !important;
     }
 
+
+
+    // ______
+
+    .flip-image > .wp-block-media-text__media{
+        transform: scaleX(-1);
+    }
+
 }
 
