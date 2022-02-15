@@ -11,7 +11,7 @@ a {
 }
 
 a:hover {
-	text-decoration-style: dotted;
+	text-decoration-style: solid;
 	text-decoration-skip-ink: none;
 }
 
@@ -20,7 +20,7 @@ a:hover {
 	/* Only visible in Windows High Contrast mode */
 	outline: 2px solid transparent;
 
-	text-decoration: underline 1px dotted currentColor;
+	text-decoration: underline 1px solid currentColor;
 	text-decoration-skip-ink: none;
 	background: rgba(255, 255, 255, .9);
 
@@ -62,7 +62,7 @@ a:hover {
 	}
 
 	img {
-		outline: 2px dotted var(--wp--style--color--link, var(--global--color-primary));
+		outline: 2px solid var(--wp--style--color--link, var(--global--color-primary));
 	}
 }
 

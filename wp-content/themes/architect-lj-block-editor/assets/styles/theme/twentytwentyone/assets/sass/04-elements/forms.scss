@@ -74,7 +74,7 @@ select {
 
 	&:focus {
 		outline-offset: 2px;
-		outline: 2px dotted var(--form--border-color);
+		outline: 2px solid var(--form--border-color);
 	}
 
 	.is-dark-theme & {
