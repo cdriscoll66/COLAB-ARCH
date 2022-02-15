@@ -1,0 +1,20 @@
+ul.lever {
+    list-style-type: none;
+}
+
+li.lever-job {
+    margin-bottom: 2rem;
+}
+
+.lever-job-title {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.lever-job-apply {
+    color: var(--global--color-green-primary);
+    &:hover {
+        color: var(--global--color-green-hover);
+        text-decoration: none;
+    }
+}
