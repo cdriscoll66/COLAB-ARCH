@@ -22,6 +22,7 @@
         .a-pricing-item__tooltip svg {
             width: 1.5rem;
             height: 1.5rem;
+            z-index: 0;
         }
         .a-pricing-item__tooltip {
             position: relative;
@@ -48,6 +49,7 @@
                 opacity: 0;
                 pointer-events: none;
                 transition: opacity .5s;
+                z-index: 1;
             }
 
             &:hover::after {
