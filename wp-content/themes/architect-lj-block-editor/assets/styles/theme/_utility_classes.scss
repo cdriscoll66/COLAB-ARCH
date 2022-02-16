@@ -80,7 +80,7 @@
     }
 
     .mw-n60 {
-        max-width:calc(var(--responsive--alignwide-width) - 60px);
+        max-width:calc(var(--responsive--alignwide-width) - 60px) !important;
     }
 
 
