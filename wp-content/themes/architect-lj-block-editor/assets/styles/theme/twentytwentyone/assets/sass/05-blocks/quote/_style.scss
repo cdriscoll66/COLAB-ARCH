@@ -1,16 +1,30 @@
 .wp-block-quote {
-	border-left: none;
+	border-left: 2px solid #757575;
+    font-size: var(--quote--font-size);
+    color: #9e9e9e;
+    font-style: italic;
+    margin-inline-end: 0;
+    padding-block-end: 0.5rem;
+    padding-inline-end: 1rem;
+    margin-inline-start: 0;
+    padding-block-start: 0.5rem;
+    padding-inline-start: 1.25rem;
+    p {
+        margin-block-end: 1rem;
+    }
 
-	&:before {
-		content: "\201C";
-		font-size: var(--quote--font-size);
-		line-height: var(--quote--line-height);
-		left: 8px;
-	}
+
+	// &:before {
+	// 	content: "\201C";
+	// 	font-size: var(--quote--font-size);
+	// 	line-height: var(--quote--line-height);
+	// 	left: 8px;
+	// }
 
 	.wp-block-quote__citation,
 	cite,
 	footer {
+        font-size: 1rem;
 
 		.has-background &,
 		[class*="background-color"] &,

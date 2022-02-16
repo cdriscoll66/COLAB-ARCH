@@ -1,8 +1,11 @@
 .wp-block-quote {
 	position: relative;
-	border-left: none;
 	margin: var(--global--spacing-vertical) auto var(--global--spacing-vertical) var(--global--spacing-horizontal);
-
+    border-left: 2px solid #757575;
+    padding-left: 1rem;
+    font-size: var(--quote--font-size);
+    color: #9e9e9e;
+    font-style: italic;
 	p {
 		font-family: var(--quote--font-family);
 		font-size: var(--quote--font-size);
@@ -46,13 +49,13 @@
 		}
 
 		// Align the quote left of the text.
-		p:before {
-			content: "\201D";
-			font-size: var(--quote--font-size);
-			font-weight: normal;
-			line-height: var(--quote--line-height);
-			margin-right: 5px;
-		}
+		// p:before {
+		// 	content: "\201D";
+		// 	font-size: var(--quote--font-size);
+		// 	font-weight: normal;
+		// 	line-height: var(--quote--line-height);
+		// 	margin-right: 5px;
+		// }
 	}
 
 	&.has-text-align-center {
