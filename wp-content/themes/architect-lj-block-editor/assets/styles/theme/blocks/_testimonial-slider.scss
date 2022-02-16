@@ -84,15 +84,17 @@
     width: 50%;
     left: 25%;
     right: 25%;
+    display:flex;
+    flex-flow: row nowrap;
 }
 /* dots are lines */
 .flickity-page-dots .dot {
     height: 4px;
-    width: 100px;
     margin: 0;
     border-radius: 0;
     opacity: 0.25;
     background: var(--global--color-green-primary);
+    width: 100%;
 }
 
 
