@@ -22,7 +22,7 @@ class AssetsServiceProvider extends ServiceProvider
         add_action('wp_enqueue_scripts', function () {
 
             wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap', [], false);
-            wp_enqueue_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons', [], false);
+            wp_enqueue_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap', [], false);
 
 
             wp_enqueue_style('lumberjack/theme.css', Theme::mix('/styles/theme.css'), [], false);
