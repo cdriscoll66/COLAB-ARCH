@@ -29,6 +29,14 @@
     </script>
     {# End Marker.io Script #}
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133305007-4"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
+    gtag('config', 'UA-133305007-4');
+    </script>
     {{ function('wp_head') }}
 </head>
