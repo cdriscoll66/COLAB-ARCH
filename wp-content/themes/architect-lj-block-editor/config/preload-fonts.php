@@ -4,7 +4,7 @@ function fontpreload()
 {
 ?>
 
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" as="font" crossorigin="anonymous">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700" as="font" display="swap" crossorigin="anonymous">
     <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="font" crossorigin="anonymous">
 
 <?php
