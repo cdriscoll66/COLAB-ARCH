@@ -6,8 +6,8 @@
  * @link https://stackoverflow.com/questions/44827134/wordpress-script-with-integrity-and-crossorigin
  */
 add_filter('script_loader_tag', function ($tag, $handle, $src) {
-    $defer = ['jquery'];
-    $async = ['jquery', 'gform_recaptcha'];
+    $defer = ['jquery-core', 'jquery-migrate', 'lumberjack/theme.js'];
+    $async = ['gform_recaptcha'];
     $crossorigin = [
         'font-awesome' => 'crossorigin="anonymous"',
     ];
