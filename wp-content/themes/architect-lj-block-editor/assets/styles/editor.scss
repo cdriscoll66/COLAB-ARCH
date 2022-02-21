@@ -20,7 +20,6 @@
 @import 'theme/components/a-pricing-item';
 
 
-@import 'theme/utility_classes';
 
 
 :root {
@@ -43,6 +42,10 @@
 /** Theme Molecules */
 
 /** Theme Organisms */
+
+
+@import 'theme/utility_classes';
+
 
 /** WordPress Blocks */
 
