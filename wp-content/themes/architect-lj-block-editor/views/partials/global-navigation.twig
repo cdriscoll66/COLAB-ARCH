@@ -1,7 +1,11 @@
     <ul>
         {% for item in main_menu.items %}
             <li class="{{ item.classes|join(' ') }}">
-                <a href="{{ item.link }}">{{ item.title }}</a>
+                {% if 'no-nav-link' in item.classes %}
+                    <a href="#">{{ item.title }}</a>
+                {% else %}
+                    <a href="{{ item.link }}">{{ item.title }}</a>
+                {% endif %}
                 {% if item.children %}
                     <div class="o-menu__subnav">
                         <ul class="o-menu__subnav-inner">
