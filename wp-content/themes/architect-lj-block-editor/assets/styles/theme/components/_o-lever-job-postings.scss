@@ -18,3 +18,9 @@ li.lever-job {
         text-decoration: none;
     }
 }
+
+// temporary remote status on all posts
+
+li.lever-job:after {
+    content: " - Remote";
+}
