@@ -4,8 +4,8 @@ namespace App\PostTypes;
 
 use Rareloop\Lumberjack\Page as LumberjackPage;
 
-use App\Traits\Excerpt;
-use App\Traits\Title;
+use App\Helpers\Traits\Excerpt;
+use App\Helpers\Traits\Title;
 
 class Page extends LumberjackPage
 {

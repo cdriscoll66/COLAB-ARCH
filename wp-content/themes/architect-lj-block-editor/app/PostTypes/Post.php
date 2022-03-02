@@ -4,8 +4,8 @@ namespace App\PostTypes;
 
 use Rareloop\Lumberjack\Post as LumberjackPost;
 
-use App\Traits\Excerpt;
-use App\Traits\Title;
+use App\Helpers\Traits\Excerpt;
+use App\Helpers\Traits\Title;
 
 // class Post extends TimberPost
 class Post extends LumberjackPost

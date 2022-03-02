@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Rareloop\Lumberjack\Http\Responses\TimberResponse;
 use Timber\Timber;
 
-use App\Traits\ArchivePageContext;
+use App\Helpers\Traits\ArchivePageContext;
 
 class HomeController extends Controller
 {
