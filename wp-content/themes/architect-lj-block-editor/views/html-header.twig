@@ -35,7 +35,11 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
+    gtag('config', 'GA_MEASUREMENT_ID', {
+        'linker': {
+            'domains': ['architect.io', 'auth.architect.io', 'cloud.architect.io']
+            }
+        });
     gtag('config', 'UA-133305007-4');
     </script>
     {{ function('wp_head') }}
