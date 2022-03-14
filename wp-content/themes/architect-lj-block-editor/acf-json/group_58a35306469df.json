@@ -54,7 +54,7 @@
                         "id": ""
                     },
                     "display_format": "F j, Y g:i a",
-                    "return_format": "Y-m-dTG:i:sP",
+                    "return_format": "U",
                     "first_day": 0
                 },
                 {
@@ -71,7 +71,7 @@
                         "id": ""
                     },
                     "display_format": "F j, Y g:i a",
-                    "return_format": "Y-m-dTG:i:sP",
+                    "return_format": "U",
                     "first_day": 1
                 },
                 {
@@ -129,5 +129,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1646931820
+    "modified": 1647279802
 }
