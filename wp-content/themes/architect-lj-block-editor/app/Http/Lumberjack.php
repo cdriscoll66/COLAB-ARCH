@@ -26,6 +26,15 @@ class Lumberjack extends LumberjackCore
         $context['site_title'] = get_bloginfo('name');
         $context['prefooter_fields'] = get_field('prefooter_fields','options');
 
+        // Get alerts and set ID for each
+        $alerts = [];
+        if ($all_alerts = get_field('alerts', 'options')) {
+            foreach ($all_alerts as $alert) {
+                $alert['id'] = md5( $alert['text'].$alert['link']['title'].$alert['link']['url']);
+                array_push($alerts, $alert);
+            }
+        }
+        $context['alerts'] = $alerts;
 
         return $context;
     }

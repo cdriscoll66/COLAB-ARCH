@@ -1,0 +1,6 @@
+.o-alert-bar {
+    display: none;
+    @include media (tablet) {
+        display: block;
+    }
+}

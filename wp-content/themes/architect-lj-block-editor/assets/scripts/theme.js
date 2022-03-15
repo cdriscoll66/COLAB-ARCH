@@ -3,6 +3,7 @@ import accordion from "./theme/accordion";
 import buildSidebar from "./theme/buildSidebar";
 import drawer from "./theme/drawer";
 import scrollTransition from './theme/scroll-transition';
+import alertBar from './theme/alert-bar';
 
 document.addEventListener("DOMContentLoaded", function() {
     /** Address HTML & Body no-js Class */
@@ -30,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
     buildSidebar();
     accordion();
     scrollTransition();
+    alertBar();
 
 
     /** Theme Atoms */
