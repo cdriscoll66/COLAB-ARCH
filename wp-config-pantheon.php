@@ -88,3 +88,18 @@ if (getenv('WP_ENVIRONMENT_TYPE') === false) {
             break;
     }
 }
+
+
+/**
+ * Redirect Pantheon Live Environment To Custom Domain
+ *
+ * @link https://pantheon.io/docs/redirects/#redirect-to-a-common-domain
+ */
+if (php_sapi_name() !== 'cli' && $_SERVER['PANTHEON_ENVIRONMENT'] === 'live') :
+	$custom_domain = 'www.architect.io';
+
+	if ($_SERVER['HTTP_HOST'] !== $custom_domain) :
+		header('Location: ' . $scheme . '://' . $custom_domain . $_SERVER['REQUEST_URI'], true, 301);
+		exit();
+	endif;
+endif;
