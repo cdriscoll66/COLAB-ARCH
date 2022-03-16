@@ -9,7 +9,7 @@
                 <article class="m-post">
                     <h1 class="m-post__title"><a href="{{ post.link }}">{{ post.title }}</a></h1>
                     <p class="m-post__excerpt">{{ post.excerpt }}</p>
-                    <span class="m-post__meta">{{ post.author }} - {{ post.date }}</span>
+                    <span class="m-post__meta">{{ post.authorgroup|map(u => u.display_name)|join(', ') }} - {{ post.date }}</span>
                 </article>
             {% endfor %}
         {% else %}

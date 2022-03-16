@@ -4,7 +4,7 @@
     </section>
 
     <h1 class="o-post-header__title">{{ post.title }}</h1>
-    <span class="o-post-header__meta">{{ post.author }} - {{ post.date }}</span>
+    <span class="o-post-header__meta">{{ post.authorgroup|map(u => u.display_name)|join(', ') }} - {{ post.date }}</span>
     <nav class="o-post-header__social">
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <div class="addthis_inline_share_toolbox"></div>

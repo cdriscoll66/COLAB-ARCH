@@ -27,4 +27,9 @@ class Post extends LumberjackPost
     // public function category () {
     //     return self::primaryTermObject('category', $this->id);
     // }
+
+    public function authorgroup () {
+        $authorgroup = get_coauthors($this->ID);
+        return $authorgroup;
+    }
 }
