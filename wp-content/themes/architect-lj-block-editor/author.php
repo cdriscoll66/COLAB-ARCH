@@ -12,22 +12,46 @@ use Rareloop\Lumberjack\Post;
 use Timber\Timber;
 use Timber\User as TimberUser;
 
+use App\Helpers\Traits\ArchivePageContext;
+
 class AuthorController extends Controller
 {
+    use ArchivePageContext;
+
     public function handle()
     {
         global $wp_query;
+        global $paged;
 
-        $data = Timber::get_context();
+
+        $context = Timber::get_context();
         $author = new TimberUser($wp_query->query_vars['author']);
 
-        $data['author'] = $author;
-        $data['title'] = 'Author Archives: ' . $author->name();
 
-        $data['posts'] = Post::query([
-            'author' => $author->ID
+        $context['author'] = $author;
+        $context['title'] = 'Author Archives: ' . $author->name();
+
+        $context['posts'] = Post::query([
+            'author' => '$author->ID'
         ]);
 
-        return new TimberResponse('templates/posts.twig', $data);
+        $context['paged'] = $paged;
+
+        $context['posts'] = collect($context['posts'])->map(function ($post) {
+            return new \App\PostTypes\Post($post);
+        });
+
+        $context['pagination'] = get_posts_nav_link([
+            'sep'      => '',
+            'prelabel' => __( 'Newer Posts' ),
+            'nxtlabel' => __( 'Older Posts' ),
+        ]);
+
+        $context['pagination'] = [];
+        $context['pagination']['prev'] = get_previous_posts_link('Newer posts');
+        $context['pagination']['next'] = get_next_posts_link('Older posts');
+
+
+        return new TimberResponse('templates/posts.twig', $context);
     }
 }
