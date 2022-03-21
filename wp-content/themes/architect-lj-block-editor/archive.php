@@ -11,35 +11,60 @@
 
 namespace App;
 
+
+
 use App\Http\Controllers\Controller;
 use Rareloop\Lumberjack\Http\Responses\TimberResponse;
-use Rareloop\Lumberjack\Post;
 use Timber\Timber;
 
+use App\Helpers\Traits\ArchivePageContext;
 class ArchiveController extends Controller
 {
+
+    use ArchivePageContext;
+
+
     public function handle()
     {
-        $data = Timber::get_context();
-        $data['title'] = 'Archive';
+        global $paged;
+        $context = Timber::get_context();
+        $context['title'] = 'Archive';
 
         if (is_day()) {
-            $data['title'] = 'Archive: ' . get_the_date('D M Y');
+            $context['title'] = 'Archive: ' . get_the_date('D M Y');
         } elseif (is_month()) {
-            $data['title'] = 'Archive: ' . get_the_date('M Y');
+            $context['title'] = 'Archive: ' . get_the_date('M Y');
         } elseif (is_year()) {
-            $data['title'] = 'Archive: ' . get_the_date('Y');
+            $context['title'] = 'Archive: ' . get_the_date('Y');
         } elseif (is_tag()) {
-            $data['title'] = single_tag_title('', false);
+            $context['title'] = single_tag_title('', false);
         } elseif (is_category()) {
-            $data['title'] = single_cat_title('', false);
+            $context['title'] = single_cat_title('', false);
         } elseif (is_post_type_archive()) {
-            $data['title'] = post_type_archive_title('', false);
+            $context['title'] = post_type_archive_title('', false);
         }
 
-        // TODO: Currently only works for posts, fix for custom post types
-        $data['posts'] = Post::query();
 
-        return new TimberResponse('templates/posts.twig', $data);
+        $context = Timber::get_context();
+        // $context = $this->getArchivePageContext($context);
+
+        $context['paged'] = $paged;
+
+        $context['posts'] = collect($context['posts'])->map(function ($post) {
+            return new \App\PostTypes\Post($post);
+        });
+
+        $context['pagination'] = get_posts_nav_link([
+            'sep'      => '',
+            'prelabel' => __( 'Newer Posts' ),
+            'nxtlabel' => __( 'Older Posts' ),
+        ]);
+
+        $context['pagination'] = [];
+        $context['pagination']['prev'] = get_previous_posts_link('Newer posts');
+        $context['pagination']['next'] = get_next_posts_link('Older posts');
+
+
+        return new TimberResponse('templates/posts.twig', $context);
     }
 }
