@@ -30,6 +30,8 @@ class ArchiveController extends Controller
         $context = Timber::get_context();
         $context['title'] = 'Archive';
 
+
+
         if (is_day()) {
             $context['title'] = 'Archive: ' . get_the_date('D M Y');
         } elseif (is_month()) {
@@ -45,7 +47,6 @@ class ArchiveController extends Controller
         }
 
 
-        $context = Timber::get_context();
         // $context = $this->getArchivePageContext($context);
 
         $context['paged'] = $paged;
@@ -63,7 +64,6 @@ class ArchiveController extends Controller
         $context['pagination'] = [];
         $context['pagination']['prev'] = get_previous_posts_link('Newer posts');
         $context['pagination']['next'] = get_next_posts_link('Older posts');
-
 
         return new TimberResponse('templates/posts.twig', $context);
     }
