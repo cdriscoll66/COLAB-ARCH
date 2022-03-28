@@ -1,28 +1,25 @@
 {% extends "base.twig" %}
 
 {% block content %}
-    <main>
-        <h1>{{ title }}</h1>
 
-        <div class="typography">
-            {{ content|raw }}
-        </div>
+    <main class="main entry-content">
 
-        {% if posts|length > 0 %}
-            <ul class="posts">
-                {% for post in posts %}
-                    <li class="posts__item">
-                        <article class="post">
-                            <h1><a href="{{ post.link }}">{{ post.title }}</a></h1>
-                            <div>
-                                {{ post.excerpt }}
-                            </div>
-                        </article>
-                    </li>
-                {% endfor %}
-            </ul>
+        <div class="wp-block-group alignfull is-style-p-lg-section has-background" style="background:linear-gradient(0deg,rgba(255,255,255,0.2) 0%,rgba(153,229,197,0.2) 50%,rgba(0,190,111,0.2) 100%)"><div class="wp-block-group__inner-container">
+            <h1 class="has-text-align-center">{{ title }}</h1>
+        </div></div>
+
+         {% if posts|length > 0 %}
+            {% for post in posts %}
+                <article class="m-post">
+                    <h1 class="m-post__title"><a href="{{ post.link }}">{{ post.title }}</a></h1>
+                    <p class="m-post__excerpt">{{ post.excerpt }}</p>
+                    <span class="m-post__meta">{{ post.authorgroup|map(u => u.display_name)|join(', ') }} - {{ post.date }}</span>
+                </article>
+            {% endfor %}
         {% else %}
             <p>No results found.</p>
         {% endif %}
+
+        {% include "partials/pagination.twig" %}
     </main>
 {% endblock %}
