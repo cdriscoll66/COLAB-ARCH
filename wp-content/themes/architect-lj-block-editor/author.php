@@ -25,15 +25,26 @@ class AuthorController extends Controller
 
 
         $context = Timber::get_context();
-        $author = new TimberUser($wp_query->query_vars['author']);
 
 
-        $context['author'] = $author;
-        $context['title'] = 'Author Archives: ' . $author->name();
+        $authortype = $wp_query->queried_object->type;
 
-        $context['posts'] = Post::query([
-            'author' => '$author->ID'
-        ]);
+        if ($authortype === 'guest-author') {
+            $author = ($wp_query->queried_object);
+
+            $context['title'] = 'Author Archives: ' . $author->display_name;
+
+        } else {
+            $author = new TimberUser($wp_query->query_vars['author']);
+
+            $context['author'] = $author;
+            $context['title'] = 'Author Archives: ' . $author->name();
+
+
+            $context['posts'] = Post::query([
+                'author' => '$author->ID'
+            ]);
+        }
 
         $context['paged'] = $paged;
 
@@ -43,8 +54,8 @@ class AuthorController extends Controller
 
         $context['pagination'] = get_posts_nav_link([
             'sep'      => '',
-            'prelabel' => __( 'Newer Posts' ),
-            'nxtlabel' => __( 'Older Posts' ),
+            'prelabel' => __('Newer Posts'),
+            'nxtlabel' => __('Older Posts'),
         ]);
 
         $context['pagination'] = [];
