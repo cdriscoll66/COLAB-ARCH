@@ -28,8 +28,34 @@ class Post extends LumberjackPost
     //     return self::primaryTermObject('category', $this->id);
     // }
 
-    public function authorgroup () {
+    public function authorgroup()
+    {
         $authorgroup = get_coauthors($this->ID);
-        return $authorgroup;
+        $authorlinks = '';
+        foreach($authorgroup as $i => $author ) {
+
+            $authorlink = '';
+
+
+            if (count($authorgroup) > 1) {
+            if ($i === array_key_last($authorgroup)) {
+                $authorlink .= ' and ';
+                }
+            elseif ($i !== array_key_first($authorgroup) ) {
+                $authorlink .= ', ';
+                }
+            }
+
+            $authorlink .= '<a href="';
+            $authorlink .= get_author_posts_url($author->ID);
+            $authorlink .= '">';
+            $authorlink .= $author->user_nicename;
+            $authorlink .= '</a>';
+
+            $authorlinks .= $authorlink;
+        }
+
+        return $authorlinks;
     }
+
 }
