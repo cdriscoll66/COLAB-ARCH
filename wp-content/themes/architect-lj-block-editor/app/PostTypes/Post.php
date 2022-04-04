@@ -46,8 +46,8 @@ class Post extends LumberjackPost
                 }
             }
 
-            $authorlink .= '<a href="/blog/author/';
-            $authorlink .= $author->user_login;
+            $authorlink .= '<a href="';
+            $authorlink .= get_author_posts_url($author->ID);
             $authorlink .= '">';
             $authorlink .= $author->user_nicename;
             $authorlink .= '</a>';
