@@ -26,25 +26,9 @@ class AuthorController extends Controller
 
         $context = Timber::get_context();
 
+        $author = ($wp_query->queried_object);
 
-        $authortype = $wp_query->queried_object->type;
-
-        if ($authortype === 'guest-author') {
-            $author = ($wp_query->queried_object);
-
-            $context['title'] = 'Author Archives: ' . $author->display_name;
-
-        } else {
-            $author = new TimberUser($wp_query->query_vars['author']);
-
-            $context['author'] = $author;
-            $context['title'] = 'Author Archives: ' . $author->name();
-
-
-            $context['posts'] = Post::query([
-                'author' => '$author->ID'
-            ]);
-        }
+        $context['title'] = 'Author Archives: ' . $author->display_name;
 
         $context['paged'] = $paged;
 
