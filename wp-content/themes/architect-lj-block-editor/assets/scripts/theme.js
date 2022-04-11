@@ -4,6 +4,7 @@ import buildSidebar from "./theme/buildSidebar";
 import drawer from "./theme/drawer";
 import scrollTransition from './theme/scroll-transition';
 import alertBar from './theme/alert-bar';
+import passiveListener from './theme/passive-listener';
 
 document.addEventListener("DOMContentLoaded", function() {
     /** Address HTML & Body no-js Class */
@@ -32,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     accordion();
     scrollTransition();
     alertBar();
+    passiveListener();
 
 
     /** Theme Atoms */
