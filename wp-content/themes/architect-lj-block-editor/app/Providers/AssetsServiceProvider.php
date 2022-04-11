@@ -29,6 +29,7 @@ class AssetsServiceProvider extends ServiceProvider
             wp_enqueue_script('lumberjack/theme.js', Theme::mix('/scripts/theme.js'), ['jquery'], false, true);
 
             // global $post;
+            wp_dequeue_style('enlighterjs');
 
 
             // $blocks = parse_blocks( $post->post_content );

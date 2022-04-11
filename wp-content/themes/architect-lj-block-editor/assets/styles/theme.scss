@@ -1,5 +1,6 @@
 @import '~@material/drawer/dist/mdc.drawer.min';
 @import '~@material/list/dist/mdc.list.min';
+@import 'theme/enlighter';
 
 @import '~flickity/dist/flickity';
 
@@ -42,6 +43,7 @@
 @import 'theme/templates/blog-single';
 
 /** Utility Classes */
+
 @import 'theme/utility_classes';
 
 
