@@ -92,18 +92,25 @@ footer {
     box-sizing: border-box;
     justify-content: space-around;
     @include media(tablet) {
-        justify-content: flex-start;
+        justify-content: space-between;
     }
 }
 
 .o-footer__nav--col {
     flex-grow: 0;
-    max-width: 20%;
-    flex-basis: 20%;
+    @media only screen and (min-width:$default_width){
+        flex-basis: 20%;
+        &:nth-child(2) {
+            flex-basis: 30%;
+        }
+        &:nth-child(3), &:nth-child(4) {
+            flex-basis: 15%;
+        }
+    }
 }
 .o-footer__nav--mobile-hidden {
     display: none;
-    @include media(tablet) {
+    @media only screen and (min-width: $default_width) {
         display: block;
     }
 }
@@ -130,6 +137,7 @@ footer {
     color: var(--global--color-white-65);
     text-align: center;
     width: 100%;
+    margin-top: 20px;
     a {
         text-decoration: none;
     }
