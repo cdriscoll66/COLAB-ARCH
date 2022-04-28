@@ -6,7 +6,7 @@
  * @link https://stackoverflow.com/questions/44827134/wordpress-script-with-integrity-and-crossorigin
  */
 add_filter('script_loader_tag', function ($tag, $handle, $src) {
-    $defer = ['jquery-migrate', 'lumberjack/theme.js'];
+    $defer = ['jquery-core', 'jquery-migrate', 'lumberjack/theme.js'];
     $async = ['gform_recaptcha'];
     $crossorigin = [
         'font-awesome' => 'crossorigin="anonymous"',
@@ -15,7 +15,7 @@ add_filter('script_loader_tag', function ($tag, $handle, $src) {
     // if ($handle === 'handlename') :
     //     $tag = '<script type="text/javascript" src="' . esc_url( $src ) . '" id="dropboxjs" data-app-key="MY_APP_KEY"></script>';
     // endif;
-
+ if(!is_admin()) {
     if (in_array($handle, $defer)) :
         $tag = str_replace(' id', ' defer id', $tag);
     endif;
@@ -27,6 +27,7 @@ add_filter('script_loader_tag', function ($tag, $handle, $src) {
     if (array_key_exists($handle, $crossorigin)) :
         $tag = str_replace(' id', sprintf(' %s id', $crossorigin[$handle]), $tag);
     endif;
+}
 
     return $tag;
 }, 10, 3);
