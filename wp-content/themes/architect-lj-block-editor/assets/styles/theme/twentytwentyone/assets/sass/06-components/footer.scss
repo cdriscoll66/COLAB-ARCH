@@ -79,6 +79,13 @@ footer {
     }
 }
 
+.o-footer__prefooter--title {
+    text-align: center;
+    @include media(desktop) {
+        text-align: left;
+        }
+}
+
 .o-footer__prefooter--list > p {
     font-size: 1.1rem;
     @include media(mobile) {
