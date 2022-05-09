@@ -377,6 +377,13 @@ fieldset {
             list-style: none;
             width: 0;
             padding: 0;
+            li {
+                position: absolute;
+                width: 200px;
+                right: -30px;
+                top: 30px;
+                line-height: 1;
+            }
         }
         .input input.hs-input {
             border-radius: 4px 0 0 4px;

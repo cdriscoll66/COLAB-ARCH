@@ -66,8 +66,10 @@ footer {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    @include media(tablet) {
+    align-items: center;
+    @include media(desktop) {
         flex-basis: 33.3%;
+        align-items: flex-start;
     }
 }
 .o-footer__prefooter--form {
