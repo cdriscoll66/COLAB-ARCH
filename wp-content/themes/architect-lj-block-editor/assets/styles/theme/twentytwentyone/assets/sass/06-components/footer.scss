@@ -72,6 +72,9 @@ footer {
 }
 .o-footer__prefooter--form {
     align-items: center;
+    & .o-footer__prefooter--list {
+        margin-bottom: 20px;
+    }
 }
 
 .o-footer__prefooter--list > p {
