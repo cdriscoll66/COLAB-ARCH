@@ -360,30 +360,23 @@ fieldset {
 
     //exception styling for the inline newsletter form.
     .o-footer__prefooter & {
-        display: inline-flex;
-        form.hs-form {
-            display: flex;
-        }
-        .hs-form-field {
-            display: flex;
+        .hs-form {
+            display: inline-flex;
             align-items: center;
         }
+        .hs-form-field {
+            position: relative;
+            margin-bottom: 0;
+            label {
+                display: none;
+            }
+        }
+
         ul.inputs-list {
             position: relative;
             list-style: none;
             width: 0;
             padding: 0;
-            li {
-                position: absolute;
-                width: 260px;
-                right: 0;
-                display: flex;
-                justify-content: flex-end;
-                top: 30px;
-                label {
-                    font-size: 12px;
-                }
-            }
         }
         .input input.hs-input {
             border-radius: 4px 0 0 4px;

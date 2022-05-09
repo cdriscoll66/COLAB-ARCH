@@ -1,7 +1,7 @@
 .prefooter-fade {
-width:100%;
-height: 240px;
-background:$gradient-transparent-to-green;
+    width: 100%;
+    height: 240px;
+    background: $gradient-transparent-to-green;
 }
 
 footer {
@@ -26,9 +26,10 @@ footer {
     border-radius: 20px;
     margin-bottom: 80px;
     display: flex;
-    flex-flow: wrap;
+    flex-flow: row wrap;
     box-sizing: border-box;
-    align-items: center;
+    align-items: space-between;
+    padding: 64px;
 }
 
 .o-footer__prefooter--grid5 {
@@ -60,10 +61,23 @@ footer {
     }
 }
 
+.o-footer__prefooter--grid4 {
+    flex-basis: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    @include media(tablet) {
+        flex-basis: 33.3%;
+    }
+}
+.o-footer__prefooter--form {
+    align-items: center;
+}
+
 .o-footer__prefooter--list > p {
     font-size: 1.1rem;
-    @include media(mobile){
-    font-size: 1.3rem;
+    @include media(mobile) {
+        font-size: 1.3rem;
     }
     line-height: 1.25;
     margin: 1rem 0;
