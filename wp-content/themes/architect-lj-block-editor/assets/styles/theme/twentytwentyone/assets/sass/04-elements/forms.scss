@@ -392,4 +392,8 @@ fieldset {
             }
         }
     }
+
+    ul.hs-error-msgs {
+        color: var(--global--color-red-error);
+    }
 }
