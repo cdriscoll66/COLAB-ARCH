@@ -1,5 +1,5 @@
 <div class="o-footer__prefooter">
-  <div class="o-footer__prefooter--grid5">
+  <div class="o-footer__prefooter--grid4">
     <span class="o-footer__prefooter--overline overline">
       {{ prefooter_fields.overline }}
     </span>
@@ -7,11 +7,17 @@
       {{ prefooter_fields.headline }}
     </h2>
   </div>
-  <div class="o-footer__prefooter--grid7">
+  <div class="o-footer__prefooter--grid4">
     <div class="o-footer__prefooter--list">
       {% for item in prefooter_fields.link_list %}
         {{ item.list_item }}
       {% endfor %}
     </div>
+  </div>
+  <div class="o-footer__prefooter--grid4 o-footer__prefooter--form">
+  <div class="o-footer__prefooter--list">
+  <p>Sign up for our newsletter:</p>
+  </div>
+  <!-- [if lte IE 8]><script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script><![endif]--><script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script><script>  hbspt.forms.create({ region: "na1", portalId: "4933347", formId: "49ced320-19e3-4ece-9446-ecdb489ac61b"});</script>
   </div>
 </div>
