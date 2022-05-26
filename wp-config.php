@@ -14,6 +14,10 @@
 if (file_exists(dirname(__FILE__) . '/wp-config-pantheon.php') && isset($_ENV['PANTHEON_ENVIRONMENT'])) {
 	require_once(dirname(__FILE__) . '/wp-config-pantheon.php');
 
+	if (file_exists(dirname(__FILE__) . '/wp-config-colab.php')) {
+		require_once(dirname(__FILE__) . '/wp-config-colab.php');
+	}
+
 /**
  * Local configuration information.
  *
@@ -70,7 +74,7 @@ $table_prefix = 'wp_';
  * "true" in dev, but false in test and live.
  */
 if ( ! defined( 'WP_DEBUG' ) ) {
-	define('WP_DEBUG', true);
+	define('WP_DEBUG', false);
 }
 
 /* That's all, stop editing! Happy Pressing. */
