@@ -66,15 +66,24 @@ footer {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    @include media(tablet) {
+    align-items: center;
+    @include media(desktop) {
         flex-basis: 33.3%;
+        align-items: flex-start;
     }
 }
 .o-footer__prefooter--form {
     align-items: center;
     & .o-footer__prefooter--list {
-        margin-bottom: 20px;
+        margin-bottom: 0;
     }
+}
+
+.o-footer__prefooter--title {
+    text-align: center;
+    @include media(desktop) {
+        text-align: left;
+        }
 }
 
 .o-footer__prefooter--list > p {
