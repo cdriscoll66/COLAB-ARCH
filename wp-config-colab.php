@@ -21,7 +21,7 @@ if (php_sapi_name() !== 'cli' && in_array($_ENV['PANTHEON_ENVIRONMENT'], [
     'release',
 ], true)) :
     define('WP_DEBUG',         true);
-    define('WP_DEBUG_LOG',     true);
+    define('WP_DEBUG_LOG',     false);
     define('WP_DEBUG_DISPLAY', false);
 else :
     define('WP_DEBUG',         true);
