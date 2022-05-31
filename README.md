@@ -50,71 +50,10 @@ This site uses Lando for containerization and Laravel Mix/Gulp/Grunt for builds.
 
 A production build should always be run before styles and scripts are committed to a repo.
 
-These commands should be configured to run an `npm install` before it tries to compile. Check the `.lando.yml` for project specific configuration.
+## Branches
 
-- Run `lando prod`, production build of assets
-- Run `lando watch`, developnent build of assets, watch for file changes and continuously compile<br>
+The `default` branch of this repository is where PRs are merged, and has [CI](https://github.com/pantheon-systems/WordPress/tree/default/.circleci) that copies `default` to `master` after removing the CI directories. This allows customers to clone from `master` and implement their own CI without needing to worry about potential merge conflicts.
 
-## Functionality
-**Descriptions of project specific functionality with appropriate links to templates/documents/files/etc.**
+## Custom Upstreams
 
-### Business Critical
-**What will stop business if this feature is not working**
-
- -
- - Links to offsite client login (https://www.architect.io/wp-login)
-
- - (https://www.architect.io/): Homepage and information
- - (https://www.architect.io/docs): Documentation
- - (https://www.architect.io/contact-us): Lead Tool
-
-
-### Other Functionality
-**What were the custom things that are likely to break on modification/updates**
-
-- [MaterialDesignPieces]: The Original site was built in Gatsby using material Design. Many of the MATD libraries are imported to mimic the behavior. 
-- [Documentation](https://www.architect.io/docs/): Documentation System
-- [Customblocks](https://www.architect.io/): This site will be built using Custom blocks built in react. 
-
-
-### Key Layouts
-**What are the key layouts**
-
- - [Home Page](https://www.architect.io/)
- - [Default Page](https://www.architect.io/pricing/)
- - [Post Archive](https://www.architect.io/blog/)
- - [Post Single](https://www.architect.io/blog/2021-09-02/feature-spotlight-ide-component-validation/)
-
-### 3rd Party Dependencies
- - ACF Pro
- - Admin Columns Pro
- - ShortPixel
- - Material Design
-
-#### Service Dependencies
- - RECAPTCHA
-
-#### Required Licenses
- - ACF Pro
- - Admin Columns Pro
- - Add This
- - ShortPixel
-
-## Key Documentation
-- https://docs.lumberjack.rareloop.com/
-- https://wordpress.org/
-
-### COLAB Project Related Documentation
-**Links to key COLAB project specific documentation**
-
-- [Strategic Road Map](https://www.example.com/)
-- [Backlog Epic](https://www.example.com/)
-- [Functional Spec](https://www.example.com/)
-- [Running Meeting Notes](https://www.example.com/)
-
-### Technologies Documentation
-**Links to key technologies documentation like hosting, special services, etc.**
-
-- [Platform README](https://pantheon.io/docs/)
-- [Lumberjack](https://docs.lumberjack.rareloop.com/)
-- [Jira](https://teamcolab.atlassian.net/jira/software/c/projects/ARCH01/boards/248)
+If you are using this repository as a starting point for a custom upstream, be sure to review the [documentation](https://pantheon.io/docs/create-custom-upstream#pull-in-core-from-pantheons-upstream) and pull the core files from the `master` branch.

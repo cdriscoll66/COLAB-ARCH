@@ -89,17 +89,14 @@ if (getenv('WP_ENVIRONMENT_TYPE') === false) {
     }
 }
 
-
 /**
- * Redirect Pantheon Live Environment To Custom Domain
+ * Defaults you may override
  *
- * @link https://pantheon.io/docs/redirects/#redirect-to-a-common-domain
+ * To override, define your constant in your wp-config.php before wp-config-pantheon.php is required.
  */
-if (php_sapi_name() !== 'cli' && $_SERVER['PANTHEON_ENVIRONMENT'] === 'live') :
-	$custom_domain = 'www.architect.io';
 
-	if ($_SERVER['HTTP_HOST'] !== $custom_domain) :
-		header('Location: ' . $scheme . '://' . $custom_domain . $_SERVER['REQUEST_URI'], true, 301);
-		exit();
-	endif;
-endif;
+/** Disable wp-cron.php from running on every page load and rely on Pantheon to run cron via wp-cli */
+$network = isset($_ENV["FRAMEWORK"]) && $_ENV["FRAMEWORK"] === "wordpress_network";
+if ( ! defined( 'DISABLE_WP_CRON' ) && $network === false) {
+	define( 'DISABLE_WP_CRON', true );
+}
