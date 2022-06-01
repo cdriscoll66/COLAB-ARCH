@@ -130,8 +130,10 @@
             }
 
             > :first-child {
-                padding-top: 1rem;
-                margin-bottom: -1rem;
+                .wp-block-cover__inner-container {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
             }
 
             p + p {
