@@ -48,7 +48,7 @@ class Post extends LumberjackPost
 
             $authorlink .= '<a href="/blog/author/';
             $authorlink .= strtolower($author->user_login);
-            $authorlink .= '">';
+            $authorlink .= '/">';
             $authorlink .= $author->display_name;
             $authorlink .= '</a>';
 
