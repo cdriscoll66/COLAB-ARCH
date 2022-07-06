@@ -6,15 +6,15 @@ body.login {
 
     a {
       text-decoration: underline;
-      color: var(--global--color-green-primary);
+      color: var(--global--color-blue-slate-primary);
 
       &:hover {
-        color: var(--global--color-green-hover);
+        color: var(--global--color-blue-slate-hover);
       }
 
       &:focus {
         // box-shadow: none;
-        color: var(--global--color-green-hover);
+        color: var(--global--color-blue-slate-hover);
       }
     }
   }

@@ -1,6 +1,6 @@
 .m-alert {
     position: relative;
-    background-color: var(--global--color-green-primary);
+    background-color: var(--global--color-blue-slate-primary);
     color: var(--global--color-white);
     text-align: center;
     padding: 10px 40px 15px;
@@ -10,7 +10,7 @@
         color: var(--global--color-white);
         &:hover,
         &:focus {
-            color: var(--global--color-green-hover);
+            color: var(--global--color-polo-blue);
             text-decoration: underline;
         }
     }

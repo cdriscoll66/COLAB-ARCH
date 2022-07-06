@@ -50,11 +50,11 @@
 
 		// Background-colors
 		&:not(.has-background) {
-			background-color: var(--global--color-green-primary);
+			background-color: var(--global--color-blue-slate-primary);
 
 			// Nested
 			.has-background & {
-				background-color: var(--local--color-primary, var(--global--color-green-primary));
+				background-color: var(--local--color-primary, var(--global--color-blue-slate-primary));
 			}
 		}
 	}
@@ -62,7 +62,7 @@
 	// Hover Button color should match parent element foreground color
 	&:hover,
 	&:active {
-		background-color: var(--global--color-green-hover);
+		background-color: var(--global--color-blue-slate-hover);
 		border-color: currentColor;
 		color: var(--global--color-white);
 	}
