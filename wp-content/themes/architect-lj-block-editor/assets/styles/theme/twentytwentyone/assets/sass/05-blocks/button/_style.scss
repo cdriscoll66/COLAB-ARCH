@@ -62,7 +62,7 @@ input[type="reset"],
                 0px 4px 5px 0px rgb(0 0 0 / 14%),
                 0px 1px 10px 0px rgb(0 0 0 / 12%);
             &:not(.has-background) {
-                background-color: var(--global--color-green-hover);
+                background-color: var(--global--color-blue-slate-hover);
                 color: var(--global--color-white);
 
                 // Nested
@@ -88,7 +88,7 @@ input[type="reset"],
         .wp-block-button__link {
             border-width: 1px;
             border-style: solid;
-            border-color: rgba(44, 168, 94, 0.5);
+            border-color: rgba(34, 85, 96, 0.5);
             transition: all .3s;
 
             &:not(:hover):not(:active) {
@@ -100,7 +100,7 @@ input[type="reset"],
             &:active {
                 border-color: var(--global--color-secondary);
                 background-color: rgba(44, 168, 94, 0.04)!important;
-                color: var(--global--color-green-primary);
+                color: var(--global--color-blue-slate-primary);
                 text-decoration: underline;
             }
         }
@@ -166,7 +166,7 @@ input[type="reset"],
             }
         }
         .wp-block-button__link:focus {
-            background-color: rgba(44, 168, 94, 0.04) !important;
+            background-color: rgba(34, 85, 96, 0.04) !important;
         }
     }
     // Arrow Style
@@ -186,13 +186,13 @@ input[type="reset"],
         .wp-block-button__link:not(:hover):not(:active) {
             // Text colors
             &:not(.has-text-color) {
-                color: var(--global--color-green-primary);
+                color: var(--global--color-blue-slate-primary);
 
                 // Nested
                 .has-background & {
                     color: var(
                         --local--color-primary,
-                        var(--global--color-green-primary)
+                        var(--global--color-blue-slate-primary)
                     );
                 }
             }
@@ -214,8 +214,8 @@ input[type="reset"],
         .wp-block-button__link:hover,
         .wp-block-button__link:active {
             box-shadow: none;
-            background-color: rgba(44, 168, 94, 0.04) !important;
-            color: var(--global--color-green-primary) !important;
+            background-color: rgba(34, 85, 96, 0.04) !important;
+            color: var(--global--color-blue-slate-primary) !important;
             text-decoration: underline;
 
             .has-background & {
@@ -237,7 +237,7 @@ input[type="reset"],
             }
         }
         .wp-block-button__link:focus {
-            background-color: rgba(44, 168, 94, 0.04) !important;
+            background-color: rgba(34, 85, 96, 0.04) !important;
         }
     }
 }

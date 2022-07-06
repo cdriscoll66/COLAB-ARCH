@@ -12,9 +12,10 @@ li.lever-job {
 }
 
 .lever-job-apply {
-    color: var(--global--color-green-primary);
+    color: var(--global--color-blue-slate-primary);
+
     &:hover {
-        color: var(--global--color-green-hover);
+        color: var(--global--color-blue-slate-hover);
         text-decoration: none;
     }
 }

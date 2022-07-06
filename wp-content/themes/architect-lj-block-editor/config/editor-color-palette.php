@@ -19,6 +19,21 @@
  */
 add_theme_support('editor-color-palette', [
     [
+        'name' => esc_attr__('Blue Slate Primary', 'colab'),
+        'slug' => 'blue-slate-primary',
+        'color' => '#225560',
+    ],
+    [
+        'name' => esc_attr__('Polo Blue', 'colab'),
+        'slug' => 'polo-blue',
+        'color' => '#D7E9F2',
+    ],
+    [
+        'name' => esc_attr__('Sunflower', 'colab'),
+        'slug' => 'sunflower',
+        'color' => '#FDF07F',
+    ],
+    [
         'name' => esc_attr__('Green Primary', 'colab'),
         'slug' => 'green-primary',
         'color' => '#2CA85E',
