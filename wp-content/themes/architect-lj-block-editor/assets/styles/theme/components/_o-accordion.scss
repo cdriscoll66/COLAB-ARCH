@@ -14,7 +14,7 @@
             &.open {
                 .wp-block-column {
                     &:first-of-type {
-                        border-color: #2ca85e;
+                        border-color: $color-blue-slate-primary;
                         width: 100%;
                         transition: all 0.2s ease-in;
                         max-height: 230px;
