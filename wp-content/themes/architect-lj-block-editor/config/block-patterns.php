@@ -177,8 +177,8 @@ register_block_pattern('custom/curved-header', [
     'title' => __('Curved Page Header', 'colab'),
     'description' => _x('Curved Page Header Block Pattern (like the Pricing page)', 'Block pattern description', 'colab'),
     'content' => '
-        <!-- wp:group {"align":"full","style":{"color":{"gradient":"linear-gradient(226deg,rgba(0,155,141,0.16) 0%,rgba(0,192,109,0.11) 100%)"}},"className":"is-style-p-lg-section"} -->
-        <div class="wp-block-group alignfull is-style-p-lg-section has-background" style="background:linear-gradient(226deg,rgba(0,155,141,0.16) 0%,rgba(0,192,109,0.11) 100%)"><!-- wp:heading {"textAlign":"center","level":1} -->
+        <!-- wp:group {"align":"full","style":{"color":{"gradient":"linear-gradient(226deg,rgba(0,155,141,0.16) 0%,rgba(34,85,96,0.11) 100%)"}},"className":"is-style-p-lg-section"} -->
+        <div class="wp-block-group alignfull is-style-p-lg-section has-background" style="background:linear-gradient(226deg,rgba(0,155,141,0.16) 0%,rgba(34,85,96,0.11) 100%)"><!-- wp:heading {"textAlign":"center","level":1} -->
         <h1 class="has-text-align-center">[Headline Goes Here]</h1>
         <!-- /wp:heading -->
 
