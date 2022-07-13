@@ -49,19 +49,21 @@ namespace ShortPixel\ShortPixelLogger;
       $ns = __NAMESPACE__;
       $this->namespace = substr($ns, 0, strpos($ns, '\\')); // try to get first part of namespace
 
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended  -- This is not a form
       if (isset($_REQUEST['SHORTPIXEL_DEBUG'])) // manual takes precedence over constants
       {
         $this->is_manual_request = true;
         $this->is_active = true;
 
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended  -- This is not a form
         if ($_REQUEST['SHORTPIXEL_DEBUG'] === 'true')
         {
           $this->logLevel = DebugItem::LEVEL_INFO;
         }
         else {
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended  -- This is not a form
           $this->logLevel = intval($_REQUEST['SHORTPIXEL_DEBUG']);
         }
-
 
       }
       else if ( (defined('SHORTPIXEL_DEBUG') && SHORTPIXEL_DEBUG > 0) )
@@ -175,7 +177,7 @@ namespace ShortPixel\ShortPixelLogger;
    {
       $items = $debugItem->getForFormat();
       $items['time_passed'] =  round ( ($items['time'] - $this->start_time), 5);
-      $items['time'] =  date('Y-m-d H:i:s', $items['time'] );
+      $items['time'] =  date('Y-m-d H:i:s', (int) $items['time'] );
 
       if ( ($items['caller']) && is_array($items['caller']) && count($items['caller']) > 0)
       {
@@ -248,6 +250,11 @@ namespace ShortPixel\ShortPixelLogger;
      $level = DebugItem::LEVEL_WARN;
      $log = self::getInstance();
      $log->addLog($message, $level, $args);
+   }
+   // Alias, since it goes wrong so often.
+   public static function addWarning($message, $args = array())
+   {
+      self::addWarn($message, $args);
    }
    public static function addInfo($message, $args = array())
    {
@@ -333,15 +340,15 @@ namespace ShortPixel\ShortPixelLogger;
        $controller = $this;
 
        $template_path = __DIR__ . '/' . $this->template  . '.php';
-       
+      // var_dump( $template_path);
        if (file_exists($template_path))
        {
 
          include($template_path);
        }
        else {
-         self::addError("View $template could not be found in " . $template_path,
-         array('class' => get_class($this), 'req' => $_REQUEST));
+         self::addError("View $template for ShortPixelLogger could not be found in " . $template_path,
+         array('class' => get_class($this)));
        }
    }
 

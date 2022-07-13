@@ -1,10 +1,10 @@
 === ShortPixel Image Optimizer ===
 Contributors: ShortPixel
 Tags: convert webp, optimize images, image optimization, resize, compressor, image, avif, compression, optimize, image optimiser, image compression, compress pdf, compress jpg, compress png, performance, photography, smush, scale, pictures
-Requires at least: 4.2.0
-Tested up to: 5.9
+Requires at least: 4.8.0
+Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 4.22.9
+Stable tag: 5.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -260,7 +260,10 @@ the `$chunk` is the value ShortPixel chooses to use as number of selected record
 filters the array of paths of the images sent for backup and can be used to exclude certain paths/images/thumbs from being backed up, based on the image path. `$mainPath` is the path of the main image, while `$PATHs` is an array with all files to be backed up (including thumbnails);
 
 `apply_filters('shortpixel/settings/image_sizes', $sizes);`
-filters the array (`$sizes`) of image sizes which can be excluded from processing (displayed in the plugin Advanced settings).
+filters the array (`$sizes`) of image sizes which can be excluded from processing (displayed in the plugin Advanced settings);
+
+`apply_filters('shortpixel/api/request', $requestParameters, $item_id);`
+filters the parameters sent to the optimization API (through `$requestParameters`), described in detail here: <a href="https://shortpixel.com/api-docs" target="_blank">ShortPixel Reducer API</a>; `$item_id` contains the ID of the Media Library item, or the ID of the Custom Media item (when used). In short, this filter can be used to alter any parameters sent to the API, depending on the needs. For example, you can set different resize parameters for different post types, different compression levels, remove EXIF or not, covert WebP/AVIF, and basically any other parameter that is sent to the API for a specific image (together with all its thumbnails).
 
 In order to define custom thumbnails to be picked up by the optimization you have two options, both comma separated defines:
 
@@ -271,13 +274,8 @@ will handle custom thumbnails like image-100x100_tl.jpg;
  will handle custom thumbnails like image-uae-100x100.jpg;
 
 `define('SHORTPIXEL_USE_DOUBLE_WEBP_EXTENSION', true);`
-will tell the plugin to create double extensions for the WebP image counterparts, for example image.jpg.webp for image.jpg;
-
-`define("SHORTPIXEL_NOFLOCK", true);`
-don't use flock queue, only activate this when you have `flock()` denied errors on your installation;
-
-`define("SHORTPIXEL_EXPERIMENTAL_SECURICACHE", true);`
-adds timestamps to URLS, to prevent hitting the cache. Useful for persistent caches.
+`define('SHORTPIXEL_USE_DOUBLE_AVIF_EXTENSION', true);`
+will tell the plugin to create double extensions for the WebP/AVIF image counterparts, for example image.jpg.webp/image.jpg.avif for image.jpg;
 
 Hide the Cloudflare settings by defining these constants in wp-config.php:
 
@@ -288,14 +286,6 @@ Add HTTP basic authentication credentials by defining these constants in wp-conf
 
 `define('SHORTPIXEL_HTTP_AUTH_USER', 'user');`
 `define('SHORTPIXEL_HTTP_AUTH_PASSWORD', 'pass');`
-
-Hide the WSO banner in the settings by defining this constant in wp-config.php:
-
-`define('SHORTPIXEL_NO_BANNER', true);`
-
-Alternatively, you can use this filter in your theme's functions.php file:
-
-`add_filter('shortpixel/settings/no_banner', true);`
 
 == Screenshots ==
 
@@ -318,6 +308,96 @@ Alternatively, you can use this filter in your theme's functions.php file:
 9. Check other optimized images status - themes or other plugins' images. (Media>Other Media)
 
 == Changelog ==
+
+= 5.0.5 =
+Release date July 7th, 2022
+* Fix: in some cases the legacy optimization data was not migrated properly, resulting in backup-related errors;
+* Fix: added the possibility to redo the migration of the optimization data when the backups exist;
+* Fix: significantly reduced the number of queries when WP Offload Media is in use, as this was causing slowness in some cases;
+* Fix: the automatic processing now works correctly when using the block editor as well as on other pages where it was broken;
+* Fix: the unlisted thumbnails were not processed correctly and showed up as not optimized;
+* Fix: the integration with the Photo Engine and WP/LR Sync plugins works properly again;
+* Fix: the filter in the Media Library was making the image name go away;
+* Fix: changing the API Key now resets correctly the credits information;
+* Fix: removed a persistent notification about a potential insufficient quota;
+* Fix: the "Optimize now" button works correctly in Custom Media;
+* Fix: the "Extend quota" button works correctly in the Media Library;
+* Fix: other folders from the `wp-content/uplods` folder can now be added as Custom Media folders;
+* Fix: the size exclusions were not working as expected for thumbnails;
+* Fix: updated various pieces of code in accordance with the WordPress Coding Standards;
+* Tweak: the wait time between checking if there is anything to optimize has been lowered;
+* Tweak: added a `clear` function for WP-CLI, to clear the existing queue(s);
+* Language: 3 new string added, 0 updated, 0 fuzzed, and 7 obsoleted.
+
+= 5.0.4 =
+Release date June 22nd, 2022
+* Fix: some notifications could not be dismissed because of a jQuery error, kudos to @KZeni for the fix;
+* Fix: a JS typo was preventing certain actions from completing in the Media Library;
+* Fix: an error was showing up in the bulk when the legacy format date field was missing or incorrect;
+* Language: 0 new string added, 0 updated, 0 fuzzed, and 0 obsoleted.
+
+= 5.0.3 =
+Release date June 21st, 2022
+* Fix: the plugin now recognizes the offloaded WebP/AVIF files, when they are not also present anymore on the server;
+* Fix: in some cases, the bulk and manual optimization was stuck due to some errors related to the legacy optimization information;
+* Fix: when saving the settings, the credits quota and other API-related data will be sent to the API, for faster sync;
+* Fix: when having the backups turned off, a placeholder image was displayed instead of the original one;
+* Fix: an empty space was sometimes shown on some pages, as a result of some dismissed notifications;
+* Fix: various small fixes around the plugin processing engine, for increased speed and stability;
+* Fix: updated various pieces of code in accordance with the WordPress Coding Standards;
+* Language: 1 new string added, 0 updated, 0 fuzzed, and 0 obsoleted.
+
+= 5.0.2 =
+Release date June 16th, 2022
+* Fix: an uncaught error was fixed for the sites running without the `fileinfo` PHP extension that is needed by the plugin to get the mime type of the files;
+* Fix: the resize switch from the settings wasn't properly working;
+* Fix: a hidden modal in the dashboard was taking up a lot of empty space;
+* Fix: some popups in the settings were always getting triggered in WordPress versions 5.5 and below;
+* Fix: if the admin bar tooltip cannot load for any reason, let the JS processor continue its job;
+* Fix: advancing from step 2 of the bulk process was sometimes blocked;
+* Tweak: improved the notification text and updated the link around the legacy metadata migration;
+* Tweak: the legacy conversion notification is now hidden when out of credits;
+* Language: 0 new strings added, 3 updated, 0 fuzzed, and 0 obsoleted.
+
+= 5.0.1 =
+Release date June 14th, 2022
+* Fix: a fatal error showed up in some cases right after updating the plugin, which is now fixed;
+* Language: 0 new strings added, 0 updated, 0 fuzzed, and 0 obsoleted.
+
+= 5.0.0 =
+Release date June 14th, 2022
+
+We hope today is a lucky day because SPIO 5 is super cool, excellent, and faster. Now, bug-free! Just kidding :-) read on for the changelog and be kind to us in reporting issues. The dev team will be eternally grateful!
+* New: this is a major rewrite of the plugin, where all the processing engine has been completely changed, as well as other major parts of the plugin;
+* New: the optimization information is moved to custom tables in the database in order to avoid the situation when re-optimization occurs because ShortPixel optimization data was wiped;
+* New: the whole bulk processing has been reworked and streamlined into a very nice 4 steps process, with more details and clarity about what is going to be processed;
+* New: the JavaScript processor that is in charge of processing everything that needs to be optimized has been completely rewritten, adding more clarity and details;
+* New: added WP-CLI support for most of the operations that can be performed with the plugin; please check the knowledge base for more details;
+* New: due to the new bulk and JS processor, WebP and/or AVIF files can be generated without the need to re-optimize the whole Media Library;
+* New: added more features for Custom Media, such as Cloudflare integration, displaying the internal ID for easier tracking, checks for permissions when adding new folders, and other smaller fixes;
+* New: the settings were reorganized and refreshed, a Tools tab was added and tooltips are now available for an easier understanding of the functionalities;
+* New: Breaking Change! regex exclusions are now moved to their own type `regex-name` and `regex-path`; if you are using regex exclusions please check them in detail and adjust as necessary;
+* New: added the possibility for double AVIF extension that works in a similar manner to the double WebP extension;
+* Tweak: removed `Process in the front-end` option due to performance issues; the same effect can now be achieved with WP-CLI commands;
+* Tweak: Breaking Change! due to the code changes, some of the filters in version 4 are now deprecated; please check again your integrations if you used a filter in version 4;
+* Tweak: removed the integration with Cloudflare Global API Key for security reasons, please use the Cloudflare Token instead;
+* Fix: the image size is now updated correctly in the database (following the change in WordPress 6.0);
+* Fix: in some cases, when running out of credits, the PDF upload wasn't possible;
+* Fix: the optimized/unoptimized filter in Media Library works correctly now;
+* Fix: a confirmation message shows up again when saving settings;
+* Language: pretty much all strings were either added, updated, fuzzed, or obsoleted, therefore we didn't lose time in counting them; we hope you will understand.
+
+= 4.22.10 =
+Release date June 2nd, 2022
+* Fix: updated all `add_query_arg` and `remove_query_arg` functions for enhanced security;
+* Fix: in some cases, the offloading via WP Offload Media wasn't properly done when converting from PNG to JPG;
+* Fix: PDF files weren't offloaded via WP Offload Media  when running out of credits;
+* Fix: removed the backups folder calculation because it was making the settings page very slow in certain cases;
+* Fix: removed the consumed credits from the statistics tab, because it wasn't working correctly;
+* Fix: increased the default image resize options;
+* Fix: a potential fatal error on PHP 8 was corrected;
+* Tweak: added a new filter for the requests that are sent to the optimization API, documented above in the Developers section;
+* Language: 0 new strings added, 0 updated, 0 fuzzed, and 0 obsoleted.
 
 = 4.22.9 =
 Release date March 31st, 2022
@@ -401,171 +481,14 @@ Release date April 28th, 2021
 * Fix: fixes, additions, and tweaks to the plugin notifications system;
 * Language: 9 new strings added, 14 updated, 0 fuzzed, and 0 obsoleted.
 
-= 4.21.2 =
-
-Release date March 15th, 2021
-* New: added 2 new filters, one for the backup paths and one for the full list of image sizes displayed by the plugin in the Advanced settings;
-* Fix: png2jpg wouldn't update post_mime_type to image/jpeg when converting;
-* Fix: replaced Get_home_path in GetBackupDirectory to use our solution;
-* Fix: unlisted images were not working properly when adding an unlisted image after optimizing other unlisted images;
-* Fix: double WebP path files (e.g. filename.jpg.webp) will now be removed correctly when the original image is deleted;
-* Tweak: various updates to the readme file;
-* Language: 0 new strings added, 0 updated, 0 fuzzed, and 0 obsoleted.
-
-= 4.21.1 =
-
-Release date October 21st 2020
-* Fix: the spinning robot head on wp-admin pages was never stopping, sorry for that;
-* Language: 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.21.0 =
-
-Release date October 20th 2020
-* New: Plugin update notification system for future major versions;
-* Tweak: the plugin will not log manually when not logged in as administrator;
-* Fix: the plugin was incorrectly assuming the scheme for offloaded media files/backups;
-* Fix: in some situations the WebP file links weren't correct on some specific multisite installs;
-* Fix: WebP to Picture function also removes invalid lazy load tag (WordPress 5.5+);
-* Fix: there were a few dead links on settings page;
-* Language: 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.20.2 =
-
-Release date August 26th 2020
-* Fix: there was a PHP warning when using the `PICTURE` method to deliver WebP images, which is now fixed;
-* Fix: in some cases the image URL's were relative and the optimization could not be done;
-* Language: 4 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.20.1 =
-
-Release date August 19th 2020
-* HelpScout and Quirobot widgets are now disabled
-* Language: 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.20.0 =
-
-Release date August 17th 2020
-* New: Small refactor of the way to handle ABSPATH;
-* Fix: jQuery browser ( IE 6.0 support removed ) for WordPress 5.5;
-* Fix: Always reset quota when doing check notice, to prevent hanging notices;
-* Compat: Addded Phoenix Media Rename plugin to the conflicting plugins list, because of the way they treat the ShortPixel metadata;
-* Language: 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.19.3 =
-
-Release date July 14th 2020
-* Fix: Images weren't optimized when they were added from the Upload function of the Gutenberg image block;
-* Fix: Scaled images when using relative paths now don't fail on domain issues;
-* Fix: Drop any notices that don't have ShortPixel Notice as SubClass;
-* Fix: Properly handle some situations when the .htaccess file is read-only;
-* Fix: Avoid the plugin crash in some specific situations when an invalid API Key was provided;
-* Fix: Notices were being displayed for the first time custom folders were added on a multisite install;
-* Fix: Optimize now wasn't displayed anymore as a button in Other Media for multisite installs;
-* Fix: In certain situations, when the image timestamp changed, the optimization was counting 2 credits;
-* Language: 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.19.2 =
-
-Release date June 10th 2020
-* Fixed a fatal error when specific notifications were active and the plugin wasn't updated through WordPress;
-* Language – 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.19.1 =
-
-Release date June 9th 2020
-* Fixed a fatal error when WebP delivery was active;
-* Fixed an error in a specific situation when running out of credits while the bulk processing was running;
-* Language – 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.19.0 =
-
-Release date June 4th 2020
-* Added an animation in settings that better explains the automatic resize done by ShortPixel;
-* Fix for fatal errors in some cases when updating the plugin, by moving the class loader to PSR-4;
-* Fix for a situation where the compare function wouldn't work because of a wrong assumption for the backup folder path;
-* Fix: if directory structure is fully empty, select other media folder displays empty modal;
-* Fix for check quota button that wasn't working in certain situations;
-* Fix for missing DB table when doing a bulk restore before having optimized images;
-* Fix for a DB foreign key issue in situations where multiple WordPress sites run on the same DB;
-* Fix for backup getting broken on IIS/Windows servers, because of the way Windows handles the paths;
-* Compability fix for WooCommerce germanized PRO plugin, where the cart page was throwing a fatal error because of the PDF that ShortPixel was trying to optimize;
-* Various fixes for other media screen, to make it more consistent with the Media Library;
-* Language – 5 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted.
-
-= 4.18.1 =
-
-Release date 20th May 2020
-* Fix for a situation when running the bulk could result in duplicate images;
-* Updated some old docs links;
-* Language – 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.18.0 =
-
-Release date 7th May 2020
-* Added a warning for the case when Imagik library isn't available and "Keep EXIF data is enabled";
-* Added a check to prevent the bulk process to be called in multiple browsers in order to decrease the load on admin-heavy sites;
-* Fix for the situation when the bulk process would enter a loop in certain situations;
-* Fix for the notices after bulk restore that would duplicate the files missing form backups;
-* Fix for multisite when DB tables were created even for sub-sites without the plugin being active;
-* Language – 1 new strings added, 0 updated, 0 fuzzied, and 5 obsoleted.
-
-= 4.17.4 =
-
-Release date: 22nd April 2020
-* Fix 400 errors response on admin-ajax.php when using a fontend uploader plugin;
-* Language – 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.17.3 =
-
-Release date: 16th April 2020
-* Added a collapsable details feature to notifications, in order to avoid filling up the screen with them;
-* Added a filter to completely disable the plugin, when necessary (for certain user roles for example);
-* Hide the API key from the support chat module in settings, when the API key is entered via wp-config.php;
-* Prevent fatal errors if multiple versions of the plugin are active simultaneously;
-* Fix for API key that could be leaked in the frontend through JS;
-* Fix for situations where the plugin was crashing if the API key was added via wp-config.php;
-* Fix missing optimize button on Edit Media screen;
-* Fix for time stamp in Other Media screen when the server is set on another time zone than UTC;
-* Fix for JSON parsing errors when `set_time_limit` function is forbidden;
-* Fix for notifications not showing correctly the number of credits available;
-* Fix for images stuck in "Pending Restore" in Other Media, when there was no backup for them;
-* Fix for hamburger menu in Other Media not displaying options centered;
-* Language – 4 new strings added, 2 updated, 0 fuzzied, and 4 obsoleted.
-
-= 4.17.2 =
-
-Release date: 10th April 2020
-* Fix for Over Quota notification that didn't go away even if there were enough credits;
-* From now on other ShortPixel notifications will only show up on ShortPixel related pages (Media Library, ShortPixel settings, Other Media page, Bulk Optimize page);
-* Added a constant which can be used to completely disable all ShortPixel notifications. To be used with care as in certain cases it can hide important notifications;
-* Language – 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.17.1 =
-
-Release date: 6th April 2020
-* Fix for MySQL index errors for MySQL 5.6;
-* Language – 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
-
-= 4.17.0 =
-
-Release date: 2nd April 2020
-* Complete rewrite of the Other Media part of the plugin. It now looks closer to the standard Media Library, having thumbnails and actions like Compare, Re-optimize and Restore from backup for all images when you have Backups activated;
-* Added notification to activate the integration with NextGen Gallery, when the plugin is active and the integration is not activated;
-* Improved the way Other Media folders are added and it should not crash anymore for folders with a very large number of images;
-* Fix for the extra information (i) next to each Other Media folder in the Advanced Settings;
-* Fixes for multiple issues reagrding the NextGen Gallery plugin integration;
-* Fix for notififcations showing up when they're not supposed to show up;
-* Fix for multiple notifications when backup files are not found. These are now merged together;
-* Fix for notifications that were crashing outside ShortPixel screens;
-* Fix for the report that was wrongly stating 40 days, when actually the report is only for 30 days;
-* Fix for the exclude regex section that was returning true even if no matches were found;
-* Removed from the plugin the files that are not used anymore;
-* Language – 15 new strings added, 0 updated, 0 fuzzied, and 8 obsoleted.
-
 = EARLIER VERSIONS =
 * please refer to the <a href="https://github.com/short-pixel-optimizer/shortpixel-image-optimiser/blob/master/changelog.txt" target="_blank">changelog.txt</a> file inside the plugin archive.
 
 == Upgrade Notice ==
+
+= 5.0.0 =
+
+* BIG UPDATE: This version is a major rewrite of the plugin. We strongly suggest you take a FULL BACKUP (DATABASE and IMAGES) before upgrading because there are multiple changes in the code and the optimization information is stored in a different way starting with this version.
 
 = 4.22.9 =
 
