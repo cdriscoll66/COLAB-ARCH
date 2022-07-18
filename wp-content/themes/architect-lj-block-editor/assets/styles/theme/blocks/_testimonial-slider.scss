@@ -20,7 +20,7 @@
     height: 3px;
     margin: 32px auto 32px 0px;
     border-radius: 5px;
-    background-color: var(--global--color-green-primary);
+    background-color: var(--global--color-blue-slate-primary);
 }
 
 .o-carousel__attestant {
@@ -93,7 +93,7 @@
     margin: 0;
     border-radius: 0;
     opacity: 0.25;
-    background: var(--global--color-green-primary);
+    background: var(--global--color-blue-slate-primary);
     width: 100%;
 }
 
@@ -101,7 +101,7 @@
 .editor-styles-wrapper {
 .main-carousel.o-main-carousel:before {
      content: 'Testimonials Slider Block - to edit visit testimonials admin menu';
-     color: var(--global--color-green-primary);
+     color: var(--global--color-blue-slate-primary);
      display: block;
      padding-bottom: 30px;
     }

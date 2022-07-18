@@ -14,6 +14,11 @@ add_theme_support(
 			'slug'     => 'transparent-to-green',
 		),
         array(
+			'name'     => __( 'Transparent to Slate', 'tabor' ),
+			'gradient' => 'linear-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(149, 205, 218, 0.2) 50%, rgba(34, 85, 96, 0.3) 100%)',
+			'slug'     => 'transparent-to-slate',
+		),
+        array(
 			'name'     => __( 'Green to Green', 'tabor' ),
 			'gradient' => ' linear-gradient(226.38deg, rgba(0, 155, 141, 0.157) 11.89%, rgba(0, 192, 109, 0.11) 100%)',
 			'slug'     => 'green-to-green',
@@ -22,6 +27,11 @@ add_theme_support(
 			'name'     => __( 'Green to Transparent', 'tabor' ),
 			'gradient' => 'linear-gradient(rgba(0, 190, 111, 0.2) 0%, rgba(153, 229, 197, 0.2) 50%, rgba(255, 255, 255, 0.2) 100%)',
 			'slug'     => 'green-to-transparent',
+		),
+        array(
+			'name'     => __( 'Slate to Transparent', 'tabor' ),
+			'gradient' => 'linear-gradient(rgba(34, 85, 96, 0.3) 0%, rgba(149, 205, 218, 0.2) 50%, rgba(255, 255, 255, 0.2) 100%)',
+			'slug'     => 'slate-to-transparent',
 		),
         array(
 			'name'     => __( 'Blue to Stone', 'tabor' ),

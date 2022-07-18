@@ -8,7 +8,7 @@ body.login {
   .dashicons {
 
     &::before {
-      color: var(--global--color-green-hover);
+      color: var(--global--color-blue-slate-hover);
     }
   }
 
@@ -55,13 +55,13 @@ body.login {
   }
 
   .button-primary {
-    background-color: var(--global--color-green-primary);
-    border-color: var(--global--color-green-primary);
+    background-color: var(--global--color-blue-slate-primary);
+    border-color: var(--global--color-blue-slate-primary);
 
     &:hover,
     &:focus {
-      background-color: var(--global--color-green-hover);
-      border-color: var(--global--color-green-hover);
+      background-color: var(--global--color-blue-slate-hover);
+      border-color: var(--global--color-blue-slate-hover);
     }
   }
 }
