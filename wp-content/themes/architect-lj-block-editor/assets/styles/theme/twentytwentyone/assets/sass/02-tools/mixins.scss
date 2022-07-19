@@ -40,21 +40,21 @@
 
 			// Nested
 			.has-background & {
-				color: var(--local--color-background, var(--global--color-primary));
+				color: var(--local--color-background, var(--global--color-green-primary));
 
 				&.has-background {
-					color: var(--global--color-primary);
+					color: var(--global--color-green-primary);
 				}
 			}
 		}
 
 		// Background-colors
 		&:not(.has-background) {
-			background-color: var(--global--color-blue-slate-primary);
+			background-color: var(--global--color-green-primary);
 
 			// Nested
 			.has-background & {
-				background-color: var(--local--color-primary, var(--global--color-blue-slate-primary));
+				background-color: var(--local--color-primary, var(--global--color-green-primary));
 			}
 		}
 	}
