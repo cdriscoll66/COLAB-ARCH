@@ -36,14 +36,14 @@
 
 		// Text colors
 		&:not(.has-text-color) {
-			color: var(--global--color-background);
+			color: var(--global--color-onyx);
 
 			// Nested
 			.has-background & {
 				color: var(--local--color-background, var(--global--color-green-primary));
 
 				&.has-background {
-					color: var(--global--color-green-primary);
+					color: var(--global--color-primary);
 				}
 			}
 		}
