@@ -21,13 +21,13 @@ input[type="reset"],
         .wp-block-button__link:not(:hover):not(:active) {
             // Text colors
             &:not(.has-text-color) {
-                color: var(--global--color-white);
+                color: var(--global--color-onyx);
 
                 // Nested
                 .has-background & {
                     color: var(
                         --local--color-background,
-                        var(--global--color-white)
+                        var(--global--color-onyx)
                     );
 
                     &.has-background {
@@ -42,13 +42,13 @@ input[type="reset"],
                     0px 2px 2px 0px rgb(0 0 0 / 14%),
                     0px 1px 5px 0px rgb(0 0 0 / 12%);
                 transition: all 0.2s ease;
-                background-color: var(--global--color-secondary);
+                background-color: var(--global--color-green-primary);
 
                 // Nested
                 .has-background & {
                     background-color: var(
                         --local--color-primary,
-                        var(--global--color-secondary)
+                        var(--global--color-green-primary)
                     );
                 }
             }
