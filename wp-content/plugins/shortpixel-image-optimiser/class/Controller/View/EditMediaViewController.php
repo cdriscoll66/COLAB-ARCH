@@ -68,6 +68,7 @@ class EditMediaViewController extends \ShortPixel\ViewController
 						return false;
 					}
 
+
           $this->view->status_message = null;
 
           $this->view->text = UiHelper::getStatusText($this->imageModel);
@@ -126,7 +127,8 @@ class EditMediaViewController extends \ShortPixel\ViewController
         {
             $from = $imageObj->getMeta('originalWidth') . 'x' . $imageObj->getMeta('originalHeight');
             $to  = $imageObj->getMeta('resizeWidth') . 'x' . $imageObj->getMeta('resizeHeight');
-            $stats[] = array(sprintf(__('Resized %s to %s'), $from, $to), '');
+						$type = ($imageObj->getMeta('resizeType') !== null) ? '(' . $imageObj->getMeta('resizeType') . ')' : '';
+            $stats[] = array(sprintf(__('Resized %s %s to %s'), $type, $from, $to), '');
         }
 
         $tsOptimized = $imageObj->getMeta('tsOptimized');
@@ -176,6 +178,8 @@ class EditMediaViewController extends \ShortPixel\ViewController
 					$thumbnails = $imageObj->get('thumbnails');
 					$processable = ($imageObj->isProcessable()) ? '<span class="green">Yes</span>' : '<span class="red">No</span> (' . $imageObj->getReason('processable') . ')';
 					$restorable = ($imageObj->isRestorable()) ? '<span class="green">Yes</span>' : '<span class="red">No</span> (' . $imageObj->getReason('restorable') . ')';
+
+					$hasrecord = ($imageObj->hasDBRecord()) ? '<span class="green">Yes</span>' : '<span class="red">No</span> ';
         //  $sizes = isset($this->data['sizes']) ? $this->data['sizes'] : array();
 
           //$debugMeta = $imageObj->debugGetImageMeta();
@@ -196,6 +200,7 @@ class EditMediaViewController extends \ShortPixel\ViewController
 
 					$debugInfo[] = array(__('Processable'), $processable);
 					$debugInfo[] = array(__('Restorable'), $restorable);
+					$debugInfo[] = array(__('Record'), $hasrecord);
 
           $debugInfo[] = array(__('WPML Duplicates'), json_encode($imageObj->getWPMLDuplicates()) );
 
@@ -255,16 +260,19 @@ class EditMediaViewController extends \ShortPixel\ViewController
               $url = $thumbObj->getURL(); //$fs->pathToURL($thumbObj); //wp_get_attachment_image_src($this->post_id, $size);
               $filename = $thumbObj->getFullPath();
 							$backup = $thumbObj->hasBackup() ? $thumbObj->getBackupFile()->getFullPath() : 'n/a';
-            //  $debugMeta =// print_r($thumbObj->debugGetImageMeta(), true);
+
               $width = $thumbObj->get('width');
               $height = $thumbObj->get('height');
 
 					$processable = ($thumbObj->isProcessable()) ? '<span class="green">Yes</span>' : '<span class="red">No</span> (' . $thumbObj->getReason('processable') . ')';
 					$restorable = ($thumbObj->isRestorable()) ? '<span class="green">Yes</span>' : '<span class="red">No</span> (' . 		$thumbObj->getReason('restorable') . ')';
+					$hasrecord = ($thumbObj->hasDBRecord()) ? '<span class="green">Yes</span>' : '<span class="red">No</span> ';
+
+					$dbid = $thumbObj->getMeta('databaseID');
 
               $debugInfo[] = array('', "<div class='$size previewwrapper'><img src='" . $url . "'><p class='label'>
 							<b>URL:</b> $url ( $display_size - $width X $height ) <br><b>FileName:</b>  $filename <br> <b>Backup:</b> $backup </p>
-							<p><b>Processable: </b> $processable <br> <b>Restorable:</b>  $restorable</p>
+							<p><b>Processable: </b> $processable <br> <b>Restorable:</b>  $restorable <br> <b>Record:</b> $hasrecord ($dbid) </p>
 							<hr></div>");
             }
           }

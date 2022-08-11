@@ -66,6 +66,9 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
     protected $processable_status = 0;
 		protected $restorable_status = 0;
 
+		// Public var that can be set by OptimizeController to prevent double queries.
+		public $is_in_queue;
+
     //protected $is_optimized = false;
   //  protected $is_image = false;
 
@@ -112,8 +115,6 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
     /* Check if an image in theory could be processed. Check only exclusions, don't check status etc */
     public function isProcessable()
     {
-				$this->processable_status = 0; // reset everytime.
-
         if ( $this->isOptimized() || ! $this->exists()  || $this->isPathExcluded() || $this->isExtensionExcluded() || $this->isSizeExcluded() || (! $this->is_writable() && ! $this->is_virtual()) || $this->isOptimizePrevented() !== false )
         {
           if(! $this->is_writable() && $this->processable_status == 0)
@@ -124,7 +125,10 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
           return false;
         }
         else
+				{
+					$this->processable_status = 0;
           return true;
+				}
     }
 
     public function isProcessableFileType($type = 'webp')
@@ -190,7 +194,7 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
             $message = __('Image Size Excluded', 'shortpixel-image-optimiser');
          break;
          case self::P_EXCLUDE_PATH:
-            $message = __('Image Path Excluded', 'shortpixel-image-optimiser');
+            $message = __('Image Excluded', 'shortpixel-image-optimiser');
          break;
          case self::P_IS_OPTIMIZED:
             $message = __('Image is already optimized', 'shortpixel-image-optimiser');
@@ -206,7 +210,10 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
 				 break;
 				 case self::P_OPTIMIZE_PREVENTED:
 				 		$message = __('Fatal error preventing processing', 'shortpixel-image-optimiser');
+						if (property_exists($this, 'optimizePrevented'))
+						$message = $this->get('optimizePrevented');
 				 break;
+				 // Restorable Reasons
 				 case self::P_RESTORABLE:
 				 		$message = __('Image restorable', 'shortpixel-image-optimiser');
 				 break;
@@ -468,6 +475,7 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
 												'is_error' => true,
 												'issue_type' => ResponseController::ISSUE_BACKUP_CREATE,
 												'message' => __('Could not create backup. Please check file permissions', 'shortpixel-image-optimiser'),
+												'fileName' => $this->getFileName(),
 										);
 
 										ResponseController::addData($this->get('id'), $response);
@@ -513,7 +521,7 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
 
                 $optimizedSize  = $tempFile->getFileSize();
                 $this->setImageSize();
-              }
+              } // else
 
               if ($copyok)
               {
@@ -550,6 +558,8 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
                        $this->setMeta('resizeWidth', $this->get('width') );
                        $this->setMeta('resizeHeight', $this->get('height') );
                        $this->setMeta('resize', true);
+											 $resizeType = ($settings->resizeType == 1) ? __('Cover', 'shortpixel-image-optimiser') : __('Contain', 'shortpixel-image-optimiser');
+											 $this->setMeta('resizeType', $resizeType);
                    }
                    else
                      $this->setMeta('resize', false);
@@ -578,6 +588,7 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
 										'is_error' => true,
 										'issue_type' => ResponseController::ISSUE_BACKUP_CREATE,
 										'message' => __('Could not copy optimized image from temporary files. Check file permissions', 'shortpixel-image-optimiser'),
+										'fileName' => $this->getFileName(),
 								);
 
 								ResponseController::addData($this->get('id'), $response);;
@@ -595,6 +606,7 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
 					 'is_error' => true,
 					 'issue_type' => ResponseController::ISSUE_OPTIMIZED_NOFILE,
 					 'message' => __('Image is reporting as optimized, but file couldn\'t be found in the downloaded files', 'shortpixel-image-optimiser'),
+					 'fileName' => $this->getFileName(),
 
 				);
 
@@ -605,7 +617,10 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
 
     public function handleOptimizedFileType($downloadResults)
     {
-          $webpFile = $this->getFileBase() . '.webp';
+
+				$filebase = $this->getFileBase();
+
+          $webpFile = $filebase . '.webp';
 
           if (isset($downloadResults[$webpFile]) && isset($downloadResults[$webpFile]->file)) // check if there is webp with same filename
           {
@@ -616,7 +631,7 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
                 $this->setMeta('webp', $webpResult->getFileName());
           }
 
-          $avifFile = $this->getFileBase() . '.avif';
+          $avifFile = $filebase . '.avif';
 
           if (isset($downloadResults[$avifFile]) && isset($downloadResults[$avifFile]->file)) // check if there is webp with same filename
           {
@@ -630,6 +645,7 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
 
     public function isRestorable()
     {
+				
         if (! $this->isOptimized())
         {
 					 $this->restorable_status = self::P_NOT_OPTIMIZED;
@@ -782,12 +798,24 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
     protected function handleWebp(FileModel $tempFile)
     {
          $fs = \wpSPIO()->filesystem();
-            $target = $fs->getFile( (string) $this->getFileDir() . $this->getFileBase() . '.webp');
+				 if ($this->is_virtual())
+				 {
+					 	$fullpath = apply_filters('shortpixel/file/virtual/translate', $this->getFullPath(), $this);
+						$fileObj = $fs->getFile($fullpath);
+						$fileDir = $fileObj->getFileDir();
+				 }
+				 else {
+				 		$fileDir = $this->getFileDir();
+				 }
+
+         $target = $fs->getFile( (string) $fileDir . $this->getFileBase() . '.webp');
+
 
             // only copy when this constant is set.
             if( (defined('SHORTPIXEL_USE_DOUBLE_WEBP_EXTENSION') && SHORTPIXEL_USE_DOUBLE_WEBP_EXTENSION) == true ) {
                  $target = $fs->getFile((string) $this->getFileDir() . $this->getFileName() . '.webp'); // double extension, if exists.
             }
+
 
 
             $result = false;
@@ -815,7 +843,17 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
     protected function handleAvif(FileModel $tempFile)
     {
          $fs = \wpSPIO()->filesystem();
-            $target = $fs->getFile( (string) $this->getFileDir() . $this->getFileBase() . '.avif');
+				 if ($this->is_virtual())
+				 {
+						$fullpath = apply_filters('shortpixel/file/virtual/translate', $this->getFullPath(), $this);
+						$fileObj = $fs->getFile($fullpath);
+						$fileDir = $fileObj->getFileDir();
+				 }
+				 else {
+						$fileDir = $this->getFileDir();
+				 }
+
+            $target = $fs->getFile( (string) $fileDir . $this->getFileBase() . '.avif');
 
 						// only copy when this constant is set.
             if( (defined('SHORTPIXEL_USE_DOUBLE_AVIF_EXTENSION') && SHORTPIXEL_USE_DOUBLE_AVIF_EXTENSION) == true ) {
@@ -846,6 +884,7 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
                 if ($type == 'regex-name' || $type == 'regex-path')
                 {
                     $result = $this->matchExludeRegexPattern($target, $pattern);
+										Log::addTemp('Exclude RegeX result', $result);
                 }
                 else {
                     $result =  $this->matchExcludePattern($target, $pattern);
@@ -888,7 +927,9 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
       if(strlen($pattern) == 0)  // can happen on faulty input in settings.
         return false;
 
-      $m = preg_match($pattern,  $target);
+			$matches = array();
+      $m = preg_match($pattern,  $target, $matches);
+
       if ($m !== false && $m > 0) // valid regex, more hits than zero
       {
         return true;
@@ -926,6 +967,11 @@ abstract class ImageModel extends \ShortPixel\Model\File\FileModel
 
 								$this->error_message = __('Backup already exists, but image is recoverable and the plugin will rollback. Will retry to optimize again. ', 'shortpixel-image-optimiser');
             }
+/*						elseif ($backupFile->getFileSize() > $this->getFileSize() && ! $backupFile->is_virtual() ) // Where there is a backup and it's bigger, assume some hickup, but there is backup so hooray
+						{
+						 		Log::addWarn('Backup already exists. Backup file is bigger, so assume that all is good with backup and proceed');
+							 return true; // ok it.
+						} */
             else
             {
               $this->preventNextTry(__('Fatal Issue: The Backup file already exists. The backup seems not restorable, or the original file is bigger than the backup, indicating an error.', 'shortpixel-image-optimiser'));

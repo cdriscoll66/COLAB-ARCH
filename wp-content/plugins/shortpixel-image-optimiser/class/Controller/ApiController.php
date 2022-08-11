@@ -66,7 +66,7 @@ class ApiController
   */
   public function processMediaItem($item, $imageObj)
   {
-		 	if (! $imageObj->isProcessable())
+		 	if (! $imageObj->isProcessable() || $imageObj->isOptimizePrevented() == true)
 			{
 					if ($imageObj->isOptimized())
 					{
@@ -592,10 +592,13 @@ class ApiController
 
 					if ($fail)
 					{
+
+							Log::addError('[Fatal] Failed downloading file ', $error_message);
           		return $this->returnFailure($error, __('Error downloading file','shortpixel-image-optimiser') . " ({$optimizedUrl}) " . $error_message);
 					}
 					else
 					{
+							Log::addWarn('Failed downloading file ', $error_message);
 					    return $this->returnRetry($error, __('Error downloading file','shortpixel-image-optimiser') . " ({$optimizedUrl}) " . $error_message);
 					}
       }

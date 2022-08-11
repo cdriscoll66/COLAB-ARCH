@@ -1,9 +1,12 @@
+@import 'elements/animation';
+
 
 @import 'view/edit-media';
 @import 'view/other-media';
 @import 'view/list-item';
 @import 'view/modal';
 @import 'view/debug';
+
 
 // General Styles ( mostly from style.css )
 
@@ -12,6 +15,11 @@
     display: none !important;
 }
 
+// Reserve some space for the processing text on bottom.
+.button-primary.optimize
+{
+	 margin-bottom: 16px;
+}
 
 .switch_button
 {

@@ -349,7 +349,6 @@ class SettingsController extends \ShortPixel\ViewController
 
 
 					// Every save, force load the quota. One reason, because of the HTTP Auth settings refresh.
-					Log::addTemp('calling load Quota');
 					$this->loadQuotaData(true);
 
           // end
@@ -482,6 +481,7 @@ class SettingsController extends \ShortPixel\ViewController
 
       protected function loadStatistics()
       {
+				/*
         $statsControl = StatsController::getInstance();
         $stats = new \stdClass;
 
@@ -497,7 +497,7 @@ class SettingsController extends \ShortPixel\ViewController
 
 
         $this->view->stats = $stats;
-
+				*/
       }
 
 			/** @todo Remove this check in Version 5.1 including all data on the old CF token */

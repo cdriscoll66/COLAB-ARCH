@@ -75,6 +75,7 @@ class AdminController extends \ShortPixel\Controller
 					'wait' => 3, // amount of time to wait for next round. Prevents high loads
 					'run_once' => false, //  If true queue must be run at least every few minutes. If false, it tries to complete all.
 					'queues' => array('media','custom'),
+					'bulk' => false,
 				);
 
 				if (wp_doing_cron())
@@ -85,6 +86,10 @@ class AdminController extends \ShortPixel\Controller
 				$args = wp_parse_args($args, $defaults);
 
 			  $control = new OptimizeController();
+				if ($args['bulk'] === true)
+				{
+					 $control->setBulk(true);
+				}
 
 			 	if ($args['run_once'] === true)
 				{
@@ -243,7 +248,7 @@ class AdminController extends \ShortPixel\Controller
         $extraClasses = " shortpixel-hide";
         /*translators: toolbar icon tooltip*/
         $id = 'short-pixel-notice-toolbar';
-        $tooltip = __('ShortPixel optimizing...','shortpixel-image-optimiser') . " " . __('Please do not close this admin page.','shortpixel-image-optimiser');
+        $tooltip = __('ShortPixel optimizing...','shortpixel-image-optimiser');
         $icon = "shortpixel.png";
         $successLink = $link = admin_url(current_user_can( 'edit_others_posts')? 'upload.php?page=wp-short-pixel-bulk' : 'upload.php');
         $blank = "";

@@ -18,6 +18,7 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
   public $mime; */
   protected $prevent_next_try = false;
   protected $is_main_file = false;
+	protected $is_retina = false; // diffentiate from thumbnail / retina.
   protected $id; // this is the parent attachment id
   protected $size; // size of image in WP, if applicable.
 
@@ -47,6 +48,7 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
       'image_meta' => $this->image_meta,
       'name' => $this->name,
       'path' => $this->getFullPath(),
+			'size' => $this->size,
       'exists' => ($this->exists()) ? 'yes' : 'no',
 
     );
@@ -64,7 +66,9 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
       $filepath = (string) $this->getFileDir();
       $extension = $this->getExtension();
 
-      $retina = new MediaLibraryThumbnailModel($filepath . $filebase . '@2x.' . $extension); // mind the dot in after 2x
+      $retina = new MediaLibraryThumbnailModel($filepath . $filebase . '@2x.' . $extension, $this->id, $this->size); // mind the dot in after 2x
+			$retina->setName($this->size);
+			$retina->is_retina = true;
 
       if ($retina->exists())
         return $retina;
@@ -153,15 +157,40 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
   {
 			$fs = \wpSPIO()->filesystem();
 
-      if ($this->size == 'original')
+      if ($this->size == 'original' && ! $this->get('is_retina'))
 			{
         $url = wp_get_original_image_url($this->id);
 			}
       elseif ($this->isUnlisted())
+			{
 				$url = $fs->pathToUrl($this);
+			}
 			else
 			{
-				$url = wp_get_attachment_image_url($this->id, $this->size);
+				// We can't trust higher lever function, or any WP functions.  I.e. Woocommerce messes with the URL's if they like so.
+				// So get it from intermediate and if that doesn't work, default to pathToUrl - better than nothing.
+				// https://app.asana.com/0/1200110778640816/1202589533659780
+				$size_array = image_get_intermediate_size($this->id, $this->size);
+
+				if ($size_array === false || ! isset($size_array['url']))
+				{
+					 $url = $fs->pathToUrl($this);
+				}
+				elseif (isset($size_array['url']))
+				{
+					 $url = $size_array['url'];
+					 // Even this can go wrong :/
+					 if (strpos($url, $this->getFileName() ) === false)
+					 {
+						 // Taken from image_get_intermediate_size if somebody still messes with the filters.
+							$mainurl = wp_get_attachment_url( $this->id);
+							$url = path_join( dirname( $mainurl ), $this->getFileName() );
+					 }
+				}
+				else {
+						return false;
+				}
+
 			}
 
 
@@ -196,7 +225,10 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
 			// if thumbnail processing is off, thumbs are never processable.
 			// This is also used by main file, so check for that!
       if ( $this->excludeThumbnails() && $this->is_main_file === false)
+			{
+				$this->processable_status = self::P_EXCLUDE_SIZE;
         return false;
+			}
       else
       {
         $bool = parent::isProcessable();
@@ -221,14 +253,15 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
   // !Important . This doubles as  checking excluded image sizes.
   protected function isSizeExcluded()
   {
+
     $excludeSizes = \wpSPIO()->settings()->excludeSizes;
     if (is_array($excludeSizes) && in_array($this->name, $excludeSizes))
+		{
+			$this->processable_status = self::P_EXCLUDE_SIZE;
       return true;
-
-    return false;
-  }
-
-
+		}
+		return false;
+	}
 
   protected function excludeThumbnails()
   {
@@ -262,6 +295,26 @@ class MediaLibraryThumbnailModel extends \ShortPixel\Model\Image\ImageModel
         }
       }
   }
+
+	public function hasDBRecord()
+	{
+			global $wpdb;
+
+
+			$sql = 'SELECT id FROM ' . $wpdb->prefix . 'shortpixel_postmeta WHERE attach_id = %d AND size = %s';
+			$sql = $wpdb->prepare($sql, $this->id, $this->size);
+
+			$id = $wpdb->get_var($sql);
+
+			if (is_null($id))
+			{
+				 return false;
+			}
+			elseif (is_numeric($id)) {
+				return true;
+			}
+
+	}
 
   public function restore()
   {

@@ -284,6 +284,17 @@ class ShortPixelPlugin {
 		wp_register_script( 'shortpixel-debug', plugins_url( '/res/js/debug.js', SHORTPIXEL_PLUGIN_FILE ), array( 'jquery', 'jquery-ui-draggable' ), SHORTPIXEL_IMAGE_OPTIMISER_VERSION, true );
 
 		wp_register_script( 'shortpixel-tooltip', plugins_url( '/res/js/shortpixel-tooltip.js', SHORTPIXEL_PLUGIN_FILE ), array( 'jquery' ), SHORTPIXEL_IMAGE_OPTIMISER_VERSION, true );
+
+		$tooltip_localize = array(
+			'processing' => __('Processing... ','shortpixel-image-optimiser'),
+			'pause' =>  __('Click to pause', 'shortpixel-image-optimiser'),
+			'resume' => __('Click to resume', 'shortpixel-image-optimiser'),
+			'item' => __('item in queue', 'shortpixel-image-optimiser'),
+			'items' => __('items in queue', 'shortpixel-image-optimiser'),
+		);
+
+		wp_localize_script( 'shortpixel-tooltip', 'spio_tooltipStrings', $tooltip_localize);
+
 		wp_register_script( 'shortpixel-settings', plugins_url( 'res/js/shortpixel-settings.js', SHORTPIXEL_PLUGIN_FILE ), array(), SHORTPIXEL_IMAGE_OPTIMISER_VERSION, true );
 
 		wp_register_script( 'shortpixel-processor', plugins_url( '/res/js/shortpixel-processor.js', SHORTPIXEL_PLUGIN_FILE ), array( 'jquery', 'shortpixel-tooltip' ), SHORTPIXEL_IMAGE_OPTIMISER_VERSION, true );
@@ -319,6 +330,14 @@ class ShortPixelPlugin {
 		wp_register_script( 'shortpixel-screen-custom', plugins_url( '/res/js/screens/screen-custom.js', SHORTPIXEL_PLUGIN_FILE ), array( 'jquery', 'shortpixel-processor' ), SHORTPIXEL_IMAGE_OPTIMISER_VERSION, true );
 
 		wp_register_script( 'shortpixel-screen-nolist', plugins_url( '/res/js/screens/screen-nolist.js', SHORTPIXEL_PLUGIN_FILE ), array( 'jquery', 'shortpixel-processor' ), SHORTPIXEL_IMAGE_OPTIMISER_VERSION, true );
+
+	  $screen_localize = array(
+			'startAction' => __('Processing... ','shortpixel-image-optimiser'),
+
+		) ;
+
+		wp_localize_script( 'shortpixel-screen-media', 'spio_screenStrings', $screen_localize);
+		wp_localize_script( 'shortpixel-screen-custom', 'spio_screenStrings', $screen_localize);
 
 		wp_register_script( 'shortpixel-screen-bulk', plugins_url( '/res/js/screens/screen-bulk.js', SHORTPIXEL_PLUGIN_FILE ), array( 'jquery', 'shortpixel-processor' ), SHORTPIXEL_IMAGE_OPTIMISER_VERSION, true );
 
@@ -475,16 +494,12 @@ class ShortPixelPlugin {
 		global $plugin_page;
 		$screen_id = $this->env()->screen_id;
 
-//var_dump(\wpSPIO()->env()->is_screen_to_use);
-//exit($screen_id);
 
 		// $load = array();
 		$load_processor = array( 'shortpixel', 'shortpixel-processor' );  // a whole suit needed for processing, not more. Always needs a screen as well!
 		$load_bulk      = array();  // the whole suit needed for bulking.
 
-		if ( $this->env()->is_debug ) {
-			$this->load_script( 'shortpixel-debug' );
-		}
+
 
 		if ( \wpSPIO()->env()->is_screen_to_use ) {
 			$this->load_script( 'shortpixel-tooltip' );
@@ -516,6 +531,10 @@ class ShortPixelPlugin {
 
 			$this->load_style( 'shortpixel-admin' );
 			$this->load_style( 'shortpixel' );
+			
+			if ( $this->env()->is_debug ) {
+				$this->load_script( 'shortpixel-debug' );
+			}
 
 		} elseif ( $plugin_page == 'wp-short-pixel-custom' ) {
 			$this->load_style( 'shortpixel' );
