@@ -11,7 +11,6 @@ class ShortPixelImgToPictureWebp
 
     public function convert($content)
     {
-
         // Don't do anything with the RSS feed.
         if (is_feed() || is_admin()) {
             Log::addInfo('SPDBG convert is_feed or is_admin');
@@ -28,13 +27,15 @@ class ShortPixelImgToPictureWebp
           Log::addDebug('Test Pictures returned empty.');
         }
 
+
+			//	preg_match_all
         $content = preg_replace_callback('/<img[^>]*>/i', array($this, 'convertImage'), $content);
         //$content = preg_replace_callback('/background.*[^:](url\(.*\)[,;])/im', array('self', 'convertInlineStyle'), $content);
 
         // [BS] No callback because we need preg_match_all
         $content = $this->testInlineStyle($content);
       //  $content = preg_replace_callback('/background.*[^:]url\([\'|"](.*)[\'|"]\)[,;]/imU',array('self', 'convertInlineStyle'), $content);
-        Log::addDebug('SPDBG WebP process done');
+      //  Log::addDebug('SPDBG WebP process done');
 
         return $content; // . (isset($_GET['SHORTPIXEL_DEBUG']) ? '<!-- SPDBG WebP converted -->' : '');
 
@@ -148,7 +149,6 @@ class ShortPixelImgToPictureWebp
           return $match[0];
         }
 
-        // No src is not something we can handle. This can happen when creating an image in WP Gutenberg but not setting any image file on the block, but adding something like a custom class
         if (! isset($img['src']) && ! isset($img['srcset']))
         {
            return $match[0];
@@ -158,13 +158,13 @@ class ShortPixelImgToPictureWebp
         $srcsetInfo = $this->lazyGet($img, 'srcset');
         $sizesInfo = $this->lazyGet($img, 'sizes');
 
+				// FILTERS : FileDir (OBJECT) - URL
         $imageBase = apply_filters( 'shortpixel_webp_image_base', $this->getImageBase($srcInfo['value']), $srcInfo['value']);
 
         if($imageBase === false) {
             Log::addInfo('SPDBG baseurl doesn\'t match ' . $srcInfo['value'], array($imageBase) );
             return $match[0]; // . (isset($_GET['SHORTPIXEL_DEBUG']) ? '<!-- SPDBG baseurl doesn\'t match ' . $src . '  -->' : '');
         }
-        Log::addDebug('ImageBase -'. $imageBase);
 
         //some attributes should not be moved from <img>
         // @todo Move these to unset on (imgpicture) and put via create_attributes back
@@ -179,7 +179,7 @@ class ShortPixelImgToPictureWebp
         unset($img['data-src']);
         unset($img['data-lazy-src']);
         unset($img['srcset']);
-
+        //unset($img['loading']);
       //  unset($img['data-srcset']); // lazyload - don't know if this solves anything.
         unset($img['sizes']);
 
@@ -215,12 +215,17 @@ class ShortPixelImgToPictureWebp
                   continue;
                 $condition = isset($parts[1]) ? ' ' . $parts[1] : '';
 
-                Log::addDebug('Running item - ' . $item, $fileurl);
+           //     Log::addDebug('Running item - ' . $item, $fileurl);
 
                 $fsFile = $fs->getFile($fileurl);
                 $extension = $fsFile->getExtension(); // trigger setFileinfo, which will resolve URL -> Path
 
                 $mime = $fsFile->getMime();
+								// Can happen when file is virtual, or other cases. Just assume this type.
+								if ($mime === false)
+								{
+									 $mime = 'image/' .  $extension;
+								}
 
                 $fileWebp = $fs->getFile($imageBase . $fsFile->getFileBase() . '.webp');
                 $fileWebpCompat = $fs->getFile($imageBase . $fsFile->getFileName() . '.webp');
@@ -233,12 +238,11 @@ class ShortPixelImgToPictureWebp
 
                 foreach($files as $thisfile)
                 {
-                  $fileWebp_exists = apply_filters('shortpixel_image_exists', $thisfile->exists(), $thisfile);
-                  if (! $fileWebp_exists)
+                  if (! $thisfile->exists())
                   {
+										// FILTER: boolean, object, string, filedir
                     $thisfile = $fileWebp_exists = apply_filters('shortpixel/front/webp_notfound', false, $thisfile, $fileurl, $imageBase);
                   }
-
 
                   if ($thisfile !== false)
                   {
@@ -249,17 +253,15 @@ class ShortPixelImgToPictureWebp
                   }
                 }
 
-                $fileAvif_exists = apply_filters('shortpixel_image_exists', $fileAvif->exists(), $fileAvif);
-                if ($fileAvif_exists !== false)
+								//@todo This will not work with offloaded avifs.
+                if ($fileAvif->exists())
                 {
-                  $fileurl_base = str_replace($fsFile->getFileName(), '', $fileurl);
-                  $srcsetAvif[] = $fileurl_base . $fileAvif->getFileName() . $condition;
+                   $fileurl_base = str_replace($fsFile->getFileName(), '', $fileurl);
+                   $srcsetAvif[] = $fileurl_base . $fileAvif->getFileName() . $condition;
                 }
+        }
 
 
-
-
-            }
 
         if (count($srcsetWebP) == 0 && count($srcsetAvif) == 0) {
             return $match[0]; //. (isset($_GET['SHORTPIXEL_DEBUG']) ? '<!-- SPDBG no srcsetWebP found (' . $srcsetWebP . ') -->' : '');
@@ -270,10 +272,6 @@ class ShortPixelImgToPictureWebp
         $img['class'] = (isset($img['class']) ? $img['class'] . " " : "") . "sp-no-webp";
 
         $imgpicture = $img;
-
-        // Items that should not go on picture, but remain on img tag.
-        unset($imgpicture['loading']);
-
         // remove certain elements for the main picture element.
         $imgpicture = $this->filterForPicture($imgpicture);
 
@@ -288,14 +286,17 @@ class ShortPixelImgToPictureWebp
           $srcset = $src; // if not srcset ( it's a src ), replace those.
         $srcPrefix = $srcInfo['prefix'];
 
+      //  $srcsetWebP = implode(',', $srcsetWebP);
+
+
         $output = '<picture ' . $this->create_attributes($imgpicture) . '>';
 
-        if (count($srcsetAvif) > 0)
+        if (is_array($srcsetAvif) && count($srcsetAvif) > 0)
         {
             $srcsetAvif = implode(',', $srcsetAvif);
             $output .= '<source ' . $srcsetPrefix . 'srcset="' . $srcsetAvif . '"' . ($sizes ? ' ' . $sizesPrefix . 'sizes="' . $sizes . '"' : '') . ' type="image/avif">';
         }
-        if (count($srcsetWebP) > 0)
+        if (is_array($srcsetWebP) && count($srcsetWebP) > 0)
         {
           $srcsetWebP = implode(',', $srcsetWebP);
           $output .= '<source ' . $srcsetPrefix . 'srcset="' . $srcsetWebP . '"' . ($sizes ? ' ' . $sizesPrefix .  'sizes="' . $sizes . '"' : '') . ' type="image/webp">';

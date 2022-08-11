@@ -3,6 +3,8 @@ namespace ShortPixel;
 use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
 use ShortPixel\Notices\NoticeController as Notice;
 
+use ShortPixel\Controller\QuotaController as QuotaController;
+
 // @integration WP Offload Media Lite
 class wpOffload
 {
@@ -18,6 +20,8 @@ class wpOffload
 
     protected $is_cname = false;
     protected $cname;
+
+		private $sources; // cache for url > source_id lookup, to prevent duplicate queries.
 
     // if might have to do these checks many times for each thumbnails, keep it fastish.
     //protected $retrievedCache = array();
@@ -53,15 +57,16 @@ class wpOffload
         $this->offloading = false;
       }
 
-      if ('cloudfront' === $this->as3cf->get_setting( 'domain' ))
+    /*	// Lets see if this can be without
+			if ('cloudfront' === $this->as3cf->get_setting( 'domain' ))
       {
         $this->is_cname = true;
         $this->cname = $this->as3cf->get_setting( 'cloudfront' );
-      }
+      } */
 
   //    $provider = $this->as3cf->get_provider();
-      add_action('shortpixel_image_optimised', array($this, 'image_upload'));
-      add_action('shortpixel_after_restore_image', array($this, 'image_restore'), 10, 3); // hit this when restoring.
+      add_action('shortpixel/image/optimised', array($this, 'image_upload'), 10);
+      add_action('shortpixel/image/after_restore', array($this, 'image_restore'), 10, 3); // hit this when restoring.
 
       add_action('shortpixel_restore_after_pathget', array($this, 'remove_remote')); // not optimal -> has to do w/ doRestore and when URL/PATH is available when not on server .
 
@@ -73,6 +78,7 @@ class wpOffload
 			{
 			//	add_filter('as3cf_remove_source_files_from_provider', array($this, 'remove_webp_paths'), 10);
 				add_action('shortpixel/image/convertpng2jpg_success', array($this, 'image_converted'), 10);
+				add_filter('as3cf_remove_source_files_from_provider', array($this, 'remove_webp_paths'));
 
 			}
 			else {
@@ -83,20 +89,16 @@ class wpOffload
       add_filter('shortpixel/restore/targetfile', array($this, 'returnOriginalFile'),10,2);
       add_filter('as3cf_pre_update_attachment_metadata', array($this, 'preventInitialUpload'), 10,4);
 
-    //  add_filter('shortpixel_get_attached_file', array($this, 'get_raw_attached_file'),10, 2);
+      //add_filter('shortpixel_get_attached_file', array($this, 'get_raw_attached_file'),10, 2);
     //  add_filter('shortpixel_get_original_image_path', array($this, 'get_raw_original_path'), 10, 2);
       add_filter('shortpixel/image/urltopath', array($this, 'checkIfOffloaded'), 10,2);
       add_filter('shortpixel/file/virtual/translate', array($this, 'getLocalPathByURL'));
 
       // for webp picture paths rendered via output
-      add_filter('shortpixel_webp_image_base', array($this, 'checkWebpRemotePath'), 10, 2);
+     // add_filter('shortpixel_webp_image_base', array($this, 'checkWebpRemotePath'), 10, 2);
       add_filter('shortpixel/front/webp_notfound', array($this, 'fixWebpRemotePath'), 10, 4);
 
-			//add_filter('as3cf_remove_source_files_from_provider', function ($paths){  Log::addTemp("removing these paths", $paths); return $paths;
-			//}, 20);
-
     }
-
 
     public function returnOriginalFile($file, $attach_id)
     {
@@ -123,13 +125,25 @@ class wpOffload
     * @param $mediaItem  MediaLibraryModel SPIO
     * @param $clean - boolean - if restore did all files (clean) or partial (not clean)
     */
-    public function image_restore($id)
+    public function image_restore($mediaItem, $id, $clean)
     {
+      if (! $clean)
+        return false; // don't do anything until we have restored all ( for now )
+
+      $settings = \wpSPIO()->settings();
+
+			// Only medialibrary offloading supported.
+			if ('media' !== $mediaItem->get('type') )
+			{
+				 return false;
+			}
+
+      // If there are excluded sizes, there are not in backups. might not be left on remote, or ( if delete ) on server, so just generate the images and move them.
+      $mediaItem->wpCreateImageSizes();
+
       $this->remove_remote($id);
-      $this->image_upload($id);
+      $this->image_upload($mediaItem);
     }
-
-
 
     public function remove_remote($id)
     {
@@ -166,42 +180,111 @@ class wpOffload
 
 				if ($this->useHandlers && $mediaItem === false)
 				{
-					 Log::addWarn('Important. Creating S3 Item New ' . $id);
 					 $mediaItem = $class::create_from_source_id($id);
 				}
 
         return $mediaItem;
     }
 
+		private function sourceCache($url, $source_id = null)
+		{
+			if ($source_id === null && isset($this->sources[$url]))
+			{
+				$source_id = $this->sources[$url];
+				return $source_id;
+			}
+			elseif ($source_id !== null)
+			{
+				 if (! isset($this->sources[$url]))
+				 {
+					  $this->sources[$url]  = $source_id;
+				 }
+				 return $source_id;
+			}
+
+			return false;
+		}
 
     public function checkIfOffloaded($bool, $url)
     {
-      $source_id = $this->getSourceIDByURL($url);
+
+			$source_id = $this->sourceCache($url);
+
+
+			if (false === $source_id)
+			{
+				$extension = substr($url, strrpos($url, '.') + 1);
+				// If these filetypes are not in the cache, they cannot be found via geSourceyIDByUrl method ( not in path DB ), so it's pointless to try. If they are offloaded, at some point the extra-info might load.
+				if ($extension == 'webp' || $extension == 'avif')
+				{
+					return false;
+				}
+
+     		$source_id = $this->getSourceIDByURL($url);
+			}
 
       if ($source_id !== false)
+			{
         return true;
+			}
       else
         return false;
     }
 
     protected function getSourceIDByURL($url)
     {
-      $class = $this->getMediaClass();
-      $source = $class::get_item_source_by_remote_url($url);
 
-			/// Function can return false
-			if ($source === false)
-				return false;
+			$source_id = $this->sourceCache($url); // check cache first.
 
-			$source_id = isset($source['id']) ? intval($source['id']) : false;
+			if (false === $source_id) // check on the raw url.
+			{
+      	$class = $this->getMediaClass();
+      	$source = $class::get_item_source_by_remote_url($url);
+				$source_id = isset($source['id']) ? intval($source['id']) : false;
+			}
 
-      if ($source_id !== false)
-        return $source_id;
-      else
-      {
-        $source_id = $this->checkIfThumbnail($url); // can be item or false.
-        return $source_id;
+			if (false === $source_id) // check now via the thumbnail hocus.
+			{
+				$pattern = '/(.*)-\d+[xX]\d+(\.\w+)/m';
+				$url = preg_replace($pattern, '$1$2', $url);
+
+				$source_id = $this->sourceCache($url); // check cache first.
+
+				if (false === $source_id)
+				{
+					$source = $class::get_item_source_by_remote_url($url);
+					$source_id = isset($source['id']) ? intval($source['id']) : false;
+				}
+
       }
+
+			if ($source_id !== false)
+			{
+
+				$this->sourceCache($url, $source_id);  // cache it.
+
+				// get item
+				$item = $this->getItemById($source_id);
+				if (is_object($item) && method_exists($item, 'extra_info'))
+				{
+					$baseUrl = str_replace(basename($url),'', $url);
+					$extra_info = $item->extra_info();
+
+					if (isset($extra_info['objects']))
+					{
+						foreach($extra_info['objects'] as $extraItem)
+						{
+							 if (is_array($extraItem) && isset($extraItem['source_file']))
+							 {
+								 // Add source stuff into cache.
+								  $this->sourceCache($baseUrl . $extraItem['source_file'], $source_id);
+							 }
+						}
+					}
+				}
+
+				return $source_id;
+			}
 
       return false;
     }
@@ -210,29 +293,30 @@ class wpOffload
     private function checkIfThumbnail($original_url)
     {
         //$result = \attachment_url_to_postid($url);
-        $pattern = '/(.*)-\d+[xX]\d+(\.\w+)/m';
-        $url = preg_replace($pattern, '$1$2', $original_url);
-
-        $class = $this->getMediaClass();
-        $source = $class::get_item_source_by_remote_url($url);
-
-				$source_id = isset($source['id']) ? intval($source['id']) : false;
 
         if ($source_id !== false)
+				{
+					$this->sourceCache($url, $source_id);
           return $source_id;
+				}
         else
           return false;
 
     }
 
+		// @param s3 based URL that which is needed for finding local path
+		// @return String Filepath.  Translated file path
     public function getLocalPathByURL($url)
     {
        $source_id = $this->getSourceIDByURL($url);
+
+
        if ($source_id == false)
        {
         return false;
       }
        $item = $this->getItemById($source_id);
+
 
        $original_path = $item->original_source_path(); // $values['original_source_path'];
 
@@ -244,7 +328,7 @@ class wpOffload
        $fs = \wpSPIO()->filesystem();
        $base = $fs->getWPUploadBase();
 
-       $file  = $fs->getFile($base . $original_path);
+       $file  = $base . $original_path;
        return $file;
     }
 
@@ -261,14 +345,13 @@ class wpOffload
 				if ($params['success'] === false)
 					return;
 
-				Log::addTemp('S3Off Converting ');
 				$id = $mediaItem->get('id');
 				$this->remove_remote($id);
 
-				$item = $this->getItemById($id);
+				$item = $this->getItemById($id, $mediaItem);
 				$item->delete();
 
-				$this->image_upload($id);
+				$this->image_upload($mediaItem);
 				return;
         // delete the old file
        // $item = $this->getItemById($id);
@@ -298,7 +381,7 @@ class wpOffload
         }
 
         // upload
-        $this->image_upload($id); // delete and reupload
+        $this->image_upload($mediaItem); // delete and reupload
     }
 
 
@@ -314,12 +397,12 @@ class wpOffload
         // get some new ones.
 
         // delete the old file
-        $mediaItem = $this->getItemById($id);
-        if ($mediaItem === false) // mediaItem seems not present. Probably not a remote file
+        $item = $this->getItemById($id);
+        if ($item === false) // mediaItem seems not present. Probably not a remote file
           return;
 
-        $this->as3cf->remove_attachment_files_from_provider($id, $mediaItem);
-        $providerSourcePath = $mediaItem->source_path();
+        $this->as3cf->remove_attachment_files_from_provider($id, $item);
+        $providerSourcePath = $item->source_path();
 
         //$providerFile = $fs->getFile($provider_object['key']);
         $providerFile = $fs->getFile($providerSourcePath);
@@ -330,7 +413,7 @@ class wpOffload
         if ($providerFile->getExtension() !== $newFile->getExtension())
         {
           //  $newfilemeta = str_replace($providerFile->getFileName(), $newFile->getFileName(), $newfilemeta);
-          $data = $mediaItem->key_values(true);
+          $data = $item->key_values(true);
           $record_id = $data['id'];
 /*          $data['path']
           $data['original_path']
@@ -352,16 +435,25 @@ class wpOffload
             Log::addDebug('S3Offload - Uploading converted file ');
         }
 
+				$mediaItem = $fs->getImage($post_id, 'media');
+
         // upload
-        $this->image_upload($id); // delete and reupload
+        $this->image_upload($mediaItem); // delete and reupload
     }
 
 
-    public function image_upload($id)
+    public function image_upload($imageItem)
     {
         if (! $this->offloading)
           return false;
 
+				// Only medialibrary offloading supported.
+				if ('media' !== $imageItem->get('type') )
+				{
+					 return false;
+				}
+
+				$id = $imageItem->get('id');
         $item = $this->getItemById($id);
 
         if ( $item === false && ! $this->as3cf->get_setting( 'copy-to-s3' ) ) {
@@ -370,21 +462,43 @@ class wpOffload
           return false;
         }
 
-				$this->shouldPrevent = false;
-				$data = wp_get_attachment_metadata($id);
-				$data = apply_filters('wp_update_attachment_metadata', $data, $id);
-				$this->shouldPrevent = true;
-
-		//		Log::addTemp('Image Upload', $item->objects() );
-				return;
-
         if ($this->useHandlers)
         {
+
+					// Add Web/Avifs back under new method.
+
+					$fullPaths = $item->full_source_paths();
+					$extra_info = $item->extra_info();
+
+					$file_paths = $this->add_webp_paths($fullPaths);
+
+					if (! isset($extra_info['objects']))
+					 	$extra_info['objects']= array();
+
+
+					foreach ( $file_paths as $size => $size_file_path ) {
+						if ( $size === 'file' ) {
+							continue;
+						}
+
+						$new_object = array(
+							'source_file' => wp_basename( $size_file_path ),
+							'is_private'  => false,
+						);
+
+						$extra_info['objects'][ $size ] = $new_object;
+					}
+
+					if (count($file_paths) > 0)
+					{
+						 $item->set_extra_info($extra_info);
+					}
+
 					// This should load the A3cf UploadHandler
 					$upload = \DeliciousBrains\WP_Offload_Media\Items\Upload_Handler::get_item_handler_key_name();
           $itemHandler = $this->as3cf->get_item_handler($upload);
+
           $result = $itemHandler->handle($item); //handle it then.
-          Log::addTemp('S3Offload Upload Result', $result);
         }
         else {
 					   $this->as3cf->upload_attachment($id);
@@ -397,25 +511,39 @@ class wpOffload
     */
     public function preventInitialUpload($bool, $data, $post_id, $old_provider_object)
     {
-				$settings = \wpSPIO()->settings();
+        $fs = \wpSPIO()->filesystem();
+				$settings = \WPSPIO()->settings();
 
-				if ($settings->autoMediaLibrary)
+				$quotaController = quotaController::getInstance();
+				if ($quotaController->hasQuota() === false)
 				{
-					// Don't prevent whaffever if shortpixel is already done. This can be caused by plugins doing a metadata update, we don't care then.
-					if (! isset($data['ShortPixelImprovement']) && $this->shouldPrevent === true)
-					{
-						$file = get_attached_file($post_id);
-						if (strpos($file, '.pdf') !== false && ! $settings->optimizePdfs  )
+					return false;
+				}
+        if (! $this->offloading)
+          return false;
+
+				if ($this->shouldPrevent === false) // if false is returned, it's NOT prevented, so on-going.
+						return false;
+
+        if (\wpSPIO()->env()->is_autoprocess)
+        {
+          // Don't prevent whaffever if shortpixel is already done. This can be caused by plugins doing a metadata update, we don't care then.
+          $mediaItem = $fs->getImage($post_id, 'media');
+          if ($mediaItem && ! $mediaItem->isOptimized())
+          {
+
+						$image_file = $mediaItem->getFileName();
+						if ($mediaItem->getExtension() == 'pdf' && ! $settings->optimizePdfs  )
 						{
 							 Log::addDebug('S3 Prevent Initial Upload detected PDF, which will not be optimized', $post_id);
 							 return false;
 						}
 
-						Log::addDebug('Preventing Initial Upload', $post_id);
-						return true;
-					}
-				}
-				return $bool;
+            Log::addDebug('Preventing Initial Upload', $post_id);
+            return true;
+          }
+        }
+        return $bool;
     }
 
     private function getWebpPaths($paths, $check_exists = true)
@@ -426,7 +554,16 @@ class wpOffload
       foreach($paths as $size => $path)
       {
          $file = $fs->getFile($path);
-         $basepath = $file->getFileDir()->getPath();
+
+				 $basedir = $file->getFileDir();
+
+				 if (is_null($basedir)) // This could only happen if path is completely empty.
+				 {
+					  continue;
+				 }
+
+         $basepath = $basedir->getPath();
+
          $newPaths[$size] = $path;
 
          $webpformat1 = $basepath . $file->getFileName() . '.webp';
@@ -441,13 +578,13 @@ class wpOffload
             $newPaths[$size . '_webp'] =  $webpformat1;
          }
          else {
-           $newPaths[$size . '_webp1'] =  $webpformat1;
+           $newPaths[$size . '_webp'] =  $webpformat1;
          }
 
          if ($check_exists)
          {
            if(file_exists($webpformat2))
-            $newPaths[$size . '_webp'] =  $webpformat2;
+            $newPaths[$size . '_webp2'] =  $webpformat2;
          }
          else {
            $newPaths[$size . '_webp2'] =  $webpformat2;
@@ -474,9 +611,8 @@ class wpOffload
     */
     public function add_webp_paths($paths)
     {
-      //  Log::addDebug('Received Paths', array($paths));
         $paths = $this->getWebpPaths($paths, true);
-        Log::addDebug('Webp Path Founder (S3)', array($paths));
+				 //Log::addDebug('Add S3 Paths', array($paths));
         return $paths;
     }
 
@@ -484,7 +620,7 @@ class wpOffload
     public function remove_webp_paths($paths)
     {
       $paths = $this->getWebpPaths($paths, false);
-      //Log::addDebug('Remove S3 Paths', array($paths));
+      Log::addDebug('Remove S3 Paths', array($paths));
 
       return $paths;
     }
@@ -499,7 +635,7 @@ class wpOffload
       }
       elseif($this->is_cname) // check this. the webp to picture will convert subdomains with CNAME to some local path when offloaded.
       {
-          Log::addDebug('S3 active, checking on CNAME for path' . $this->cname);
+          Log::addDebug('S3 active, checking on CNAME for path' . $this->cname, $url);
           if (strpos($original, $this->cname) !== false)
             return $this->convertWebPRemotePath($url, $original);
       }
@@ -508,37 +644,35 @@ class wpOffload
 
     }
 
-    private function convertWebPRemotePath($url, $original)
+
+    // GetbyURL can't find thumbnails, only the main image. Check via extrainfo method if we can find needed filetype
+		// @param $bool Boolean
+		// @param $fileObj FileModel  The webp file we are searching for
+		// @param $url  string  The URL of the main file ( aka .jpg )
+		// @param $imagebaseDir DirectoryModel  The remote path / path this all takes place at.
+    public function fixWebpRemotePath($bool, $fileObj, $url, $imagebaseDir)
     {
-      $mediaItem = $this->getByURL($original); // test if exists remote.
-      Log::addDebug('ImageBaseName check for S3 - ', array($original, $mediaItem));
+			 return false;
+			 /*
+				if (! is_object($imagebaseDir))
+				{
+						return $bool;
+				}
 
-      if ($mediaItem === false)
-      {
-        $pattern = '/-\d+x\d*/i';
-        $replaced_url = preg_replace($pattern, '', $original);
-        $mediaItem = $this->getByURL($replaced_url);
-      }
+				// Check if main file is offloaded. This should also trigger sourceCache.
+				if ($this->checkifOffloaded($bool, $url) && $this->checkIfOffloaded($bool, $fileObj->getFullPath()) )
+				{
+					 return $fileObj;
+				}
+				else {
+					 	return false;
+				} */
 
-      if ($mediaItem === false)
-      {
-         return $url;
-      }
-      $parsed = parse_url($original);
-      $url = str_replace($parsed['scheme'], '', $original);
-      $url = str_replace(basename($url), '',  $url);
-      Log::addDebug('New BasePath, External' . $url);
-
-      return $url;
-    }
-
-    // GetbyURL can't find thumbnails, only the main image. We are going to assume, if imagebase is ok, the webp might be there.
-    public function fixWebpRemotePath($bool, $file, $url, $imagebase)
-    {
-        if (strpos($url, $imagebase ) !== false)
-          return $file;
+/*        if (strpos($url, $imagebaseDir->getPath() ) !== false)
+          return $fileObj;
         else
           return $bool;
+*/
     }
 
 }
